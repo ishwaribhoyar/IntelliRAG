@@ -1,0 +1,77 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+env/
+.env
+.venv/
+
+# Environment variables
+.env
+*.env
+
+# Database
+*.db
+*.sqlite3
+*.sqlite
+
+# Uploaded files
+backend/uploads/
+backend/data/faiss_indexes/
+backend/data/chunks/
+backend/data/bm25_indexes/
+
+# Project runtime storage (generated per user/document)
+backend/storage/uploads/
+backend/storage/chunks/
+backend/storage/faiss_index/
+backend/storage/course_structures/
+backend/storage/library/catalog.json
+backend/storage/usage/
+backend/storage/billing/
+backend/storage/provider_metrics/
+backend/storage/*.pdf
+
+# OS / temp
+**/.pytest_cache/
+**/.ruff_cache/
+**/.mypy_cache/
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+npm-debug.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# PyTorch / ML models (too large for git)
+*.pt
+*.pth
+*.onnx
+
+# Test outputs
+.coverage
+htmlcov/
+.pytest_cache/

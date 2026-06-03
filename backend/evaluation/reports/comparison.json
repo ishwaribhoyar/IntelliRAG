@@ -1,0 +1,13 @@
+{
+  "baseline": {
+    "recall3": 0.5933,
+    "recall5": 0.7,
+    "mrr": 0.7807
+  },
+  "hybrid": {
+    "recall3": 0.615,
+    "recall5": 0.73,
+    "mrr": 0.7907
+  },
+  "ground_truth": "independent_manual_chunk_mapping"
+}

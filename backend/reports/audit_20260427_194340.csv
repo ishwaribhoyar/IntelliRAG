@@ -1,0 +1,14 @@
+Metric,Value
+baseline_recall5,0.51
+hybrid_recall5,1.0
+baseline_mrr,1.0
+hybrid_mrr,1.0
+improvement_pct,96.1
+not_found_accuracy,0.7
+stability_std,0.0
+chunk_quality,1.0
+semantic_similarity,0.216
+embed_ms,23.7
+vector_ms,0.3
+hybrid_ms,83.8
+status,VALIDATED

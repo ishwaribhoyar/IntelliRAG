@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF Viewer - IntelliRAG</title>
+  <style>
+    :root { --bg:#0b1020; --fg:#e5e7eb; --muted:#94a3b8; --card:#111827; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; height:100%; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:var(--bg); color:var(--fg); }
+    .topbar {
+      height: 52px; display:flex; align-items:center; gap:12px; padding:0 14px;
+      border-bottom:1px solid #1f2937; background:var(--card);
+    }
+    .chip { font-size:12px; color:var(--muted); background:#0f172a; border:1px solid #1f2937; border-radius:999px; padding:5px 10px; }
+    .grow { flex:1; min-width: 0; }
+    .query { font-size:13px; color:#cbd5e1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .btn {
+      border:1px solid #1f2937; background:#0f172a; color:var(--fg); border-radius:8px;
+      padding:7px 10px; font-size:12px; cursor:pointer;
+    }
+    .btn:hover { border-color:#334155; }
+    .viewer-wrap {
+      height: calc(100% - 52px);
+      overflow: auto;
+      padding: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .page-wrap {
+      position: relative;
+      box-shadow: 0 8px 24px rgba(0,0,0,.35);
+      border: 1px solid #1f2937;
+      background: #fff;
+    }
+    #pdfCanvas { display:block; }
+    .hl-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .hl {
+      position: absolute;
+      background: rgba(255, 235, 59, 0.45);
+      border-radius: 2px;
+      box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.28) inset;
+    }
+    .hl.active {
+      background: rgba(251, 191, 36, 0.8);
+      box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.45) inset, 0 0 0 2px rgba(251, 191, 36, 0.3);
+    }
+    .status {
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      background: #0f172a;
+      color: #cbd5e1;
+      border: 1px solid #1f2937;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 12px;
+      max-width: 50vw;
+      z-index: 20;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <span class="chip" id="pageChip">Page 1</span>
+    <span class="chip" id="matchChip">Matches: 0</span>
+    <div class="grow query" id="queryText">Search: -</div>
+    <button class="btn" id="prevBtn" type="button">Prev</button>
+    <button class="btn" id="nextBtn" type="button">Next</button>
+    <button class="btn" id="prevMatchBtn" type="button">Prev Match</button>
+    <button class="btn" id="nextMatchBtn" type="button">Next Match</button>
+    <button class="btn" id="openNativeBtn" type="button">Open Native PDF</button>
+  </div>
+  <div class="viewer-wrap" id="viewerWrap">
+    <div class="page-wrap" id="pageWrap">
+      <canvas id="pdfCanvas"></canvas>
+      <div class="hl-layer" id="hlLayer"></div>
+    </div>
+  </div>
+  <div class="status" id="statusBox">Loading PDF…</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    (function () {
+      const p = new URLSearchParams(window.location.search);
+      const docId = (p.get('doc_id') || '').trim();
+      const requestedPage = parseInt(p.get('page') || '1', 10) || 1;
+      const query = (p.get('query') || p.get('q') || '').trim();
+      const snippet = (p.get('snippet') || '').trim();
+      const displayQuery = query || snippet;
+
+      const pageChip = document.getElementById('pageChip');
+      const queryText = document.getElementById('queryText');
+      const canvas = document.getElementById('pdfCanvas');
+      const hlLayer = document.getElementById('hlLayer');
+      const statusBox = document.getElementById('statusBox');
+      const matchChip = document.getElementById('matchChip');
+      const openNativeBtn = document.getElementById('openNativeBtn');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const prevMatchBtn = document.getElementById('prevMatchBtn');
+      const nextMatchBtn = document.getElementById('nextMatchBtn');
+
+      pageChip.textContent = `Page ${requestedPage}`;
+      queryText.textContent = displayQuery ? `Search: ${displayQuery}` : 'Search: -';
+
+      if (!docId) {
+        queryText.textContent = 'Missing doc_id';
+        statusBox.textContent = 'Missing doc_id in URL.';
+        return;
+      }
+
+      const fileUrl = `${window.location.origin}/api/pdf/${encodeURIComponent(docId)}`;
+      const nativeUrl = `${fileUrl}#page=${requestedPage}${displayQuery ? `&search=${encodeURIComponent(displayQuery)}` : ''}`;
+      openNativeBtn.addEventListener('click', () => window.open(nativeUrl, '_blank', 'noopener'));
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+      const ctx = canvas.getContext('2d', { alpha: false });
+      let pdfDoc = null;
+      let currentPage = requestedPage;
+      let totalPages = 0;
+      let totalMatches = 0;
+      const pageMatchCounts = new Map();
+      let pageMatchElements = [];
+      let activeMatchIndex = -1;
+
+      function normalize(s) {
+        return String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
+      }
+
+      function queryTerms(q) {
+        const phrase = normalize(q);
+        const terms = phrase.split(' ').filter(t => t.length > 2);
+        return { phrase, terms };
+      }
+
+      function textMatches(text, qObj) {
+        const t = normalize(text);
+        if (!t) return false;
+        if (qObj.phrase && t.includes(qObj.phrase)) return true;
+        return qObj.terms.some(term => t.includes(term));
+      }
+
+      function buildPageTextAndMap(items) {
+        let fullPageText = '';
+        const charMap = [];
+        for (let i = 0; i < items.length; i++) {
+          const item = items[i];
+          const text = item.str;
+          for (let c = 0; c < text.length; c++) {
+            charMap.push(i);
+          }
+          fullPageText += text;
+          fullPageText += ' ';
+          charMap.push(-1);
+        }
+        return { fullPageText, charMap };
+      }
+
+      function cleanTextAndMap(text, originalCharMap) {
+        let cleanText = '';
+        const cleanCharMap = [];
+        for (let i = 0; i < text.length; i++) {
+          const char = text[i];
+          const isAlphaNum = /[a-zA-Z0-9]/.test(char);
+          if (isAlphaNum) {
+            cleanText += char.toLowerCase();
+            cleanCharMap.push(originalCharMap[i]);
+          } else {
+            if (cleanText.length > 0 && cleanText[cleanText.length - 1] !== ' ') {
+              cleanText += ' ';
+              cleanCharMap.push(originalCharMap[i]);
+            }
+          }
+        }
+        return { cleanText, cleanCharMap };
+      }
+
+      function cleanSnippet(snip) {
+        let cleanSnip = '';
+        for (let i = 0; i < snip.length; i++) {
+          const char = snip[i];
+          const isAlphaNum = /[a-zA-Z0-9]/.test(char);
+          if (isAlphaNum) {
+            cleanSnip += char.toLowerCase();
+          } else {
+            if (cleanSnip.length > 0 && cleanSnip[cleanSnip.length - 1] !== ' ') {
+              cleanSnip += ' ';
+            }
+          }
+        }
+        return cleanSnip.trim();
+      }
+
+      function findAllSnippetMatches(cleanText, snip) {
+        const cleanSnip = cleanSnippet(snip);
+        if (!cleanSnip) return [];
+        
+        let matches = [];
+        let idx = cleanText.indexOf(cleanSnip);
+        while (idx !== -1) {
+          matches.push({ idx, length: cleanSnip.length });
+          idx = cleanText.indexOf(cleanSnip, idx + 1);
+        }
+        
+        if (matches.length > 0) return matches;
+        
+        // Progressively shorten prefix down to 25 characters
+        let len = cleanSnip.length;
+        while (len > 25) {
+          len = Math.max(25, Math.floor(len * 0.8));
+          const subSnip = cleanSnip.substring(0, len).trim();
+          if (subSnip.length >= 25) {
+            let subMatches = [];
+            let sIdx = cleanText.indexOf(subSnip);
+            while (sIdx !== -1) {
+              subMatches.push({ idx: sIdx, length: subSnip.length });
+              sIdx = cleanText.indexOf(subSnip, sIdx + 1);
+            }
+            if (subMatches.length > 0) {
+              return subMatches;
+            }
+          }
+          if (len <= 25) break;
+        }
+        return [];
+      }
+
+      async function pageHasSnippet(pageNum) {
+        if (!snippet) return false;
+        try {
+          const page = await pdfDoc.getPage(pageNum);
+          const tc = await page.getTextContent();
+          const { fullPageText, charMap } = buildPageTextAndMap(tc.items);
+          const { cleanText } = cleanTextAndMap(fullPageText, charMap);
+          const matches = findAllSnippetMatches(cleanText, snippet);
+          return matches.length > 0;
+        } catch (e) {
+          console.error(e);
+          return false;
+        }
+      }
+
+      async function pageHasQuery(pageNum, qObj) {
+        if (!qObj.phrase && !qObj.terms.length) return false;
+        const page = await pdfDoc.getPage(pageNum);
+        const tc = await page.getTextContent();
+        return tc.items.some(it => textMatches(it.str, qObj));
+      }
+
+      async function findBestPage(startPage, qObj) {
+        if (!qObj.phrase && !qObj.terms.length && !snippet) return startPage;
+        if (snippet) {
+          for (let i = startPage; i <= totalPages; i++) {
+            if (await pageHasSnippet(i)) return i;
+          }
+          for (let i = 1; i < startPage; i++) {
+            if (await pageHasSnippet(i)) return i;
+          }
+        }
+        for (let i = startPage; i <= totalPages; i++) {
+          if (await pageHasQuery(i, qObj)) return i;
+        }
+        for (let i = 1; i < startPage; i++) {
+          if (await pageHasQuery(i, qObj)) return i;
+        }
+        return startPage;
+      }
+
+      function clearHighlights() {
+        hlLayer.innerHTML = '';
+      }
+
+      function addHighlight(x, y, w, h) {
+        const d = document.createElement('div');
+        d.className = 'hl';
+        d.style.left = `${x}px`;
+        d.style.top = `${y}px`;
+        d.style.width = `${w}px`;
+        d.style.height = `${h}px`;
+        hlLayer.appendChild(d);
+        return d;
+      }
+
+      function setActiveMatch(idx) {
+        pageMatchElements.forEach((el) => el.classList.remove('active'));
+        if (idx < 0 || idx >= pageMatchElements.length) {
+          activeMatchIndex = -1;
+          return;
+        }
+        activeMatchIndex = idx;
+        const el = pageMatchElements[idx];
+        el.classList.add('active');
+        el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+        statusBox.textContent = `Match ${idx + 1} of ${pageMatchElements.length} on page ${currentPage}.`;
+      }
+
+      async function findNextPageWithMatches(fromPage, direction) {
+        if (totalMatches === 0) return -1;
+        let p = fromPage;
+        for (let i = 0; i < totalPages; i++) {
+          p += direction;
+          if (p > totalPages) p = 1;
+          if (p < 1) p = totalPages;
+          if ((pageMatchCounts.get(p) || 0) > 0) return p;
+        }
+        return -1;
+      }
+
+      async function jumpToNextMatch(direction, qObj) {
+        if (!displayQuery) return;
+        const inPageCount = pageMatchElements.length;
+        if (inPageCount > 0) {
+          const nextIdx = activeMatchIndex + direction;
+          if (nextIdx >= 0 && nextIdx < inPageCount) {
+            setActiveMatch(nextIdx);
+            return;
+          }
+        }
+        const targetPage = await findNextPageWithMatches(currentPage, direction);
+        if (targetPage === -1) return;
+        await renderPage(targetPage, qObj, direction < 0 ? 'last' : 'first');
+      }
+
+      async function renderPage(pageNum, qObj, activate = 'first') {
+        statusBox.textContent = `Rendering page ${pageNum}...`;
+        const page = await pdfDoc.getPage(pageNum);
+        const viewport = page.getViewport({ scale: 1.45 });
+
+        canvas.width = Math.floor(viewport.width);
+        canvas.height = Math.floor(viewport.height);
+        hlLayer.style.width = `${canvas.width}px`;
+        hlLayer.style.height = `${canvas.height}px`;
+        clearHighlights();
+
+        await page.render({ canvasContext: ctx, viewport }).promise;
+        pageChip.textContent = `Page ${pageNum} / ${totalPages}`;
+        currentPage = pageNum;
+
+        const tc = await page.getTextContent();
+        let hitCount = 0;
+        pageMatchElements = [];
+        activeMatchIndex = -1;
+
+        // Build character map of page text
+        const { fullPageText, charMap } = buildPageTextAndMap(tc.items);
+        const { cleanText, cleanCharMap } = cleanTextAndMap(fullPageText, charMap);
+
+        let snippetMatches = [];
+        if (snippet) {
+          snippetMatches = findAllSnippetMatches(cleanText, snippet);
+        }
+
+        if (snippetMatches.length > 0) {
+          // Highlight exact snippet matches
+          const matchedIndices = new Set();
+          for (const match of snippetMatches) {
+            for (let k = match.idx; k < match.idx + match.length; k++) {
+              const itemIdx = cleanCharMap[k];
+              if (itemIdx !== undefined && itemIdx !== -1) {
+                matchedIndices.add(itemIdx);
+              }
+            }
+          }
+
+          for (let i = 0; i < tc.items.length; i++) {
+            if (!matchedIndices.has(i)) continue;
+            const item = tc.items[i];
+            const tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
+            const x = tx[4];
+            const y = tx[5];
+            const width = Math.max(6, item.width * viewport.scale);
+            const height = Math.max(10, item.height * viewport.scale);
+            const marker = addHighlight(x, y - height, width, height);
+            pageMatchElements.push(marker);
+            hitCount += 1;
+          }
+        } else {
+          // Fallback to keyword matching
+          for (const item of tc.items) {
+            if (!textMatches(item.str, qObj)) continue;
+            const tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
+            const x = tx[4];
+            const y = tx[5];
+            const width = Math.max(6, item.width * viewport.scale);
+            const height = Math.max(10, item.height * viewport.scale);
+            const marker = addHighlight(x, y - height, width, height);
+            pageMatchElements.push(marker);
+            hitCount += 1;
+          }
+        }
+
+        statusBox.textContent = hitCount
+          ? `Highlighted ${hitCount} match${hitCount > 1 ? 'es' : ''} on page ${pageNum}.`
+          : `No visible match on page ${pageNum}.`;
+        matchChip.textContent = `Matches: ${totalMatches} (Page: ${hitCount})`;
+
+        prevBtn.disabled = pageNum <= 1;
+        nextBtn.disabled = pageNum >= totalPages;
+        prevMatchBtn.disabled = totalMatches === 0;
+        nextMatchBtn.disabled = totalMatches === 0;
+
+        if (hitCount > 0) {
+          if (activate === 'last') setActiveMatch(hitCount - 1);
+          else setActiveMatch(0);
+        }
+      }
+
+      async function buildMatchIndex(qObj) {
+        totalMatches = 0;
+        pageMatchCounts.clear();
+        if (!qObj.phrase && !qObj.terms.length && !snippet) {
+          matchChip.textContent = 'Matches: 0';
+          return;
+        }
+        statusBox.textContent = 'Indexing matches across document...';
+        for (let i = 1; i <= totalPages; i++) {
+          const page = await pdfDoc.getPage(i);
+          const tc = await page.getTextContent();
+          let c = 0;
+
+          const { fullPageText, charMap } = buildPageTextAndMap(tc.items);
+          const { cleanText, cleanCharMap } = cleanTextAndMap(fullPageText, charMap);
+
+          let snippetMatches = [];
+          if (snippet) {
+            snippetMatches = findAllSnippetMatches(cleanText, snippet);
+          }
+
+          if (snippetMatches.length > 0) {
+            c = snippetMatches.length;
+          } else {
+            for (const item of tc.items) {
+              if (textMatches(item.str, qObj)) c += 1;
+            }
+          }
+
+          pageMatchCounts.set(i, c);
+          totalMatches += c;
+        }
+        matchChip.textContent = `Matches: ${totalMatches}`;
+      }
+
+      async function load() {
+        try {
+          statusBox.textContent = 'Loading PDF document...';
+          const loadingTask = pdfjsLib.getDocument({ url: fileUrl, withCredentials: false });
+          pdfDoc = await loadingTask.promise;
+          totalPages = pdfDoc.numPages || 1;
+          const qObj = queryTerms(displayQuery);
+          await buildMatchIndex(qObj);
+          const start = Math.min(Math.max(1, requestedPage), totalPages);
+          const best = await findBestPage(start, qObj);
+          await renderPage(best, qObj);
+
+          prevBtn.addEventListener('click', async () => {
+            if (!pdfDoc || currentPage <= 1) return;
+            await renderPage(currentPage - 1, qObj);
+          });
+          nextBtn.addEventListener('click', async () => {
+            if (!pdfDoc || currentPage >= totalPages) return;
+            await renderPage(currentPage + 1, qObj);
+          });
+          prevMatchBtn.addEventListener('click', async () => {
+            await jumpToNextMatch(-1, qObj);
+          });
+          nextMatchBtn.addEventListener('click', async () => {
+            await jumpToNextMatch(1, qObj);
+          });
+        } catch (err) {
+          console.error(err);
+          statusBox.textContent = `Failed to load PDF: ${err?.message || err}`;
+        }
+      }
+
+      load();
+    })();
+  </script>
+</body>
+</html>
+

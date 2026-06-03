@@ -1,0 +1,704 @@
+{
+  "ablation": {
+    "baseline_recall_at_5": 1.0,
+    "hybrid_recall_at_5": 1.0,
+    "reranked_recall_at_5": 1.0,
+    "baseline_mrr": 1.0,
+    "hybrid_mrr": 1.0,
+    "reranked_mrr": 1.0
+  },
+  "improvement": {
+    "hybrid_vs_baseline_pct": 0.0,
+    "reranked_vs_hybrid_pct": 0.0
+  },
+  "reranker_impact": {
+    "accuracy_improvement_rate": 0.0,
+    "degradation_rate": 0.0,
+    "no_change_rate": 1.0,
+    "queries_improved": 0,
+    "queries_degraded": 0,
+    "queries_same": 20,
+    "total": 20
+  },
+  "not_found_accuracy": 0.0,
+  "chunk_quality": {
+    "quality_score": 1.0,
+    "quality_pct": 100.0,
+    "total_text_chunks": 1,
+    "valid_chunks": 1,
+    "duplicate_chunks": 0,
+    "duplicate_pct": 0.0,
+    "checks": {
+      "word_count_pass": 1,
+      "word_count_pct": 100.0,
+      "sentence_end_pass": 0,
+      "sentence_end_pct": 0.0,
+      "answerable_pass": 1,
+      "answerable_pct": 100.0,
+      "no_trailing_conj": 1,
+      "no_trailing_conj_pct": 100.0,
+      "not_duplicate": 1,
+      "not_duplicate_pct": 100.0
+    },
+    "issues": [
+      {
+        "chunk_id": "c_d9452adc1447",
+        "issue": "No sentence ending"
+      }
+    ]
+  },
+  "latency": {
+    "avg_embed_ms": 14.3,
+    "avg_vector_ms": 0.1,
+    "avg_hybrid_ms": 36.9,
+    "avg_rerank_ms": 0.0,
+    "avg_llm_ms": 0.1
+  },
+  "questions_evaluated": 20,
+  "not_found_tested": 10,
+  "hallucination_rate": 0.0,
+  "hallucination_logs": [],
+  "details": [
+    {
+      "question": "What is machine learning?",
+      "type": "factual",
+      "answer": "Here is the mentor explanation: Document Content\n\n**TITLE: Introduction to Artificial Intelligence and Machine Learning** **1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "Machine learning is a branch of artificial intelligence that enables systems to learn from data and improve without being explicitly programmed.",
+      "confidence": {
+        "level": "high",
+        "score": 0.706,
+        "reason": "retrieval=0.87, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.871,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.08712,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "reranked_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ]
+    },
+    {
+      "question": "What is supervised learning?",
+      "type": "factual",
+      "answer": "Here is the mentor explanation: Document Content\n\n**TITLE: Introduction to Artificial Intelligence and Machine Learning** **1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "Supervised learning is a type of machine learning where the model is trained on labeled data, learning to map inputs to known outputs.",
+      "confidence": {
+        "level": "high",
+        "score": 0.706,
+        "reason": "retrieval=0.87, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.871,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.08712,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "reranked_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ]
+    },
+    {
+      "question": "What is unsupervised learning?",
+      "type": "factual",
+      "answer": "Here is the mentor explanation: Document Content\n\n**TITLE: Introduction to Artificial Intelligence and Machine Learning** **1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "Unsupervised learning is a type of machine learning that finds patterns in unlabeled data without predefined output labels.",
+      "confidence": {
+        "level": "high",
+        "score": 0.706,
+        "reason": "retrieval=0.87, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.871,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.08712,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "reranked_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ]
+    },
+    {
+      "question": "What is a neural network?",
+      "type": "factual",
+      "answer": "Here is the mentor explanation: **TITLE: Introduction to Artificial Intelligence and Machine Learning**\n\n**1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "A neural network is a computational model inspired by biological neural networks, consisting of layers of interconnected nodes.",
+      "confidence": {
+        "level": "high",
+        "score": 0.706,
+        "reason": "retrieval=0.87, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.871,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.08712,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ],
+      "reranked_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ]
+    },
+    {
+      "question": "What is an activation function?",
+      "type": "factual",
+      "answer": "Here is the mentor explanation: **TITLE: Introduction to Artificial Intelligence and Machine Learning**\n\n**1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "An activation function determines the output of a neural network node, introducing non-linearity.",
+      "confidence": {
+        "level": "high",
+        "score": 0.706,
+        "reason": "retrieval=0.87, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.871,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.08712,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ],
+      "reranked_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ]
+    },
+    {
+      "question": "What is gradient descent?",
+      "type": "factual",
+      "answer": "Here is the mentor explanation: **TITLE: Introduction to Artificial Intelligence and Machine Learning**\n\n**1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "Gradient descent is an optimization algorithm that iteratively adjusts parameters by moving in the direction of steepest descent of the loss function.",
+      "confidence": {
+        "level": "high",
+        "score": 0.706,
+        "reason": "retrieval=0.87, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.871,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.08712,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ],
+      "reranked_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ]
+    },
+    {
+      "question": "What is overfitting?",
+      "type": "factual",
+      "answer": "Here is the mentor explanation: **TITLE: Introduction to Artificial Intelligence and Machine Learning**\n\n**1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "Overfitting is when a model learns training data too well, including noise, resulting in poor generalization.",
+      "confidence": {
+        "level": "high",
+        "score": 0.706,
+        "reason": "retrieval=0.87, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.871,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.08712,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ],
+      "reranked_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ]
+    },
+    {
+      "question": "What is regularization?",
+      "type": "factual",
+      "answer": "Here is the mentor explanation: **TITLE: Introduction to Artificial Intelligence and Machine Learning**\n\n**1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "Regularization is a technique to prevent overfitting by adding a penalty term to the loss function.",
+      "confidence": {
+        "level": "high",
+        "score": 0.706,
+        "reason": "retrieval=0.87, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.871,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.08712,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ],
+      "reranked_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ]
+    },
+    {
+      "question": "What is cross-validation?",
+      "type": "factual",
+      "answer": "Here is the mentor explanation: **TITLE: Introduction to Artificial Intelligence and Machine Learning**\n\n**1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "Cross-validation evaluates model performance by dividing data into folds, training on some and testing on others.",
+      "confidence": {
+        "level": "high",
+        "score": 0.706,
+        "reason": "retrieval=0.87, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.871,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.08712,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ],
+      "reranked_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ]
+    },
+    {
+      "question": "What is transfer learning?",
+      "type": "factual",
+      "answer": "Here is the mentor explanation: Document Content\n\n**TITLE: Introduction to Artificial Intelligence and Machine Learning** **1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "Transfer learning reuses a model trained on one task for a different but related task.",
+      "confidence": {
+        "level": "high",
+        "score": 0.706,
+        "reason": "retrieval=0.87, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.871,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.08712,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "reranked_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ]
+    },
+    {
+      "question": "Why does overfitting happen and how can it be prevented?",
+      "type": "conceptual",
+      "answer": "Here is the mentor explanation: **TITLE: Introduction to Artificial Intelligence and Machine Learning**\n\n**1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "Overfitting happens when a model is too complex relative to the data. Prevention methods include regularization, cross-validation, dropout, early stopping, and using more data.",
+      "confidence": {
+        "level": "high",
+        "score": 0.706,
+        "reason": "retrieval=0.87, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.871,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.08712,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ],
+      "reranked_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ]
+    },
+    {
+      "question": "Explain how backpropagation works in neural networks.",
+      "type": "conceptual",
+      "answer": "Here is the mentor explanation: **TITLE: Introduction to Artificial Intelligence and Machine Learning**\n\n**1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "Backpropagation computes the gradient of the loss with respect to each weight using the chain rule, propagating errors backward through layers to update weights.",
+      "confidence": {
+        "level": "high",
+        "score": 0.706,
+        "reason": "retrieval=0.87, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.871,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.08712,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ],
+      "reranked_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ]
+    },
+    {
+      "question": "Why is the bias-variance tradeoff important?",
+      "type": "conceptual",
+      "answer": "Here is the mentor explanation: **TITLE: Introduction to Artificial Intelligence and Machine Learning**\n\n**1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "The bias-variance tradeoff balances underfitting (high bias) and overfitting (high variance). Finding the right balance is critical for good generalization.",
+      "confidence": {
+        "level": "high",
+        "score": 0.706,
+        "reason": "retrieval=0.87, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.871,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.08712,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ],
+      "reranked_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ]
+    },
+    {
+      "question": "Explain why data preprocessing is crucial for model performance.",
+      "type": "conceptual",
+      "answer": "Here is the mentor explanation: Document Content\n\n**TITLE: Introduction to Artificial Intelligence and Machine Learning** **1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "Raw data contains noise, missing values, and inconsistencies. Preprocessing standardizes data, handles missing values, and removes noise to improve model accuracy.",
+      "confidence": {
+        "level": "high",
+        "score": 0.706,
+        "reason": "retrieval=0.87, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.871,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.08712,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "reranked_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ]
+    },
+    {
+      "question": "How does dropout prevent overfitting?",
+      "type": "conceptual",
+      "answer": "Here is the mentor explanation: **TITLE: Introduction to Artificial Intelligence and Machine Learning**\n\n**1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "Dropout randomly deactivates neurons during training, preventing co-adaptation and forcing the network to learn more robust features.",
+      "confidence": {
+        "level": "high",
+        "score": 0.706,
+        "reason": "retrieval=0.87, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.871,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.08712,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ],
+      "reranked_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ]
+    },
+    {
+      "question": "Why do deep networks suffer from vanishing gradients?",
+      "type": "conceptual",
+      "answer": "Here is the mentor explanation: **TITLE: Introduction to Artificial Intelligence and Machine Learning**\n\n**1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "In deep networks, gradients get multiplied through many layers. With small gradients (e.g., sigmoid), they approach zero, preventing early layers from learning.",
+      "confidence": {
+        "level": "high",
+        "score": 0.725,
+        "reason": "retrieval=0.91, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.909,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.09091,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ],
+      "hybrid_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ],
+      "reranked_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ]
+    },
+    {
+      "question": "Explain the purpose of batch normalization.",
+      "type": "conceptual",
+      "answer": "Here is the mentor explanation: **TITLE: Introduction to Artificial Intelligence and Machine Learning**\n\n**1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "Batch normalization normalizes layer inputs to have zero mean and unit variance, stabilizing training, allowing higher learning rates, and reducing sensitivity to initialization.",
+      "confidence": {
+        "level": "high",
+        "score": 0.706,
+        "reason": "retrieval=0.87, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.871,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.08712,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ],
+      "reranked_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ]
+    },
+    {
+      "question": "How does a convolutional neural network extract features?",
+      "type": "conceptual",
+      "answer": "Here is the mentor explanation: **TITLE: Introduction to Artificial Intelligence and Machine Learning**\n\n**1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "CNNs use convolutional filters that slide over input data, detecting local patterns like edges and textures. Deeper layers capture increasingly abstract features.",
+      "confidence": {
+        "level": "high",
+        "score": 0.706,
+        "reason": "retrieval=0.87, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.871,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.08712,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ],
+      "reranked_top3": [
+        "c_d9452adc1447",
+        "c_0e9ba324ca9c"
+      ]
+    },
+    {
+      "question": "Why is feature engineering important in traditional ML?",
+      "type": "conceptual",
+      "answer": "Here is the mentor explanation: Document Content\n\n**TITLE: Introduction to Artificial Intelligence and Machine Learning** **1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "Feature engineering transforms raw data into informative representations that help models learn patterns more effectively, directly impacting model performance.",
+      "confidence": {
+        "level": "high",
+        "score": 0.725,
+        "reason": "retrieval=0.91, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.909,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.09091,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "reranked_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ]
+    },
+    {
+      "question": "Explain the concept of ensemble learning.",
+      "type": "conceptual",
+      "answer": "Here is the mentor explanation: Document Content\n\n**TITLE: Introduction to Artificial Intelligence and Machine Learning** **1\n\nLet's break it down further. Does this align with what you read in the first section?",
+      "expected": "Ensemble learning combines multiple models to produce better predictions than any individual model, reducing variance (bagging) or bias (boosting).",
+      "confidence": {
+        "level": "high",
+        "score": 0.706,
+        "reason": "retrieval=0.87, reranker=0.50, llm=0.60, cal=1.0 | sources=1",
+        "components": {
+          "retrieval": 0.871,
+          "reranker": 0.5,
+          "llm": 0.6,
+          "top_retrieval_raw": 0.08712,
+          "num_chunks": 1,
+          "calibration_factor": 1.0
+        }
+      },
+      "chunks_found": 1,
+      "baseline_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "hybrid_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ],
+      "reranked_top3": [
+        "c_0e9ba324ca9c",
+        "c_d9452adc1447"
+      ]
+    }
+  ],
+  "timestamp": "2026-05-21T19:15:19.459184+00:00"
+}

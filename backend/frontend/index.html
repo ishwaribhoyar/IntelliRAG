@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="IntelliRAG — AI-Powered Learning Engine. Upload documents, generate quizzes, flashcards, and get instant answers." />
+  <title>IntelliRAG — AI Learning Platform</title>
+  <link rel="icon" type="image/svg+xml" href="app-icon.svg" />
+  <link rel="apple-touch-icon" href="app-icon.svg" />
+  <meta property="og:title" content="IntelliRAG — AI Learning Platform" />
+  <meta property="og:description" content="Production-grade RAG pipeline with hybrid search, quizzes, flashcards, and personalized learning." />
+  <meta property="og:image" content="app-icon.svg" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#2563eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=20260328c" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+<!-- AUTH VIEW -->
+<div id="authView" class="auth-view">
+  <div class="auth-bg-pattern"></div>
+
+  <!-- LOGIN -->
+  <div id="loginCard" class="auth-card">
+    <div class="auth-brand">
+      <div class="auth-brand__logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#2563EB"/><path d="M8 24V8h4.5l3.5 9 3.5-9H24v16h-3.5V14l-3 9h-2l-3-9v10H8z" fill="white"/></svg>
+        <span class="auth-brand__name">IntelliRAG</span>
+      </div>
+      <h1 class="auth-title">Welcome back</h1>
+      <p class="auth-subtitle">Sign in to continue learning</p>
+    </div>
+    <form id="loginForm" class="auth-form" onsubmit="return false">
+      <div class="field-group">
+        <label for="loginEmail">Email</label>
+        <input id="loginEmail" type="email" placeholder="you@example.com" autocomplete="email" />
+        <span class="field-error" id="loginEmailErr"></span>
+      </div>
+      <div class="field-group">
+        <label for="loginPassword">Password</label>
+        <div class="input-wrap">
+          <input id="loginPassword" type="password" placeholder="Your password" autocomplete="current-password" />
+          <button type="button" class="toggle-pw" onclick="togglePw('loginPassword', this)">Show</button>
+        </div>
+        <span class="field-error" id="loginPwErr"></span>
+      </div>
+      <div class="field-error auth-global-err" id="loginGlobalErr"></div>
+      <button id="loginBtn" class="btn btn-primary btn-full" onclick="doLogin()">
+        <span class="btn-text">Sign In</span>
+        <span class="btn-loading" style="display:none">Signing in…</span>
+      </button>
+    </form>
+    <p class="auth-footer-link">Don't have an account? <a href="#" onclick="showRegister();return false">Create one</a></p>
+  </div>
+
+  <!-- REGISTER -->
+  <div id="registerCard" class="auth-card" style="display:none">
+    <div class="auth-brand">
+      <div class="auth-brand__logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#2563EB"/><path d="M8 24V8h4.5l3.5 9 3.5-9H24v16h-3.5V14l-3 9h-2l-3-9v10H8z" fill="white"/></svg>
+        <span class="auth-brand__name">IntelliRAG</span>
+      </div>
+      <h1 class="auth-title">Create your account</h1>
+      <p class="auth-subtitle">Start learning smarter today</p>
+    </div>
+    <form id="registerForm" class="auth-form" onsubmit="return false">
+      <div class="field-group">
+        <label for="regName">Full Name</label>
+        <input id="regName" type="text" placeholder="John Doe" autocomplete="name" />
+        <span class="field-error" id="regNameErr"></span>
+      </div>
+      <div class="field-group">
+        <label for="regEmail">Email</label>
+        <input id="regEmail" type="email" placeholder="you@example.com" autocomplete="email" />
+        <span class="field-error" id="regEmailErr"></span>
+      </div>
+      <div class="field-group">
+        <label for="regPassword">Password</label>
+        <div class="input-wrap">
+          <input id="regPassword" type="password" placeholder="Min 8 characters" autocomplete="new-password" oninput="checkPwStrength(this.value)" />
+          <button type="button" class="toggle-pw" onclick="togglePw('regPassword', this)">Show</button>
+        </div>
+        <div class="pw-strength" id="pwStrength" style="display:none">
+          <div class="pw-strength__bar"><div class="pw-strength__fill" id="pwFill"></div></div>
+          <span id="pwLabel" class="pw-strength__label"></span>
+        </div>
+        <span class="field-error" id="regPwErr"></span>
+      </div>
+      <div class="field-group">
+        <label for="regConfirm">Confirm Password</label>
+        <div class="input-wrap">
+          <input id="regConfirm" type="password" placeholder="Repeat your password" autocomplete="new-password" />
+          <button type="button" class="toggle-pw" onclick="togglePw('regConfirm', this)">Show</button>
+        </div>
+        <span class="field-error" id="regConfirmErr"></span>
+      </div>
+      <div class="field-error auth-global-err" id="regGlobalErr"></div>
+      <button id="registerBtn" class="btn btn-primary btn-full" onclick="doRegister()">
+        <span class="btn-text">Create Account</span>
+        <span class="btn-loading" style="display:none">Creating…</span>
+      </button>
+    </form>
+    <p class="auth-footer-link">Already have an account? <a href="#" onclick="showLogin();return false">Sign in</a></p>
+  </div>
+</div>
+
+<!-- UPLOAD VIEW -->
+<div id="uploadView" style="display:none" class="upload-view">
+  <div class="upload-card">
+    <div class="upload-icon-wrap">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="12" fill="#EFF6FF"/><path d="M24 32V18M17 25l7-7 7 7" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 38h20" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/></svg>
+    </div>
+    <h2 class="upload-title">Upload a Document</h2>
+    <p class="upload-sub">PDF or Excel — up to 20 MB</p>
+
+    <label class="upload-dropzone" id="uploadDropZone" for="fileInput">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+      <span>Drag &amp; drop or <strong>browse</strong></span>
+      <input type="file" id="fileInput" accept=".pdf,.xlsx" multiple hidden />
+    </label>
+
+    <div id="uploadFeedback" class="upload-feedback"></div>
+
+    <div id="progressSection" style="display:none" class="progress-section">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <p class="progress-label" id="progressLabel">Uploading…</p>
+    </div>
+
+    <button class="btn btn-ghost btn-sm upload-logout" onclick="doLogout()">← Sign out</button>
+  </div>
+</div>
+
+<!-- APP SHELL -->
+<div id="appShell" style="display:none" class="app-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#2563EB"/><path d="M8 24V8h4.5l3.5 9 3.5-9H24v16h-3.5V14l-3 9h-2l-3-9v10H8z" fill="white"/></svg>
+      <span>IntelliRAG</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-btn active" data-view="dashboard" onclick="go('dashboard')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </button>
+      <button class="nav-btn" data-view="chat" onclick="go('chat')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        Ask AI
+      </button>
+      <button class="nav-btn" data-view="search" onclick="go('search')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Search
+      </button>
+      <button class="nav-btn" data-view="quiz" onclick="go('quiz')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><path d="M9 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+        Quiz
+      </button>
+      <button class="nav-btn" data-view="flashcards" onclick="go('flashcards')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        Flashcards
+      </button>
+      <button class="nav-btn" data-view="mocktest" onclick="go('mocktest')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        Mock Test
+      </button>
+      <button class="nav-btn" data-view="summary" onclick="go('summary')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><line x1="21" y1="6" x2="3" y2="6"/><line x1="15" y1="12" x2="3" y2="12"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
+        Summary
+      </button>
+      <button class="nav-btn" data-view="weakness" onclick="go('weakness')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        My Weaknesses
+      </button>
+      <button class="nav-btn" data-view="library" onclick="go('library')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+        Library
+      </button>
+      <button class="nav-btn" data-view="evaluation" onclick="go('evaluation')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Evaluation
+      </button>
+      <button class="nav-btn" data-view="leaderboard" onclick="go('leaderboard')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        Leaderboard
+      </button>
+      <button class="nav-btn" data-view="payments" onclick="go('payments')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        Pricing & Limits
+      </button>
+    </nav>
+
+    <div class="sidebar-upgrade-card" id="sidebarUpgradeCard" style="display:none">
+      <p class="sidebar-upgrade-title">🚀 Unlock Premium</p>
+      <p class="sidebar-upgrade-text">Get unlimited Ask AI, Multi-PDF analysis, and Study Coach.</p>
+      <button class="btn btn-premium btn-xs btn-full" onclick="go('payments')">Upgrade Now</button>
+    </div>
+
+    <div class="llm-model-toggle" title="Model used for Ask AI, quizzes, flashcards, summary, and course AI">
+      <span class="llm-model-label">Sarvam</span>
+      <div class="llm-model-seg" role="group" aria-label="LLM size">
+        <button type="button" class="llm-model-btn" data-variant="30b" onclick="setLlmVariant('30b')">Fast ⚡</button>
+        <button type="button" class="llm-model-btn" data-variant="105b" onclick="setLlmVariant('105b')">Smart 🧠</button>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="avatar" id="sidebarAvatar">A</div>
+        <div class="sidebar-user-info">
+          <span class="sidebar-user-name" id="sidebarName">Loading…</span>
+          <span class="sidebar-user-meta" id="sidebarMeta">0 XP · Lv 1</span>
+        </div>
+      </div>
+      <div class="sidebar-actions">
+        <button class="btn btn-ghost btn-sm" onclick="newDoc()">New Doc</button>
+        <button class="btn btn-ghost btn-sm" onclick="doLogout()">Logout</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN AREA -->
+  <div class="main-area">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="menu-toggle" onclick="toggleSidebar()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="topbar-doc">
+        <span class="topbar-filename" id="topbarFilename">No document</span>
+        <span class="status-badge" id="topbarStatus"></span>
+      </div>
+      <div class="topbar-stats">
+        <div class="stat-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span id="xpTopbar">0 XP</span></div>
+        <div class="stat-chip">Lv <span id="lvTopbar">1</span></div>
+        <div class="topbar-avatar" id="topbarAvatar">A</div>
+      </div>
+    </header>
+
+    <!-- VIEWS -->
+    <main class="view-container">
+
+      <!-- Dashboard -->
+      <section id="viewDashboard" class="view view-active">
+        <div class="view-header">
+          <h2>Dashboard</h2>
+          <p class="view-subtitle">Choose what to do with your document</p>
+        </div>
+        <div class="dash-grid">
+          <button class="dash-card" onclick="go('chat')">
+            <div class="dash-card-icon dash-icon-blue"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+            <h3>Ask AI</h3><p>Get answers from your document</p>
+          </button>
+          <button class="dash-card" onclick="go('search')">
+            <div class="dash-card-icon dash-icon-cyan"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+            <h3>Search Engine</h3><p>Keyword, Hybrid or AI search</p>
+          </button>
+          <button class="dash-card" onclick="go('quiz')">
+            <div class="dash-card-icon dash-icon-indigo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><path d="M9 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg></div>
+            <h3>Quiz</h3><p>Test your knowledge with MCQs</p>
+          </button>
+          <button class="dash-card" onclick="go('flashcards')">
+            <div class="dash-card-icon dash-icon-violet"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+            <h3>Flashcards</h3><p>Flip-card study sessions</p>
+          </button>
+          <button class="dash-card" onclick="go('mocktest')">
+            <div class="dash-card-icon dash-icon-green"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+            <h3>Mock Test</h3><p>Full-length timed practice</p>
+          </button>
+          <button class="dash-card" onclick="go('summary')">
+            <div class="dash-card-icon dash-icon-sky"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><line x1="21" y1="6" x2="3" y2="6"/><line x1="15" y1="12" x2="3" y2="12"/><line x1="17" y1="18" x2="3" y2="18"/></svg></div>
+            <h3>Summary</h3><p>Quick document overview</p>
+          </button>
+          <button class="dash-card" onclick="go('weakness')">
+            <div class="dash-card-icon dash-icon-red"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+            <h3>My Weaknesses</h3><p>Topics that need more practice</p>
+          </button>
+          <button class="dash-card" onclick="go('library')">
+            <div class="dash-card-icon dash-icon-amber"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+            <h3>Library</h3><p>Browse subject document library</p>
+          </button>
+          <button class="dash-card" onclick="go('evaluation')">
+            <div class="dash-card-icon dash-icon-teal"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <h3>Evaluation</h3><p>System quality &amp; retrieval metrics</p>
+          </button>
+          <button class="dash-card" onclick="go('leaderboard')">
+            <div class="dash-card-icon dash-icon-amber"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+            <h3>Leaderboard</h3><p>Daily XP rankings</p>
+          </button>
+        </div>
+      </section>
+
+      <!-- Ask AI -->
+      <section id="viewChat" class="view">
+        <div class="view-header">
+          <h2>Ask AI</h2>
+          <p class="view-subtitle">Answers use only your uploaded PDFs (whole library)—retrieval first</p>
+        </div>
+        <div class="chat-shell">
+          <div class="chat-messages" id="chatMessages">
+            <div class="chat-empty">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              <p>Ask a question—AI searches across all your processed PDFs</p>
+            </div>
+          </div>
+          <div class="chat-input-bar">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Type a question…" onkeydown="if(event.key==='Enter')sendMsg()" />
+            <button class="chat-send-btn" onclick="sendMsg()" id="sendBtn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Search Engine -->
+      <section id="viewSearch" class="view">
+        <div class="view-header">
+          <h2>Search Engine</h2>
+          <p class="view-subtitle">Keyword, Hybrid (BM25+FAISS), or full AI search</p>
+          <a href="/search.html" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Open Dedicated Search Page ↗</a>
+        </div>
+        <div class="search-shell">
+          <div class="search-mode-bar">
+            <button class="mode-chip active" onclick="setSearchMode('keyword', this)">Keyword</button>
+            <button class="mode-chip" onclick="setSearchMode('hybrid', this)">Hybrid</button>
+            <button class="mode-chip" onclick="setSearchMode('ai', this)">AI</button>
+            <button class="mode-chip" onclick="setSearchMode('auto', this)">Auto</button>
+          </div>
+          <div class="search-input-wrap">
+            <input type="text" id="searchInput" class="search-input" placeholder="Enter your search query…" onkeydown="if(event.key==='Enter')doSearch()" />
+            <button class="btn btn-primary" onclick="doSearch()" id="searchBtn">Search</button>
+          </div>
+          <div id="searchModeLabel" class="search-mode-label">Mode: <strong>keyword</strong></div>
+          <div id="searchResults" class="search-results"></div>
+        </div>
+      </section>
+
+      <!-- Quiz -->
+      <section id="viewQuiz" class="view">
+        <div class="view-header view-header-row">
+          <div>
+            <h2>Quiz</h2>
+            <p class="view-subtitle">Answer 5 questions on your document</p>
+          </div>
+          <button type="button" class="btn btn-ghost btn-sm feature-refresh-btn" data-refresh-feature="quiz" onclick="refreshFeature('quiz')">Refresh 🔄</button>
+        </div>
+        <div id="quizContent"><div class="skeleton-block"></div><div class="skeleton-block"></div><div class="skeleton-block"></div></div>
+      </section>
+
+      <!-- Flashcards -->
+      <section id="viewFlashcards" class="view">
+        <div class="view-header view-header-row">
+          <div>
+            <h2>Flashcards</h2>
+            <p class="view-subtitle">Click a card to reveal the answer</p>
+          </div>
+          <button type="button" class="btn btn-ghost btn-sm feature-refresh-btn" data-refresh-feature="flashcards" onclick="refreshFeature('flashcards')">Refresh 🔄</button>
+        </div>
+        <div id="flashcardsContent"><div class="skeleton-block tall"></div></div>
+      </section>
+
+      <!-- Mock Test -->
+      <section id="viewMocktest" class="view">
+        <div class="view-header view-header-row">
+          <div>
+            <h2>Mock Test</h2>
+            <p class="view-subtitle">Full-length analytical exam</p>
+          </div>
+          <button type="button" class="btn btn-ghost btn-sm feature-refresh-btn" data-refresh-feature="mock_test" onclick="refreshFeature('mock_test')">Refresh 🔄</button>
+        </div>
+        <div id="mocktestContent"><div class="skeleton-block"></div><div class="skeleton-block"></div><div class="skeleton-block"></div></div>
+      </section>
+
+      <!-- Summary -->
+      <section id="viewSummary" class="view">
+        <div class="view-header view-header-row">
+          <div>
+            <h2>Summary</h2>
+            <p class="view-subtitle">Concise overview of the document</p>
+          </div>
+          <button type="button" class="btn btn-ghost btn-sm feature-refresh-btn" data-refresh-feature="summary" onclick="refreshFeature('summary')">Refresh 🔄</button>
+        </div>
+        <div id="summaryContent"><div class="skeleton-block"></div><div class="skeleton-block"></div><div class="skeleton-block tall"></div></div>
+      </section>
+
+      <!-- Weakness Dashboard -->
+      <section id="viewWeakness" class="view">
+        <div class="view-header">
+          <h2>My Weaknesses</h2>
+          <p class="view-subtitle">Topics where you need more practice</p>
+        </div>
+        <div id="weaknessContent">
+          <div class="skeleton-block"></div><div class="skeleton-block"></div><div class="skeleton-block"></div>
+        </div>
+      </section>
+
+      <!-- Library -->
+      <section id="viewLibrary" class="view">
+        <div class="view-header">
+          <h2>My Library</h2>
+          <p class="view-subtitle">Your uploaded documents — open, review, or switch context</p>
+        </div>
+        <div id="libraryContent">
+          <div class="skeleton-block"></div><div class="skeleton-block"></div>
+        </div>
+      </section>
+
+      <!-- Evaluation -->
+      <section id="viewEvaluation" class="view">
+        <div class="view-header">
+          <h2>System Evaluation</h2>
+          <p class="view-subtitle">Retrieval quality, ablation study, and stability</p>
+        </div>
+        <div class="eval-controls">
+          <button class="btn btn-primary" onclick="runEvaluation()" id="evalBtn">Run Evaluation</button>
+          <button class="btn btn-ghost" onclick="runStabilityEval()" id="stableBtn">Run Stability Test (3 runs)</button>
+          <button class="btn btn-ghost" onclick="loadSystemReport()" id="reportBtn">Load System Report</button>
+        </div>
+        <div id="evaluationContent" class="eval-results"></div>
+      </section>
+
+      <!-- Leaderboard -->
+      <section id="viewLeaderboard" class="view">
+        <div class="view-header"><h2>Leaderboard</h2><p class="view-subtitle">Top learners today</p></div>
+        <div id="leaderboardContent"><div class="skeleton-block"></div><div class="skeleton-block"></div><div class="skeleton-block"></div></div>
+      </section>
+
+      <!-- Payments & Subscriptions -->
+      <section id="viewPayments" class="view">
+        <div class="view-header">
+          <h2>Pricing & Subscriptions</h2>
+          <p class="view-subtitle">Manage your plan, check daily API usage, and unlock premium learning capabilities.</p>
+        </div>
+        <div class="payments-container">
+          <!-- Alert Banner for hitting limits -->
+          <div class="payments-alert-banner" id="paymentsAlertBanner" style="display:none"></div>
+
+          <!-- Usage status dashboard -->
+          <div class="usage-dashboard card glass">
+            <h3>Daily Usage Quota</h3>
+            <p class="usage-description">Usage resets daily at 00:00 UTC. Premium users enjoy unlimited capabilities.</p>
+            <div class="usage-stats-grid" id="usageStatsGrid">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+
+          <!-- Pricing plans -->
+          <div class="pricing-grid">
+            <!-- Free Tier Card -->
+            <div class="pricing-card card glass" id="planCardFree">
+              <div class="plan-header">
+                <span class="plan-badge">Current Plan</span>
+                <h4>Freemium</h4>
+                <div class="price">$0<span>/month</span></div>
+              </div>
+              <ul class="plan-features">
+                <li><span class="feat-check">✓</span> 5 Ask AI (RAG) queries/day</li>
+                <li><span class="feat-check">✓</span> 2 Quizzes &amp; Flashcards/day</li>
+                <li><span class="feat-check">✓</span> Single document indexing</li>
+                <li><span class="feat-check">✓</span> Gemini 2.5 Flash-Lite models</li>
+                <li><span class="feat-x">✗</span> Advanced AI Study Coach</li>
+                <li><span class="feat-x">✗</span> Multi-PDF cross-document reasoning</li>
+                <li><span class="feat-x">✗</span> Timed Mock Exams</li>
+                <li><span class="feat-x">✗</span> Priority response speeds</li>
+              </ul>
+              <button class="btn btn-secondary btn-full plan-btn" id="btnPlanFree" disabled>Active Plan</button>
+            </div>
+
+            <!-- Standard Tier Card -->
+            <div class="pricing-card card glass" id="planCardStandard">
+              <div class="plan-header">
+                <span class="plan-badge badge-blue">Popular</span>
+                <h4>Standard</h4>
+                <div class="price">$9<span>/month</span></div>
+              </div>
+              <ul class="plan-features">
+                <li><span class="feat-check">✓</span> 50 Ask AI (RAG) queries/day</li>
+                <li><span class="feat-check">✓</span> 20 Quizzes &amp; Flashcards/day</li>
+                <li><span class="feat-check">✓</span> Single document indexing</li>
+                <li><span class="feat-check">✓</span> Gemini 3.1 Flash-Lite &amp; GPT-5 Nano</li>
+                <li><span class="feat-check">✓</span> Advanced AI Study Coach</li>
+                <li><span class="feat-x">✗</span> Multi-PDF cross-document reasoning</li>
+                <li><span class="feat-x">✗</span> Timed Mock Exams</li>
+                <li><span class="feat-check">✓</span> Priority response speeds</li>
+              </ul>
+              <button class="btn btn-primary btn-full plan-btn" id="btnPlanStandard" onclick="subscribeToPlan('standard')">Upgrade to Standard</button>
+            </div>
+
+            <!-- Premium Tier Card -->
+            <div class="pricing-card card glass premium-card" id="planCardPremium">
+              <div class="plan-header">
+                <span class="plan-badge badge-premium">Ultimate</span>
+                <h4>Premium</h4>
+                <div class="price">$19<span>/month</span></div>
+              </div>
+              <ul class="plan-features">
+                <li><span class="feat-check">✓</span> Unlimited Ask AI queries</li>
+                <li><span class="feat-check">✓</span> Unlimited Quizzes &amp; Flashcards</li>
+                <li><span class="feat-check">✓</span> Multi-PDF cross-document reasoning</li>
+                <li><span class="feat-check">✓</span> Timed Mock Exams unlocked</li>
+                <li><span class="feat-check">✓</span> GPT-5 Nano &amp; Gemini 3.1 Flash-Lite</li>
+                <li><span class="feat-check">✓</span> Advanced AI Study Coach</li>
+                <li><span class="feat-check">✓</span> Smart Weakness Predictive Analytics</li>
+                <li><span class="feat-check">✓</span> Priority Uploads &amp; Reranking</li>
+              </ul>
+              <button class="btn btn-premium btn-full plan-btn" id="btnPlanPremium" onclick="subscribeToPlan('premium')">Upgrade to Premium</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- PDF Viewer Modal -->
+<div id="pdfModal" class="pdf-modal" style="display:none">
+  <div class="pdf-modal-header">
+    <span id="pdfModalTitle">PDF Viewer</span>
+    <button class="btn btn-ghost btn-sm" onclick="closePdfViewer()">✕ Close</button>
+  </div>
+  <iframe id="pdfFrame" class="pdf-frame"></iframe>
+</div>
+
+<script src="app.js?v=20260328d"></script>
+</body>
+</html>

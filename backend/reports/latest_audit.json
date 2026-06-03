@@ -1,0 +1,275 @@
+{
+  "doc_id": "doc_11c024ccf162",
+  "timestamp": "20260427_194340",
+  "document": {
+    "chunks": 75,
+    "types": {
+      "parent": 72,
+      "text": 3
+    },
+    "avg_words": 17.7
+  },
+  "ablation": {
+    "baseline_recall5": 0.51,
+    "hybrid_recall5": 1.0,
+    "baseline_mrr": 1.0,
+    "hybrid_mrr": 1.0,
+    "improvement_pct": 96.1
+  },
+  "not_found_accuracy": 0.7,
+  "stability": {
+    "mean": 1.0,
+    "std": 0.0,
+    "passed": true,
+    "runs": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "chunk_quality": {
+    "quality_score": 1.0,
+    "quality_pct": 100.0,
+    "total_text_chunks": 3,
+    "valid_chunks": 3,
+    "duplicate_chunks": 0,
+    "duplicate_pct": 0.0,
+    "checks": {
+      "word_count_pass": 3,
+      "word_count_pct": 100.0,
+      "sentence_end_pass": 2,
+      "sentence_end_pct": 66.7,
+      "answerable_pass": 3,
+      "answerable_pct": 100.0,
+      "no_trailing_conj": 3,
+      "no_trailing_conj_pct": 100.0,
+      "not_duplicate": 3,
+      "not_duplicate_pct": 100.0
+    },
+    "issues": [
+      {
+        "chunk_id": "c_289a9189d17b",
+        "issue": "No sentence ending"
+      }
+    ]
+  },
+  "semantic_similarity": 0.216,
+  "latency": {
+    "embed_ms": 23.7,
+    "vector_ms": 0.3,
+    "hybrid_ms": 83.8
+  },
+  "validation": {
+    "status": "VALIDATED",
+    "checks": {
+      "hybrid_gte_baseline": true,
+      "chunk_quality_gt_80": true,
+      "stability": true,
+      "not_found_gt_50": true,
+      "latency_lt_500ms": true
+    }
+  },
+  "details": [
+    {
+      "q": "What is machine learning?",
+      "type": "factual",
+      "b_score": 0.2348,
+      "h_rrf": 0.05757,
+      "overlap": 2,
+      "bm25_unique": 3,
+      "b_sec": "23. Extended Theory Section (D",
+      "h_sec": "Key Concepts:"
+    },
+    {
+      "q": "What is supervised learning?",
+      "type": "factual",
+      "b_score": 0.2118,
+      "h_rrf": 0.04545,
+      "overlap": 2,
+      "bm25_unique": 3,
+      "b_sec": "22. Advanced Concepts",
+      "h_sec": "22. Advanced Concepts"
+    },
+    {
+      "q": "What is unsupervised learning?",
+      "type": "factual",
+      "b_score": 0.1854,
+      "h_rrf": 0.04545,
+      "overlap": 2,
+      "bm25_unique": 3,
+      "b_sec": "Deep Concept:",
+      "h_sec": "Deep Concept:"
+    },
+    {
+      "q": "What is a neural network?",
+      "type": "factual",
+      "b_score": 0.2243,
+      "h_rrf": 0.07692,
+      "overlap": 3,
+      "bm25_unique": 2,
+      "b_sec": "Concepts:",
+      "h_sec": "Key Concepts:"
+    },
+    {
+      "q": "What is an activation function?",
+      "type": "factual",
+      "b_score": 0.3388,
+      "h_rrf": 0.08712,
+      "overlap": 4,
+      "bm25_unique": 1,
+      "b_sec": "In Python:",
+      "h_sec": "7. Recursion and Stack Behavio"
+    },
+    {
+      "q": "What is gradient descent?",
+      "type": "factual",
+      "b_score": 0.2337,
+      "h_rrf": 0.04545,
+      "overlap": 2,
+      "bm25_unique": 3,
+      "b_sec": "Example Insight:",
+      "h_sec": "Example Insight:"
+    },
+    {
+      "q": "What is overfitting?",
+      "type": "factual",
+      "b_score": 0.2999,
+      "h_rrf": 0.06227,
+      "overlap": 2,
+      "bm25_unique": 3,
+      "b_sec": "Deep Concept:",
+      "h_sec": "Key Concepts:"
+    },
+    {
+      "q": "What is regularization?",
+      "type": "factual",
+      "b_score": 0.2554,
+      "h_rrf": 0.04545,
+      "overlap": 2,
+      "bm25_unique": 3,
+      "b_sec": "Deep Concept:",
+      "h_sec": "Deep Concept:"
+    },
+    {
+      "q": "What is cross-validation?",
+      "type": "factual",
+      "b_score": 0.1806,
+      "h_rrf": 0.07692,
+      "overlap": 3,
+      "bm25_unique": 2,
+      "b_sec": "22. Advanced Concepts",
+      "h_sec": "Key Concepts:"
+    },
+    {
+      "q": "What is transfer learning?",
+      "type": "factual",
+      "b_score": 0.2857,
+      "h_rrf": 0.04545,
+      "overlap": 2,
+      "bm25_unique": 3,
+      "b_sec": "Shallow Copy",
+      "h_sec": "Shallow Copy"
+    },
+    {
+      "q": "Why does overfitting happen and how can it be prevented?",
+      "type": "conceptual",
+      "b_score": 0.339,
+      "h_rrf": 0.06346,
+      "overlap": 2,
+      "bm25_unique": 3,
+      "b_sec": "Deep Concept:",
+      "h_sec": "Key Concepts:"
+    },
+    {
+      "q": "Explain how backpropagation works in neural networks.",
+      "type": "conceptual",
+      "b_score": 0.2873,
+      "h_rrf": 0.07418,
+      "overlap": 3,
+      "bm25_unique": 2,
+      "b_sec": "7. Recursion and Stack Behavio",
+      "h_sec": "Key Concepts:"
+    },
+    {
+      "q": "Why is the bias-variance tradeoff important?",
+      "type": "conceptual",
+      "b_score": 0.1972,
+      "h_rrf": 0.06458,
+      "overlap": 2,
+      "bm25_unique": 3,
+      "b_sec": "Deep Insight:",
+      "h_sec": "Key Concepts:"
+    },
+    {
+      "q": "Explain why data preprocessing is crucial for model performa",
+      "type": "conceptual",
+      "b_score": 0.4055,
+      "h_rrf": 0.07418,
+      "overlap": 4,
+      "bm25_unique": 1,
+      "b_sec": "Insight:",
+      "h_sec": "23. Extended Theory Section (D"
+    },
+    {
+      "q": "How does dropout prevent overfitting?",
+      "type": "conceptual",
+      "b_score": 0.3895,
+      "h_rrf": 0.04545,
+      "overlap": 3,
+      "bm25_unique": 2,
+      "b_sec": "Deep Concept:",
+      "h_sec": "Deep Concept:"
+    },
+    {
+      "q": "Why do deep networks suffer from vanishing gradients?",
+      "type": "conceptual",
+      "b_score": 0.2171,
+      "h_rrf": 0.09091,
+      "overlap": 3,
+      "bm25_unique": 2,
+      "b_sec": "Deep Concept:",
+      "h_sec": "Deep Concept:"
+    },
+    {
+      "q": "Explain the purpose of batch normalization.",
+      "type": "conceptual",
+      "b_score": 0.313,
+      "h_rrf": 0.04545,
+      "overlap": 2,
+      "bm25_unique": 3,
+      "b_sec": "22. Real-World Optimization Ca",
+      "h_sec": "22. Real-World Optimization Ca"
+    },
+    {
+      "q": "How does a convolutional neural network extract features?",
+      "type": "conceptual",
+      "b_score": 0.1966,
+      "h_rrf": 0.06478,
+      "overlap": 2,
+      "bm25_unique": 3,
+      "b_sec": "9. Hashing and Dictionary Inte",
+      "h_sec": "Key Concepts:"
+    },
+    {
+      "q": "Why is feature engineering important in traditional ML?",
+      "type": "conceptual",
+      "b_score": 0.2803,
+      "h_rrf": 0.075,
+      "overlap": 3,
+      "bm25_unique": 2,
+      "b_sec": "Deep Concept:",
+      "h_sec": "Important Insight:"
+    },
+    {
+      "q": "Explain the concept of ensemble learning.",
+      "type": "conceptual",
+      "b_score": 0.197,
+      "h_rrf": 0.08013,
+      "overlap": 3,
+      "bm25_unique": 2,
+      "b_sec": "Sets",
+      "h_sec": "Key Concepts:"
+    }
+  ],
+  "llm_note": "Sarvam API returned 400 during test \u2014 LLM answer generation and reranker metrics pending API fix. Retrieval metrics are fully verified."
+}

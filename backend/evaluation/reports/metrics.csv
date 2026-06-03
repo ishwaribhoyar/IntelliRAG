@@ -1,0 +1,45 @@
+Dataset,Metric,Value
+Python Textbook,retrieval.baseline_recall3,0.5933
+Python Textbook,retrieval.baseline_recall5,0.7
+Python Textbook,retrieval.baseline_mrr,0.7807
+Python Textbook,retrieval.hybrid_recall3,0.615
+Python Textbook,retrieval.hybrid_recall5,0.73
+Python Textbook,retrieval.hybrid_mrr,0.7907
+Python Textbook,quality.avg_semantic_similarity,0.6082
+Python Textbook,quality.factual_sim,0.5744
+Python Textbook,quality.conceptual_sim,0.649
+Python Textbook,quality.multihop_sim,0.5943
+Python Textbook,quality.key_term_coverage,0.519
+Python Textbook,quality.hallucination_rate,4.0
+Python Textbook,adversarial.total,10
+Python Textbook,adversarial.correct_refusals,7
+Python Textbook,adversarial.accuracy,70.0
+Python Textbook,latency.avg_embed_ms,22.6
+Python Textbook,latency.avg_vector_ms,0.1
+Python Textbook,latency.avg_hybrid_ms,73.5
+Python Textbook,latency.avg_total_ms,96.1
+Python Textbook,latency.p50_ms,87.5
+Python Textbook,latency.p95_ms,166.4
+Python Textbook,latency.note,Excludes LLM generation (API-dependent). Retrieval-only pipeline.
+Document B (doc_1ad23bd9b7af),retrieval.baseline_recall3,0
+Document B (doc_1ad23bd9b7af),retrieval.baseline_recall5,0
+Document B (doc_1ad23bd9b7af),retrieval.baseline_mrr,0
+Document B (doc_1ad23bd9b7af),retrieval.hybrid_recall3,0
+Document B (doc_1ad23bd9b7af),retrieval.hybrid_recall5,0
+Document B (doc_1ad23bd9b7af),retrieval.hybrid_mrr,0
+Document B (doc_1ad23bd9b7af),quality.avg_semantic_similarity,0.5876
+Document B (doc_1ad23bd9b7af),quality.factual_sim,0.5781
+Document B (doc_1ad23bd9b7af),quality.conceptual_sim,0.6064
+Document B (doc_1ad23bd9b7af),quality.multihop_sim,0
+Document B (doc_1ad23bd9b7af),quality.key_term_coverage,0.5684
+Document B (doc_1ad23bd9b7af),quality.hallucination_rate,6.7
+Document B (doc_1ad23bd9b7af),adversarial.total,0
+Document B (doc_1ad23bd9b7af),adversarial.correct_refusals,0
+Document B (doc_1ad23bd9b7af),adversarial.accuracy,0.0
+Document B (doc_1ad23bd9b7af),latency.avg_embed_ms,21.1
+Document B (doc_1ad23bd9b7af),latency.avg_vector_ms,0.1
+Document B (doc_1ad23bd9b7af),latency.avg_hybrid_ms,65.0
+Document B (doc_1ad23bd9b7af),latency.avg_total_ms,86.1
+Document B (doc_1ad23bd9b7af),latency.p50_ms,82.2
+Document B (doc_1ad23bd9b7af),latency.p95_ms,119.5
+Document B (doc_1ad23bd9b7af),latency.note,Excludes LLM generation (API-dependent). Retrieval-only pipeline.

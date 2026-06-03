@@ -1,0 +1,30 @@
+registered user_id: user_5e9ccf1714
+upload/multi accepted: 2 rejected: 0
+accepted doc_ids: ['doc_942e84947fc0', 'doc_518990067472']
+partial_doc_candidate: None
+No partially_ready observed; skipping partial search test.
+wrote test_output.json
+registered user_id: user_17a38a2789
+upload/multi accepted: 2 rejected: 0
+accepted doc_ids: ['doc_a2d6b458752f', 'doc_2a95332ae1f6']
+partial_doc_candidate: None
+No partially_ready observed; skipping partial search test.
+wrote test_output.json
+registered user_id: user_d105088814
+upload/multi accepted: 2 rejected: 0
+accepted doc_ids: ['doc_f2a34523fbad', 'doc_2b1bc81737f6']
+partial_doc_candidate: None
+No partially_ready observed; skipping partial search test.
+wrote test_output.json
+registered user_id: user_e58d73b2a3
+upload/multi accepted: 2 rejected: 0
+accepted doc_ids: ['doc_9c83761f21dc', 'doc_c606985cb01e']
+partial_doc_candidate: doc_c606985cb01e
+search/user results: 2
+wrote test_output.json
+registered user_id: user_8059256ae4
+upload/multi accepted: 2 rejected: 0
+accepted doc_ids: ['doc_b739973538c9', 'doc_a4301d4bae65']
+partial_doc_candidate: doc_b739973538c9
+search/user results: 2
+wrote test_output.json

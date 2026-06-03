@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IntelliRAG Search</title>
+  <link rel="stylesheet" href="styles.css?v=20260326a" />
+  <link rel="stylesheet" href="search.css?v=20260326a" />
+</head>
+<body>
+  <main class="search-page">
+    <header class="search-page-head">
+      <h1>Search Engine</h1>
+      <p>User-scoped search across all your documents</p>
+    </header>
+
+    <section class="search-hero">
+      <div class="search-input-wrap" id="searchWrap">
+        <input id="searchInput" class="search-input" type="text" placeholder="Search your documents..." />
+        <button id="searchBtn" class="btn btn-primary" type="button">Search</button>
+        <div id="searchSuggestBox" class="sr-suggest-box"></div>
+      </div>
+      <div class="search-mode-bar">
+        <button class="mode-chip active" data-mode="hybrid">Hybrid</button>
+        <button class="mode-chip" data-mode="keyword">Keyword</button>
+        <button class="mode-chip" data-mode="ai">AI</button>
+        <button class="mode-chip" data-mode="auto">Auto</button>
+      </div>
+    </section>
+
+    <section class="search-grid">
+      <aside class="search-results-pane">
+        <div id="searchResults" class="search-results"></div>
+      </aside>
+
+      <section class="search-reader-pane">
+        <header class="reader-head">
+          <h2 id="readerTitle">Select a result</h2>
+          <div id="readerMeta" class="reader-meta"></div>
+        </header>
+        <div id="readerChunks" class="reader-chunks sr-chunks"></div>
+      </section>
+    </section>
+  </main>
+  <script src="search.js?v=20260326b"></script>
+</body>
+</html>

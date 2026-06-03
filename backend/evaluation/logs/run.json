@@ -1,0 +1,1686 @@
+{
+  "a": [
+    {
+      "id": "F01",
+      "query": "What type of programming language is Python?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_7ecfd4d5f417",
+        "c_bbdacbc3d31a",
+        "c_289a9189d17b"
+      ],
+      "vector_ids": [
+        "c_bbdacbc3d31a",
+        "c_7ecfd4d5f417",
+        "c_289a9189d17b"
+      ],
+      "semantic_sim": 0.8701,
+      "coverage": 1.0,
+      "confidence": 0.961,
+      "level": "high",
+      "correct": true,
+      "latency": 51.5
+    },
+    {
+      "id": "F02",
+      "query": "What are mutable objects in Python?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_b380c1ac25e1",
+        "c_6d7f19fba0d4",
+        "c_a9a432bcb4ed"
+      ],
+      "vector_ids": [
+        "c_b380c1ac25e1",
+        "c_6d7f19fba0d4",
+        "c_b8adc2e73bf3"
+      ],
+      "semantic_sim": 0.8114,
+      "coverage": 1.0,
+      "confidence": 0.873,
+      "level": "high",
+      "correct": true,
+      "latency": 46.1
+    },
+    {
+      "id": "F03",
+      "query": "What are immutable types in Python?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_a3ee357aa024",
+        "c_330946c99287",
+        "c_fe15346dde2d"
+      ],
+      "vector_ids": [
+        "c_330946c99287",
+        "c_a3ee357aa024",
+        "c_289a9189d17b"
+      ],
+      "semantic_sim": 0.7702,
+      "coverage": 0.833,
+      "confidence": 0.861,
+      "level": "high",
+      "correct": true,
+      "latency": 55.6
+    },
+    {
+      "id": "F04",
+      "query": "What is the time complexity of dictionary lookup in Python?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_1885dd7ad9ed",
+        "c_f7f6a75df9ca",
+        "c_286f0a06a89e"
+      ],
+      "vector_ids": [
+        "c_1885dd7ad9ed",
+        "c_286f0a06a89e",
+        "c_94ff0e472607"
+      ],
+      "semantic_sim": 0.782,
+      "coverage": 1.0,
+      "confidence": 0.844,
+      "level": "high",
+      "correct": true,
+      "latency": 68.5
+    },
+    {
+      "id": "F05",
+      "query": "What is the LEGB rule in Python?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_247b99b9f807",
+        "c_f98efd97da26",
+        "c_2c071b5b9408"
+      ],
+      "vector_ids": [
+        "c_247b99b9f807",
+        "c_f98efd97da26",
+        "c_2c071b5b9408"
+      ],
+      "semantic_sim": 0.5892,
+      "coverage": 0.8,
+      "confidence": 0.961,
+      "level": "high",
+      "correct": true,
+      "latency": 64.8
+    },
+    {
+      "id": "F06",
+      "query": "What is recursion in Python?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_42b5d0777bac",
+        "c_163bc99577a9",
+        "c_c04916c1c3b0"
+      ],
+      "vector_ids": [
+        "c_163bc99577a9",
+        "c_42b5d0777bac",
+        "c_c04916c1c3b0"
+      ],
+      "semantic_sim": 0.4686,
+      "coverage": 0.667,
+      "confidence": 0.961,
+      "level": "high",
+      "correct": true,
+      "latency": 70.0
+    },
+    {
+      "id": "F07",
+      "query": "What does MRO stand for in Python?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_6d7f19fba0d4",
+        "c_5c284b0d92ec",
+        "c_289a9189d17b"
+      ],
+      "vector_ids": [
+        "c_c8588286ab34",
+        "c_62d796bd0cac",
+        "c_bbdacbc3d31a"
+      ],
+      "semantic_sim": 0.2493,
+      "coverage": 0.0,
+      "confidence": 0.632,
+      "level": "medium",
+      "correct": true,
+      "latency": 70.5
+    },
+    {
+      "id": "F08",
+      "query": "What are the four core OOP concepts in Python?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_7ecfd4d5f417",
+        "c_289a9189d17b",
+        "c_601d5c3a7412"
+      ],
+      "vector_ids": [
+        "c_bbdacbc3d31a",
+        "c_7ecfd4d5f417",
+        "c_289a9189d17b"
+      ],
+      "semantic_sim": 0.359,
+      "coverage": 0.0,
+      "confidence": 0.825,
+      "level": "high",
+      "correct": true,
+      "latency": 65.4
+    },
+    {
+      "id": "F09",
+      "query": "What is the Global Interpreter Lock in Python?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_c8fc3127f857",
+        "c_04b548a90061",
+        "c_6d7f19fba0d4"
+      ],
+      "vector_ids": [
+        "c_c8fc3127f857",
+        "c_04b548a90061",
+        "c_60e39b5dba40"
+      ],
+      "semantic_sim": 0.8662,
+      "coverage": 0.5,
+      "confidence": 0.861,
+      "level": "high",
+      "correct": true,
+      "latency": 85.2
+    },
+    {
+      "id": "F10",
+      "query": "What is a list comprehension in Python?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_8a69e4135a24",
+        "c_d8c0703fd0e1",
+        "c_b380c1ac25e1"
+      ],
+      "vector_ids": [
+        "c_8a69e4135a24",
+        "c_b8adc2e73bf3",
+        "c_bbdacbc3d31a"
+      ],
+      "semantic_sim": 0.5634,
+      "coverage": 0.667,
+      "confidence": 0.773,
+      "level": "high",
+      "correct": true,
+      "latency": 86.4
+    },
+    {
+      "id": "F11",
+      "query": "What is a generator in Python?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_5c284b0d92ec",
+        "c_cc85062c89c2",
+        "c_dc4c132ada07"
+      ],
+      "vector_ids": [
+        "c_ada4f094fa36",
+        "c_b493bbcf8aa7",
+        "c_ba93f31ca99b"
+      ],
+      "semantic_sim": 0.1664,
+      "coverage": 0.667,
+      "confidence": 0.577,
+      "level": "medium",
+      "correct": true,
+      "latency": 51.8
+    },
+    {
+      "id": "F12",
+      "query": "What is exception handling in Python?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_e8adb0cd837c",
+        "c_89f1194d0242",
+        "c_8b74381372c0"
+      ],
+      "vector_ids": [
+        "c_e8adb0cd837c",
+        "c_8b74381372c0",
+        "c_89f1194d0242"
+      ],
+      "semantic_sim": 0.7171,
+      "coverage": 0.667,
+      "confidence": 0.973,
+      "level": "high",
+      "correct": true,
+      "latency": 64.5
+    },
+    {
+      "id": "F13",
+      "query": "What is a decorator in Python?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_2c071b5b9408",
+        "c_289a9189d17b",
+        "c_d8c0703fd0e1"
+      ],
+      "vector_ids": [
+        "c_c0549b0e58d7",
+        "c_4cbba995df38",
+        "c_bbdacbc3d31a"
+      ],
+      "semantic_sim": 0.3432,
+      "coverage": 0.25,
+      "confidence": 0.594,
+      "level": "medium",
+      "correct": true,
+      "latency": 63.1
+    },
+    {
+      "id": "F14",
+      "query": "What is a lambda function in Python?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_86ef97d2bbf3",
+        "c_163bc99577a9",
+        "c_2c071b5b9408"
+      ],
+      "vector_ids": [
+        "c_86ef97d2bbf3",
+        "c_2c071b5b9408",
+        "c_163bc99577a9"
+      ],
+      "semantic_sim": 0.653,
+      "coverage": 0.333,
+      "confidence": 0.973,
+      "level": "high",
+      "correct": true,
+      "latency": 56.8
+    },
+    {
+      "id": "F15",
+      "query": "What are metaclasses in Python?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_46b68418ea0b",
+        "c_2c071b5b9408",
+        "c_bbdacbc3d31a"
+      ],
+      "vector_ids": [
+        "c_bbdacbc3d31a",
+        "c_461d5aa287d1",
+        "c_289a9189d17b"
+      ],
+      "semantic_sim": 0.4972,
+      "coverage": 0.5,
+      "confidence": 0.73,
+      "level": "high",
+      "correct": true,
+      "latency": 49.7
+    },
+    {
+      "id": "F16",
+      "query": "What is the difference between shallow copy and deep copy?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_45137df2249f",
+        "c_041eb6f37d44",
+        "c_4d1cb3b03136"
+      ],
+      "vector_ids": [
+        "c_45137df2249f",
+        "c_041eb6f37d44",
+        "c_4d1cb3b03136"
+      ],
+      "semantic_sim": 0.7038,
+      "coverage": 0.5,
+      "confidence": 0.973,
+      "level": "high",
+      "correct": true,
+      "latency": 89.1
+    },
+    {
+      "id": "F17",
+      "query": "What is the difference between threading and multiprocessing in Python?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_a9f1b8d0eabd",
+        "c_0c5ad41bf610",
+        "c_10e30c065703"
+      ],
+      "vector_ids": [
+        "c_a9f1b8d0eabd",
+        "c_0c5ad41bf610",
+        "c_10e30c065703"
+      ],
+      "semantic_sim": 0.6748,
+      "coverage": 1.0,
+      "confidence": 0.973,
+      "level": "high",
+      "correct": true,
+      "latency": 67.8
+    },
+    {
+      "id": "F18",
+      "query": "What happens when you append to a list that is referenced by two variables?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_bf66e79ebe4f",
+        "c_94ff0e472607",
+        "c_54b5171e2ea6"
+      ],
+      "vector_ids": [
+        "c_b8adc2e73bf3",
+        "c_bf66e79ebe4f",
+        "c_1edb67b1e656"
+      ],
+      "semantic_sim": 0.4971,
+      "coverage": 0.25,
+      "confidence": 0.74,
+      "level": "high",
+      "correct": false,
+      "latency": 52.9
+    },
+    {
+      "id": "F19",
+      "query": "What data structure are Python sets based on?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_6d7f19fba0d4",
+        "c_d8c0703fd0e1",
+        "c_8f957d0fa5b8"
+      ],
+      "vector_ids": [
+        "c_6d7f19fba0d4",
+        "c_f7f6a75df9ca",
+        "c_bbdacbc3d31a"
+      ],
+      "semantic_sim": 0.4563,
+      "coverage": 0.5,
+      "confidence": 0.761,
+      "level": "high",
+      "correct": true,
+      "latency": 68.0
+    },
+    {
+      "id": "F20",
+      "query": "What is file handling in Python?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_81f45b6ad4f0",
+        "c_6d7f19fba0d4",
+        "c_cc85062c89c2"
+      ],
+      "vector_ids": [
+        "c_6d7f19fba0d4",
+        "c_81f45b6ad4f0",
+        "c_60e39b5dba40"
+      ],
+      "semantic_sim": 0.6374,
+      "coverage": 0.75,
+      "confidence": 0.852,
+      "level": "high",
+      "correct": true,
+      "latency": 52.5
+    },
+    {
+      "id": "C01",
+      "query": "Why is Python called an interpreted language?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_bbdacbc3d31a",
+        "c_7ecfd4d5f417",
+        "c_289a9189d17b"
+      ],
+      "vector_ids": [
+        "c_bbdacbc3d31a",
+        "c_7ecfd4d5f417",
+        "c_289a9189d17b"
+      ],
+      "semantic_sim": 0.6085,
+      "coverage": 0.333,
+      "confidence": 0.973,
+      "level": "high",
+      "correct": false,
+      "latency": 75.0
+    },
+    {
+      "id": "C02",
+      "query": "Why are strings immutable in Python?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_330946c99287",
+        "c_a3ee357aa024",
+        "c_96c709e891b6"
+      ],
+      "vector_ids": [
+        "c_330946c99287",
+        "c_f7f6a75df9ca",
+        "c_2c071b5b9408"
+      ],
+      "semantic_sim": 0.3225,
+      "coverage": 0.25,
+      "confidence": 0.761,
+      "level": "high",
+      "correct": true,
+      "latency": 48.9
+    },
+    {
+      "id": "C03",
+      "query": "How does Python's memory management work?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_9aada2bb5c3b",
+        "c_60e39b5dba40",
+        "c_6d7f19fba0d4"
+      ],
+      "vector_ids": [
+        "c_6d7f19fba0d4",
+        "c_752e7bf0b413",
+        "c_60e39b5dba40"
+      ],
+      "semantic_sim": 0.7467,
+      "coverage": 0.75,
+      "confidence": 0.844,
+      "level": "high",
+      "correct": true,
+      "latency": 60.5
+    },
+    {
+      "id": "C04",
+      "query": "Why does the GIL exist and what problem does it cause?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_04b548a90061",
+        "c_10e30c065703",
+        "c_1786c6e7c6b5"
+      ],
+      "vector_ids": [
+        "c_10e30c065703",
+        "c_c8fc3127f857",
+        "c_04b548a90061"
+      ],
+      "semantic_sim": 0.6927,
+      "coverage": 0.25,
+      "confidence": 0.708,
+      "level": "high",
+      "correct": true,
+      "latency": 75.1
+    },
+    {
+      "id": "C05",
+      "query": "How does variable binding work in Python's memory model?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_1edb67b1e656",
+        "c_65afd418a661",
+        "c_6d7f19fba0d4"
+      ],
+      "vector_ids": [
+        "c_1edb67b1e656",
+        "c_65afd418a661",
+        "c_54b5171e2ea6"
+      ],
+      "semantic_sim": 0.5689,
+      "coverage": 0.25,
+      "confidence": 0.873,
+      "level": "high",
+      "correct": true,
+      "latency": 85.9
+    },
+    {
+      "id": "C06",
+      "query": "Why should you use generators instead of lists for large datasets?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_ba93f31ca99b",
+        "c_b493bbcf8aa7",
+        "c_ada4f094fa36"
+      ],
+      "vector_ids": [
+        "c_ba93f31ca99b",
+        "c_b493bbcf8aa7",
+        "c_c25a7d1d79bf"
+      ],
+      "semantic_sim": 0.7564,
+      "coverage": 0.5,
+      "confidence": 0.873,
+      "level": "high",
+      "correct": true,
+      "latency": 55.4
+    },
+    {
+      "id": "C07",
+      "query": "How does hash collision resolution work in Python dictionaries?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_1885dd7ad9ed",
+        "c_f7f6a75df9ca",
+        "c_1786c6e7c6b5"
+      ],
+      "vector_ids": [
+        "c_f7f6a75df9ca",
+        "c_1885dd7ad9ed",
+        "c_60e39b5dba40"
+      ],
+      "semantic_sim": 0.5743,
+      "coverage": 0.5,
+      "confidence": 0.861,
+      "level": "high",
+      "correct": true,
+      "latency": 60.0
+    },
+    {
+      "id": "C08",
+      "query": "Why is recursion limited in Python and what happens when the limit is exceeded?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_42b5d0777bac",
+        "c_163bc99577a9",
+        "c_c04916c1c3b0"
+      ],
+      "vector_ids": [
+        "c_42b5d0777bac",
+        "c_163bc99577a9",
+        "c_c04916c1c3b0"
+      ],
+      "semantic_sim": 0.7579,
+      "coverage": 0.25,
+      "confidence": 0.973,
+      "level": "high",
+      "correct": true,
+      "latency": 81.9
+    },
+    {
+      "id": "C09",
+      "query": "How do closures work in Python?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_54b5171e2ea6",
+        "c_6d7f19fba0d4",
+        "c_46b68418ea0b"
+      ],
+      "vector_ids": [
+        "c_54b5171e2ea6",
+        "c_8edfe7c26f68",
+        "c_9383179e4a51"
+      ],
+      "semantic_sim": 0.6306,
+      "coverage": 0.75,
+      "confidence": 0.773,
+      "level": "high",
+      "correct": true,
+      "latency": 75.3
+    },
+    {
+      "id": "C10",
+      "query": "Why is the difference between mutable and immutable types important?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_a3ee357aa024",
+        "c_fe15346dde2d",
+        "c_330946c99287"
+      ],
+      "vector_ids": [
+        "c_a9a432bcb4ed",
+        "c_a3ee357aa024",
+        "c_330946c99287"
+      ],
+      "semantic_sim": 0.368,
+      "coverage": 0.5,
+      "confidence": 0.861,
+      "level": "high",
+      "correct": true,
+      "latency": 48.2
+    },
+    {
+      "id": "C11",
+      "query": "How does Python's execution model work internally?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_cc85062c89c2",
+        "c_60e39b5dba40",
+        "c_dd76287ced07"
+      ],
+      "vector_ids": [
+        "c_cc85062c89c2",
+        "c_dd76287ced07",
+        "c_5c284b0d92ec"
+      ],
+      "semantic_sim": 0.5746,
+      "coverage": 0.25,
+      "confidence": 0.861,
+      "level": "high",
+      "correct": true,
+      "latency": 73.5
+    },
+    {
+      "id": "C12",
+      "query": "Why do decorators use the @syntax and how do they modify functions?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_4cbba995df38",
+        "c_c0549b0e58d7",
+        "c_2c071b5b9408"
+      ],
+      "vector_ids": [
+        "c_4cbba995df38",
+        "c_c0549b0e58d7",
+        "c_2c071b5b9408"
+      ],
+      "semantic_sim": 0.7088,
+      "coverage": 0.333,
+      "confidence": 0.973,
+      "level": "high",
+      "correct": true,
+      "latency": 57.2
+    },
+    {
+      "id": "C13",
+      "query": "How does exception handling prevent program crashes?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_e8adb0cd837c",
+        "c_8b74381372c0",
+        "c_89f1194d0242"
+      ],
+      "vector_ids": [
+        "c_8b74381372c0",
+        "c_e8adb0cd837c",
+        "c_89f1194d0242"
+      ],
+      "semantic_sim": 0.5906,
+      "coverage": 0.75,
+      "confidence": 0.961,
+      "level": "high",
+      "correct": true,
+      "latency": 50.9
+    },
+    {
+      "id": "C14",
+      "query": "Why is multiprocessing preferred over threading for CPU-bound tasks in Python?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_a9f1b8d0eabd",
+        "c_10e30c065703",
+        "c_0c5ad41bf610"
+      ],
+      "vector_ids": [
+        "c_a9f1b8d0eabd",
+        "c_10e30c065703",
+        "c_0c5ad41bf610"
+      ],
+      "semantic_sim": 0.6594,
+      "coverage": 1.0,
+      "confidence": 0.973,
+      "level": "high",
+      "correct": true,
+      "latency": 180.5
+    },
+    {
+      "id": "C15",
+      "query": "How does Python's scope resolution mechanism work?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_65afd418a661",
+        "c_c8588286ab34",
+        "c_60e39b5dba40"
+      ],
+      "vector_ids": [
+        "c_65afd418a661",
+        "c_c8588286ab34",
+        "c_54b5171e2ea6"
+      ],
+      "semantic_sim": 0.7073,
+      "coverage": 0.0,
+      "confidence": 0.873,
+      "level": "high",
+      "correct": true,
+      "latency": 88.4
+    },
+    {
+      "id": "C16",
+      "query": "What is the role of functional programming in Python?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_bbdacbc3d31a",
+        "c_d154c587830d",
+        "c_7ecfd4d5f417"
+      ],
+      "vector_ids": [
+        "c_bbdacbc3d31a",
+        "c_d154c587830d",
+        "c_7ecfd4d5f417"
+      ],
+      "semantic_sim": 0.5645,
+      "coverage": 0.25,
+      "confidence": 0.952,
+      "level": "high",
+      "correct": true,
+      "latency": 65.8
+    },
+    {
+      "id": "C17",
+      "query": "How does Python handle memory for immutable vs mutable objects differently?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_6d7f19fba0d4",
+        "c_330946c99287",
+        "c_b380c1ac25e1"
+      ],
+      "vector_ids": [
+        "c_6d7f19fba0d4",
+        "c_60e39b5dba40",
+        "c_752e7bf0b413"
+      ],
+      "semantic_sim": 0.5126,
+      "coverage": 0.0,
+      "confidence": 0.752,
+      "level": "high",
+      "correct": true,
+      "latency": 61.1
+    },
+    {
+      "id": "C18",
+      "query": "Why is understanding iterators and generators important for efficient Python code?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_b493bbcf8aa7",
+        "c_55ff91cba487",
+        "c_ada4f094fa36"
+      ],
+      "vector_ids": [
+        "c_60e39b5dba40",
+        "c_ada4f094fa36",
+        "c_4516b87d09c0"
+      ],
+      "semantic_sim": 0.6061,
+      "coverage": 0.75,
+      "confidence": 0.736,
+      "level": "high",
+      "correct": true,
+      "latency": 57.4
+    },
+    {
+      "id": "C19",
+      "query": "How does the Method Resolution Order affect multiple inheritance?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_62d796bd0cac",
+        "c_c8588286ab34",
+        "c_be85e2e96ce0"
+      ],
+      "vector_ids": [
+        "c_62d796bd0cac",
+        "c_c8588286ab34",
+        "c_be85e2e96ce0"
+      ],
+      "semantic_sim": 0.7921,
+      "coverage": 0.5,
+      "confidence": 0.973,
+      "level": "high",
+      "correct": true,
+      "latency": 62.0
+    },
+    {
+      "id": "C20",
+      "query": "What are the common GATE-level pitfalls in Python programming?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_4d1cb3b03136",
+        "c_289a9189d17b",
+        "c_7ecfd4d5f417"
+      ],
+      "vector_ids": [
+        "c_60e39b5dba40",
+        "c_bbdacbc3d31a",
+        "c_289a9189d17b"
+      ],
+      "semantic_sim": 0.7933,
+      "coverage": 0.75,
+      "confidence": 0.736,
+      "level": "high",
+      "correct": true,
+      "latency": 74.9
+    },
+    {
+      "id": "M01",
+      "query": "If Python uses reference counting for memory management and strings are immutable, how does this affect string concatenation performance?",
+      "type": "multi-hop",
+      "hybrid_ids": [
+        "c_9aada2bb5c3b",
+        "c_752e7bf0b413",
+        "c_1edb67b1e656"
+      ],
+      "vector_ids": [
+        "c_752e7bf0b413",
+        "c_9aada2bb5c3b",
+        "c_60e39b5dba40"
+      ],
+      "semantic_sim": 0.3859,
+      "coverage": 0.25,
+      "confidence": 0.861,
+      "level": "high",
+      "correct": true,
+      "latency": 67.2
+    },
+    {
+      "id": "M02",
+      "query": "How do the GIL and Python's memory model interact when using multithreading with mutable shared data?",
+      "type": "multi-hop",
+      "hybrid_ids": [
+        "c_04b548a90061",
+        "c_6d7f19fba0d4",
+        "c_60e39b5dba40"
+      ],
+      "vector_ids": [
+        "c_04b548a90061",
+        "c_c8fc3127f857",
+        "c_10e30c065703"
+      ],
+      "semantic_sim": 0.7111,
+      "coverage": 0.2,
+      "confidence": 0.761,
+      "level": "high",
+      "correct": true,
+      "latency": 63.5
+    },
+    {
+      "id": "M03",
+      "query": "How do closures and the LEGB rule interact when a nested function modifies an enclosing variable?",
+      "type": "multi-hop",
+      "hybrid_ids": [
+        "c_f98efd97da26",
+        "c_8edfe7c26f68",
+        "c_247b99b9f807"
+      ],
+      "vector_ids": [
+        "c_8edfe7c26f68",
+        "c_247b99b9f807",
+        "c_f98efd97da26"
+      ],
+      "semantic_sim": 0.5444,
+      "coverage": 0.75,
+      "confidence": 0.952,
+      "level": "high",
+      "correct": true,
+      "latency": 100.9
+    },
+    {
+      "id": "M04",
+      "query": "Why does using a mutable default argument in a function definition combined with Python's variable binding cause unexpected behavior?",
+      "type": "multi-hop",
+      "hybrid_ids": [
+        "c_65afd418a661",
+        "c_4d1cb3b03136",
+        "c_1edb67b1e656"
+      ],
+      "vector_ids": [
+        "c_2c071b5b9408",
+        "c_54b5171e2ea6",
+        "c_65afd418a661"
+      ],
+      "semantic_sim": 0.4008,
+      "coverage": 0.25,
+      "confidence": 0.752,
+      "level": "high",
+      "correct": true,
+      "latency": 69.7
+    },
+    {
+      "id": "M05",
+      "query": "How does the combination of hash tables in dictionaries and immutability requirements for keys relate to Python's type system?",
+      "type": "multi-hop",
+      "hybrid_ids": [
+        "c_1885dd7ad9ed",
+        "c_f7f6a75df9ca",
+        "c_1786c6e7c6b5"
+      ],
+      "vector_ids": [
+        "c_f7f6a75df9ca",
+        "c_fe15346dde2d",
+        "c_1885dd7ad9ed"
+      ],
+      "semantic_sim": 0.5998,
+      "coverage": 0.8,
+      "confidence": 0.861,
+      "level": "high",
+      "correct": true,
+      "latency": 70.9
+    },
+    {
+      "id": "M06",
+      "query": "How do decorators interact with closures and Python's first-class function model?",
+      "type": "multi-hop",
+      "hybrid_ids": [
+        "c_4cbba995df38",
+        "c_46b68418ea0b",
+        "c_54b5171e2ea6"
+      ],
+      "vector_ids": [
+        "c_c0549b0e58d7",
+        "c_4cbba995df38",
+        "c_2c071b5b9408"
+      ],
+      "semantic_sim": 0.7074,
+      "coverage": 0.4,
+      "confidence": 0.761,
+      "level": "high",
+      "correct": true,
+      "latency": 82.4
+    },
+    {
+      "id": "M07",
+      "query": "How does Python's garbage collector handle circular references that reference counting alone cannot detect?",
+      "type": "multi-hop",
+      "hybrid_ids": [
+        "c_9aada2bb5c3b",
+        "c_752e7bf0b413",
+        "c_60e39b5dba40"
+      ],
+      "vector_ids": [
+        "c_9aada2bb5c3b",
+        "c_752e7bf0b413",
+        "c_4516b87d09c0"
+      ],
+      "semantic_sim": 0.7659,
+      "coverage": 0.0,
+      "confidence": 0.873,
+      "level": "high",
+      "correct": true,
+      "latency": 74.4
+    },
+    {
+      "id": "M08",
+      "query": "How does the execution model affect the behavior of generators when combined with exception handling?",
+      "type": "multi-hop",
+      "hybrid_ids": [
+        "c_e8adb0cd837c",
+        "c_b493bbcf8aa7",
+        "c_ada4f094fa36"
+      ],
+      "vector_ids": [
+        "c_b493bbcf8aa7",
+        "c_8b74381372c0",
+        "c_ada4f094fa36"
+      ],
+      "semantic_sim": 0.3379,
+      "coverage": 0.6,
+      "confidence": 0.823,
+      "level": "high",
+      "correct": true,
+      "latency": 76.6
+    },
+    {
+      "id": "M09",
+      "query": "How does the MRO algorithm resolve method conflicts in diamond inheritance with Python's OOP model?",
+      "type": "multi-hop",
+      "hybrid_ids": [
+        "c_c8588286ab34",
+        "c_62d796bd0cac",
+        "c_60e39b5dba40"
+      ],
+      "vector_ids": [
+        "c_c8588286ab34",
+        "c_62d796bd0cac",
+        "c_60e39b5dba40"
+      ],
+      "semantic_sim": 0.5963,
+      "coverage": 0.75,
+      "confidence": 0.973,
+      "level": "high",
+      "correct": true,
+      "latency": 77.2
+    },
+    {
+      "id": "M10",
+      "query": "Why does shallow copying a list of lists create problems with mutability, and how does deep copy solve this?",
+      "type": "multi-hop",
+      "hybrid_ids": [
+        "c_45137df2249f",
+        "c_4d1cb3b03136",
+        "c_041eb6f37d44"
+      ],
+      "vector_ids": [
+        "c_45137df2249f",
+        "c_4d1cb3b03136",
+        "c_041eb6f37d44"
+      ],
+      "semantic_sim": 0.7001,
+      "coverage": 0.4,
+      "confidence": 0.973,
+      "level": "high",
+      "correct": true,
+      "latency": 85.6
+    },
+    {
+      "id": "A01",
+      "query": "What is the capital of France?",
+      "type": "adversarial",
+      "hybrid_ids": [
+        "c_9383179e4a51",
+        "c_1786c6e7c6b5",
+        "c_bbbcc3794f4b"
+      ],
+      "vector_ids": [
+        "c_9383179e4a51",
+        "c_d154c587830d",
+        "c_70ee780b2762"
+      ],
+      "semantic_sim": 0,
+      "coverage": 0.4,
+      "confidence": 0.344,
+      "level": "low",
+      "correct": true,
+      "latency": 59.3
+    },
+    {
+      "id": "A02",
+      "query": "How does React handle state management?",
+      "type": "adversarial",
+      "hybrid_ids": [
+        "c_9aada2bb5c3b",
+        "c_bbbcc3794f4b",
+        "c_c04916c1c3b0"
+      ],
+      "vector_ids": [
+        "c_c04916c1c3b0",
+        "c_6d7f19fba0d4",
+        "c_752e7bf0b413"
+      ],
+      "semantic_sim": 0,
+      "coverage": 0.4,
+      "confidence": 0.597,
+      "level": "medium",
+      "correct": false,
+      "latency": 69.9
+    },
+    {
+      "id": "A03",
+      "query": "What is the current price of Bitcoin?",
+      "type": "adversarial",
+      "hybrid_ids": [
+        "c_bbbcc3794f4b",
+        "c_601d5c3a7412",
+        "c_1786c6e7c6b5"
+      ],
+      "vector_ids": [
+        "c_361067e7af07",
+        "c_5c284b0d92ec",
+        "c_286f0a06a89e"
+      ],
+      "semantic_sim": 0,
+      "coverage": 0.4,
+      "confidence": 0.35,
+      "level": "low",
+      "correct": true,
+      "latency": 63.7
+    },
+    {
+      "id": "A04",
+      "query": "Explain quantum computing error correction.",
+      "type": "adversarial",
+      "hybrid_ids": [
+        "c_88cb9df37e0e",
+        "c_1786c6e7c6b5",
+        "c_4d1cb3b03136"
+      ],
+      "vector_ids": [
+        "c_88cb9df37e0e",
+        "c_4d1cb3b03136",
+        "c_c04916c1c3b0"
+      ],
+      "semantic_sim": 0,
+      "coverage": 0.4,
+      "confidence": 0.59,
+      "level": "medium",
+      "correct": false,
+      "latency": 67.3
+    },
+    {
+      "id": "A05",
+      "query": "What SQL query finds the top 5 customers by revenue?",
+      "type": "adversarial",
+      "hybrid_ids": [
+        "c_bbbcc3794f4b",
+        "c_1885dd7ad9ed",
+        "c_1786c6e7c6b5"
+      ],
+      "vector_ids": [
+        "c_1885dd7ad9ed",
+        "c_d8c0703fd0e1",
+        "c_286f0a06a89e"
+      ],
+      "semantic_sim": 0,
+      "coverage": 0.4,
+      "confidence": 0.42,
+      "level": "medium",
+      "correct": true,
+      "latency": 66.4
+    },
+    {
+      "id": "A06",
+      "query": "How do you configure Kubernetes pod autoscaling?",
+      "type": "adversarial",
+      "hybrid_ids": [
+        "c_bbbcc3794f4b",
+        "c_ba93f31ca99b",
+        "c_1786c6e7c6b5"
+      ],
+      "vector_ids": [
+        "c_bbbcc3794f4b",
+        "c_ba93f31ca99b",
+        "c_b493bbcf8aa7"
+      ],
+      "semantic_sim": 0,
+      "coverage": 0.4,
+      "confidence": 0.53,
+      "level": "medium",
+      "correct": true,
+      "latency": 68.3
+    },
+    {
+      "id": "A07",
+      "query": "What are the symptoms of Type 2 diabetes?",
+      "type": "adversarial",
+      "hybrid_ids": [
+        "c_bbbcc3794f4b",
+        "c_601d5c3a7412",
+        "c_fe15346dde2d"
+      ],
+      "vector_ids": [
+        "c_fe15346dde2d",
+        "c_bbbcc3794f4b",
+        "c_a3ee357aa024"
+      ],
+      "semantic_sim": 0,
+      "coverage": 0.4,
+      "confidence": 0.558,
+      "level": "medium",
+      "correct": true,
+      "latency": 83.6
+    },
+    {
+      "id": "A08",
+      "query": "Explain the theory of general relativity.",
+      "type": "adversarial",
+      "hybrid_ids": [
+        "c_4516b87d09c0",
+        "c_601d5c3a7412",
+        "c_1786c6e7c6b5"
+      ],
+      "vector_ids": [
+        "c_a9a432bcb4ed",
+        "c_601d5c3a7412",
+        "c_be85e2e96ce0"
+      ],
+      "semantic_sim": 0,
+      "coverage": 0.4,
+      "confidence": 0.521,
+      "level": "medium",
+      "correct": true,
+      "latency": 71.6
+    },
+    {
+      "id": "A09",
+      "query": "How do you train a GPT model from scratch?",
+      "type": "adversarial",
+      "hybrid_ids": [
+        "c_6d7f19fba0d4",
+        "c_f745092d9032",
+        "c_ba93f31ca99b"
+      ],
+      "vector_ids": [
+        "c_f745092d9032",
+        "c_ba93f31ca99b",
+        "c_b493bbcf8aa7"
+      ],
+      "semantic_sim": 0,
+      "coverage": 0.4,
+      "confidence": 0.537,
+      "level": "medium",
+      "correct": false,
+      "latency": 56.4
+    },
+    {
+      "id": "A10",
+      "query": "What is the recipe for chocolate cake?",
+      "type": "adversarial",
+      "hybrid_ids": [
+        "c_1786c6e7c6b5",
+        "c_601d5c3a7412",
+        "c_ec46c94c0ddd"
+      ],
+      "vector_ids": [
+        "c_ec46c94c0ddd",
+        "c_ada4f094fa36",
+        "c_be85e2e96ce0"
+      ],
+      "semantic_sim": 0,
+      "coverage": 0.4,
+      "confidence": 0.36,
+      "level": "low",
+      "correct": true,
+      "latency": 52.2
+    }
+  ],
+  "b": [
+    {
+      "id": "B_F01",
+      "query": "What is Artificial Intelligence?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_4607acce81eb",
+        "c_443ed199d028",
+        "c_3da2e4be9c12"
+      ],
+      "vector_ids": [
+        "c_4607acce81eb",
+        "c_443ed199d028",
+        "c_3da2e4be9c12"
+      ],
+      "semantic_sim": 0.8991,
+      "coverage": 1.0,
+      "confidence": 0.836,
+      "level": "high",
+      "correct": true,
+      "latency": 55.6
+    },
+    {
+      "id": "B_F02",
+      "query": "What is Narrow AI?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_bfdf3888fb26",
+        "c_443ed199d028",
+        "c_3da2e4be9c12"
+      ],
+      "vector_ids": [
+        "c_bfdf3888fb26",
+        "c_443ed199d028",
+        "c_3da2e4be9c12"
+      ],
+      "semantic_sim": 0.88,
+      "coverage": 1.0,
+      "confidence": 0.836,
+      "level": "high",
+      "correct": true,
+      "latency": 60.3
+    },
+    {
+      "id": "B_F03",
+      "query": "What is General AI?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_443ed199d028",
+        "c_4607acce81eb",
+        "c_3da2e4be9c12"
+      ],
+      "vector_ids": [
+        "c_443ed199d028",
+        "c_4607acce81eb",
+        "c_3da2e4be9c12"
+      ],
+      "semantic_sim": 0.9461,
+      "coverage": 0.333,
+      "confidence": 0.836,
+      "level": "high",
+      "correct": true,
+      "latency": 58.3
+    },
+    {
+      "id": "B_F04",
+      "query": "What is Super AI?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_b0d93a84cad4",
+        "c_443ed199d028",
+        "c_4607acce81eb"
+      ],
+      "vector_ids": [
+        "c_b0d93a84cad4",
+        "c_443ed199d028",
+        "c_4607acce81eb"
+      ],
+      "semantic_sim": 0.819,
+      "coverage": 0.667,
+      "confidence": 0.836,
+      "level": "high",
+      "correct": true,
+      "latency": 54.9
+    },
+    {
+      "id": "B_F05",
+      "query": "What is supervised learning?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_6363ec1cd5e7",
+        "c_3be36929dc30",
+        "c_e9aea09df1f2"
+      ],
+      "vector_ids": [
+        "c_6363ec1cd5e7",
+        "c_3be36929dc30",
+        "c_e9aea09df1f2"
+      ],
+      "semantic_sim": 0.7347,
+      "coverage": 0.5,
+      "confidence": 0.836,
+      "level": "high",
+      "correct": true,
+      "latency": 75.6
+    },
+    {
+      "id": "B_F06",
+      "query": "What is unsupervised learning?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_3be36929dc30",
+        "c_6363ec1cd5e7",
+        "c_e9aea09df1f2"
+      ],
+      "vector_ids": [
+        "c_3be36929dc30",
+        "c_6363ec1cd5e7",
+        "c_fad9e495bfc4"
+      ],
+      "semantic_sim": 0.8317,
+      "coverage": 1.0,
+      "confidence": 0.736,
+      "level": "high",
+      "correct": true,
+      "latency": 59.0
+    },
+    {
+      "id": "B_F07",
+      "query": "What is reinforcement learning?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_850eb5f84c66",
+        "c_4607acce81eb",
+        "c_fad9e495bfc4"
+      ],
+      "vector_ids": [
+        "c_850eb5f84c66",
+        "c_4607acce81eb",
+        "c_fad9e495bfc4"
+      ],
+      "semantic_sim": 0.7919,
+      "coverage": 0.5,
+      "confidence": 0.836,
+      "level": "high",
+      "correct": true,
+      "latency": 54.4
+    },
+    {
+      "id": "B_F08",
+      "query": "What is overfitting?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_4be191accf35",
+        "c_e437c0ea41d9",
+        "c_27adbfae6f16"
+      ],
+      "vector_ids": [
+        "c_4be191accf35",
+        "c_e437c0ea41d9",
+        "c_27adbfae6f16"
+      ],
+      "semantic_sim": 0.8822,
+      "coverage": 0.5,
+      "confidence": 0.836,
+      "level": "high",
+      "correct": true,
+      "latency": 66.8
+    },
+    {
+      "id": "B_F09",
+      "query": "What is the bias-variance tradeoff?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_27adbfae6f16",
+        "c_4be191accf35",
+        "c_850eb5f84c66"
+      ],
+      "vector_ids": [
+        "c_27adbfae6f16",
+        "c_4be191accf35",
+        "c_e437c0ea41d9"
+      ],
+      "semantic_sim": 0.5407,
+      "coverage": 0.5,
+      "confidence": 0.736,
+      "level": "high",
+      "correct": true,
+      "latency": 59.4
+    },
+    {
+      "id": "B_F10",
+      "query": "What is linear regression?",
+      "type": "factual",
+      "hybrid_ids": [
+        "c_56466a6f0e45",
+        "c_27adbfae6f16",
+        "c_fad9e495bfc4"
+      ],
+      "vector_ids": [
+        "c_56466a6f0e45",
+        "c_27adbfae6f16",
+        "c_4607acce81eb"
+      ],
+      "semantic_sim": 0.3814,
+      "coverage": 0.0,
+      "confidence": 0.663,
+      "level": "medium",
+      "correct": true,
+      "latency": 65.5
+    },
+    {
+      "id": "B_C01",
+      "query": "Why is AI considered transformative technology?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_443ed199d028",
+        "c_3da2e4be9c12",
+        "c_0a8a136f237b"
+      ],
+      "vector_ids": [
+        "c_443ed199d028",
+        "c_3da2e4be9c12",
+        "c_0a8a136f237b"
+      ],
+      "semantic_sim": 0.5567,
+      "coverage": 0.0,
+      "confidence": 0.836,
+      "level": "high",
+      "correct": true,
+      "latency": 128.3
+    },
+    {
+      "id": "B_C02",
+      "query": "How does a decision tree make predictions?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_4e3b6f90284d",
+        "c_6363ec1cd5e7",
+        "c_4607acce81eb"
+      ],
+      "vector_ids": [
+        "c_4e3b6f90284d",
+        "c_6363ec1cd5e7",
+        "c_4607acce81eb"
+      ],
+      "semantic_sim": 0.6105,
+      "coverage": 0.0,
+      "confidence": 0.836,
+      "level": "high",
+      "correct": true,
+      "latency": 50.3
+    },
+    {
+      "id": "B_C03",
+      "query": "Why does overfitting reduce model performance?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_4be191accf35",
+        "c_e437c0ea41d9",
+        "c_27adbfae6f16"
+      ],
+      "vector_ids": [
+        "c_4be191accf35",
+        "c_e437c0ea41d9",
+        "c_27adbfae6f16"
+      ],
+      "semantic_sim": 0.8213,
+      "coverage": 0.25,
+      "confidence": 0.836,
+      "level": "high",
+      "correct": true,
+      "latency": 74.1
+    },
+    {
+      "id": "B_C04",
+      "query": "How do neural networks learn from data?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_4607acce81eb",
+        "c_fad9e495bfc4",
+        "c_6363ec1cd5e7"
+      ],
+      "vector_ids": [
+        "c_4607acce81eb",
+        "c_6363ec1cd5e7",
+        "c_fad9e495bfc4"
+      ],
+      "semantic_sim": 0.3096,
+      "coverage": 0.0,
+      "confidence": 0.799,
+      "level": "high",
+      "correct": true,
+      "latency": 62.7
+    },
+    {
+      "id": "B_C05",
+      "query": "What are the limitations of current AI systems?",
+      "type": "conceptual",
+      "hybrid_ids": [
+        "c_bfdf3888fb26",
+        "c_3da2e4be9c12",
+        "c_0a8a136f237b"
+      ],
+      "vector_ids": [
+        "c_bfdf3888fb26",
+        "c_3da2e4be9c12",
+        "c_0a8a136f237b"
+      ],
+      "semantic_sim": 0.5397,
+      "coverage": 0.0,
+      "confidence": 0.836,
+      "level": "high",
+      "correct": false,
+      "latency": 46.6
+    },
+    {
+      "id": "B_M01",
+      "query": "How does the bias-variance tradeoff relate to overfitting and underfitting?",
+      "type": "multi-hop",
+      "hybrid_ids": [
+        "c_27adbfae6f16",
+        "c_4be191accf35",
+        "c_e437c0ea41d9"
+      ],
+      "vector_ids": [
+        "c_27adbfae6f16",
+        "c_4be191accf35",
+        "c_e437c0ea41d9"
+      ],
+      "semantic_sim": 0.6179,
+      "coverage": 0.8,
+      "confidence": 0.836,
+      "level": "high",
+      "correct": true,
+      "latency": 106.0
+    },
+    {
+      "id": "B_M02",
+      "query": "How do supervised and unsupervised learning differ in their approach to training data?",
+      "type": "multi-hop",
+      "hybrid_ids": [
+        "c_3be36929dc30",
+        "c_6363ec1cd5e7",
+        "c_e9aea09df1f2"
+      ],
+      "vector_ids": [
+        "c_3be36929dc30",
+        "c_6363ec1cd5e7",
+        "c_e9aea09df1f2"
+      ],
+      "semantic_sim": 0.8242,
+      "coverage": 1.0,
+      "confidence": 0.836,
+      "level": "high",
+      "correct": true,
+      "latency": 68.1
+    },
+    {
+      "id": "B_M03",
+      "query": "How does regularization help prevent overfitting in neural networks?",
+      "type": "multi-hop",
+      "hybrid_ids": [
+        "c_4be191accf35",
+        "c_e437c0ea41d9",
+        "c_27adbfae6f16"
+      ],
+      "vector_ids": [
+        "c_4be191accf35",
+        "c_e437c0ea41d9",
+        "c_27adbfae6f16"
+      ],
+      "semantic_sim": 0.4772,
+      "coverage": 0.0,
+      "confidence": 0.836,
+      "level": "high",
+      "correct": true,
+      "latency": 58.9
+    },
+    {
+      "id": "B_A01",
+      "query": "What is the best Python web framework?",
+      "type": "adversarial",
+      "hybrid_ids": [
+        "c_fad9e495bfc4",
+        "c_4e3b6f90284d",
+        "c_b48373026fe5"
+      ],
+      "vector_ids": [
+        "c_fad9e495bfc4",
+        "c_4e3b6f90284d",
+        "c_b48373026fe5"
+      ],
+      "semantic_sim": 0,
+      "coverage": 0.0,
+      "confidence": 0.547,
+      "level": "medium",
+      "correct": true,
+      "latency": 61.6
+    },
+    {
+      "id": "B_A02",
+      "query": "How do you set up a Docker container?",
+      "type": "adversarial",
+      "hybrid_ids": [
+        "c_fad9e495bfc4",
+        "c_4607acce81eb",
+        "c_80fea7fed4f5"
+      ],
+      "vector_ids": [
+        "c_4607acce81eb",
+        "c_80fea7fed4f5",
+        "c_ec76e4bfaa4e"
+      ],
+      "semantic_sim": 0,
+      "coverage": 0.0,
+      "confidence": 0.387,
+      "level": "low",
+      "correct": true,
+      "latency": 165.9
+    }
+  ]
+}

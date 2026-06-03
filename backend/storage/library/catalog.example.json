@@ -1,0 +1,14 @@
+{
+  "Machine Learning": [
+    {
+      "doc_id": "doc_example_ml",
+      "title": "AI.pdf"
+    }
+  ],
+  "Operating Systems": [
+    {
+      "doc_id": "doc_example_os",
+      "title": "OS_Notes.pdf"
+    }
+  ]
+}

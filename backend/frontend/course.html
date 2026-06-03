@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course View</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="course.css?v=20260327c" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <div class="course-shell">
+    <aside class="course-sidebar">
+      <div class="course-brand">Course View</div>
+      <h1 id="courseTitle" class="course-title">Loading document...</h1>
+      <div id="courseTree" class="course-tree"></div>
+    </aside>
+
+    <main class="course-main">
+      <header class="course-top">
+        <h2 id="sectionTitle">Select a topic</h2>
+        <div class="course-actions">
+          <button id="btnSummarize" class="btn">Summarize</button>
+          <button id="btnExplain" class="btn btn-primary">Explain</button>
+        </div>
+      </header>
+      <section id="sectionContent" class="course-content">
+        Choose a section from the left sidebar to start reading.
+      </section>
+      <section id="aiOutput" class="ai-output" style="display:none"></section>
+    </main>
+  </div>
+
+  <button id="mentorFab" class="mentor-fab" aria-label="Open mentor chat">AI</button>
+  <section id="mentorPanel" class="mentor-panel" style="display:none">
+    <div class="mentor-head">
+      <strong>AI Mentor</strong>
+      <button id="mentorClose" class="btn btn-small">Close</button>
+    </div>
+    <div id="mentorMsgs" class="mentor-msgs"></div>
+    <div class="mentor-input-row">
+      <input id="mentorInput" placeholder="Ask about this section..." />
+      <button id="mentorSend" class="btn btn-primary btn-small">Send</button>
+    </div>
+  </section>
+
+  <script src="course.js?v=20260328b"></script>
+</body>
+</html>

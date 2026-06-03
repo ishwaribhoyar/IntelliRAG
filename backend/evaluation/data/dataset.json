@@ -1,0 +1,362 @@
+[
+  {
+    "id": "F01", "type": "factual",
+    "query": "What type of programming language is Python?",
+    "expected_answer": "Python is a high-level, interpreted, dynamically typed programming language that supports multiple paradigms including procedural, object-oriented, and functional programming.",
+    "key_terms": ["high-level", "interpreted", "dynamically typed"]
+  },
+  {
+    "id": "F02", "type": "factual",
+    "query": "What are mutable objects in Python?",
+    "expected_answer": "Mutable objects in Python are list, dict, and set. They can be changed after creation.",
+    "key_terms": ["list", "dict", "set", "mutable"]
+  },
+  {
+    "id": "F03", "type": "factual",
+    "query": "What are immutable types in Python?",
+    "expected_answer": "Immutable types in Python include int, float, str, tuple, and frozenset. They cannot be modified after creation.",
+    "key_terms": ["int", "float", "str", "tuple", "frozenset", "immutable"]
+  },
+  {
+    "id": "F04", "type": "factual",
+    "query": "What is the time complexity of dictionary lookup in Python?",
+    "expected_answer": "Dictionary lookup in Python has an average time complexity of O(1) because dictionaries are implemented as hash tables.",
+    "key_terms": ["O(1)", "hash table", "dictionary"]
+  },
+  {
+    "id": "F05", "type": "factual",
+    "query": "What is the LEGB rule in Python?",
+    "expected_answer": "The LEGB rule defines the order of scope resolution in Python: Local, Enclosing, Global, Built-in.",
+    "key_terms": ["Local", "Enclosing", "Global", "Built-in", "scope"]
+  },
+  {
+    "id": "F06", "type": "factual",
+    "query": "What is recursion in Python?",
+    "expected_answer": "Recursion is a function calling itself. Example: factorial function where factorial(n) returns n * factorial(n-1) with base case n == 0 returning 1.",
+    "key_terms": ["function calling itself", "factorial", "base case"]
+  },
+  {
+    "id": "F07", "type": "factual",
+    "query": "What does MRO stand for in Python?",
+    "expected_answer": "MRO stands for Method Resolution Order. It defines the order in which base classes are searched when looking for a method.",
+    "key_terms": ["Method Resolution Order", "base classes", "searched"]
+  },
+  {
+    "id": "F08", "type": "factual",
+    "query": "What are the four core OOP concepts in Python?",
+    "expected_answer": "The four core OOP concepts are Encapsulation, Inheritance, Polymorphism, and Abstraction.",
+    "key_terms": ["Encapsulation", "Inheritance", "Polymorphism", "Abstraction"]
+  },
+  {
+    "id": "F09", "type": "factual",
+    "query": "What is the Global Interpreter Lock in Python?",
+    "expected_answer": "The GIL (Global Interpreter Lock) is a mutex that prevents multiple threads from executing Python bytecode simultaneously, limiting true parallelism in CPython.",
+    "key_terms": ["GIL", "mutex", "threads", "bytecode"]
+  },
+  {
+    "id": "F10", "type": "factual",
+    "query": "What is a list comprehension in Python?",
+    "expected_answer": "List comprehension is a concise way to create lists using a single line of code with an expression and optional conditions.",
+    "key_terms": ["list", "comprehension", "concise"]
+  },
+  {
+    "id": "F11", "type": "factual",
+    "query": "What is a generator in Python?",
+    "expected_answer": "A generator is a special function that uses yield to produce a sequence of values lazily, one at a time, without storing the entire sequence in memory.",
+    "key_terms": ["yield", "lazy", "memory"]
+  },
+  {
+    "id": "F12", "type": "factual",
+    "query": "What is exception handling in Python?",
+    "expected_answer": "Exception handling in Python uses try-except blocks to catch and handle runtime errors gracefully, preventing program crashes.",
+    "key_terms": ["try", "except", "runtime errors"]
+  },
+  {
+    "id": "F13", "type": "factual",
+    "query": "What is a decorator in Python?",
+    "expected_answer": "A decorator is a function that takes another function as input and extends its behavior without modifying its source code, using the @decorator syntax.",
+    "key_terms": ["decorator", "function", "extends", "@"]
+  },
+  {
+    "id": "F14", "type": "factual",
+    "query": "What is a lambda function in Python?",
+    "expected_answer": "A lambda function is an anonymous, single-expression function defined using the lambda keyword.",
+    "key_terms": ["lambda", "anonymous", "single-expression"]
+  },
+  {
+    "id": "F15", "type": "factual",
+    "query": "What are metaclasses in Python?",
+    "expected_answer": "Metaclasses are classes of classes that define how classes behave. They are part of Python's advanced topics along with context managers and async programming.",
+    "key_terms": ["metaclasses", "classes of classes"]
+  },
+  {
+    "id": "F16", "type": "factual",
+    "query": "What is the difference between shallow copy and deep copy?",
+    "expected_answer": "A shallow copy creates a new object but references the same nested objects, while a deep copy creates a completely independent copy of the object and all nested objects.",
+    "key_terms": ["shallow copy", "deep copy", "nested objects", "independent"]
+  },
+  {
+    "id": "F17", "type": "factual",
+    "query": "What is the difference between threading and multiprocessing in Python?",
+    "expected_answer": "Threading shares the same memory space and is limited by the GIL, while multiprocessing uses separate memory spaces and can achieve true parallelism.",
+    "key_terms": ["threading", "multiprocessing", "GIL", "parallelism"]
+  },
+  {
+    "id": "F18", "type": "factual",
+    "query": "What happens when you append to a list that is referenced by two variables?",
+    "expected_answer": "When you append to a list referenced by two variables (a = [1,2,3]; b = a; b.append(4)), both variables reflect the change because lists are mutable and both reference the same object. print(a) outputs [1, 2, 3, 4].",
+    "key_terms": ["mutable", "same object", "reference", "append"]
+  },
+  {
+    "id": "F19", "type": "factual",
+    "query": "What data structure are Python sets based on?",
+    "expected_answer": "Python sets are implemented using hash tables, similar to dictionaries but storing only keys.",
+    "key_terms": ["sets", "hash"]
+  },
+  {
+    "id": "F20", "type": "factual",
+    "query": "What is file handling in Python?",
+    "expected_answer": "File handling in Python allows reading from and writing to files using built-in functions like open(), read(), write(), and with-statement for automatic resource management.",
+    "key_terms": ["file", "open", "read", "write"]
+  },
+  {
+    "id": "C01", "type": "conceptual",
+    "query": "Why is Python called an interpreted language?",
+    "expected_answer": "Python is called interpreted because the source code is executed line-by-line by the Python interpreter at runtime, rather than being compiled to machine code beforehand. The code is first compiled to bytecode, then interpreted by the Python Virtual Machine.",
+    "key_terms": ["interpreted", "runtime", "bytecode"]
+  },
+  {
+    "id": "C02", "type": "conceptual",
+    "query": "Why are strings immutable in Python?",
+    "expected_answer": "Strings are immutable in Python for memory efficiency (string interning), thread safety, and to allow them to be used as dictionary keys (hashable). Once created, their content cannot be changed.",
+    "key_terms": ["immutable", "hashable", "memory", "thread safety"]
+  },
+  {
+    "id": "C03", "type": "conceptual",
+    "query": "How does Python's memory management work?",
+    "expected_answer": "Python uses automatic memory management with reference counting as the primary mechanism and a garbage collector for cyclic references. Objects are allocated on a private heap managed by the Python memory manager.",
+    "key_terms": ["reference counting", "garbage collector", "heap", "memory manager"]
+  },
+  {
+    "id": "C04", "type": "conceptual",
+    "query": "Why does the GIL exist and what problem does it cause?",
+    "expected_answer": "The GIL exists to protect Python's reference counting mechanism from race conditions in multi-threaded programs. It causes the problem of preventing true CPU parallelism with threads - only one thread can execute Python bytecode at a time.",
+    "key_terms": ["GIL", "reference counting", "race conditions", "parallelism"]
+  },
+  {
+    "id": "C05", "type": "conceptual",
+    "query": "How does variable binding work in Python's memory model?",
+    "expected_answer": "In Python, variables are names (references) that point to objects in memory. Assignment binds a name to an object. Multiple names can reference the same object. The scope resolution follows the LEGB rule.",
+    "key_terms": ["names", "references", "objects", "LEGB"]
+  },
+  {
+    "id": "C06", "type": "conceptual",
+    "query": "Why should you use generators instead of lists for large datasets?",
+    "expected_answer": "Generators are memory-efficient because they produce values lazily (one at a time using yield) instead of storing the entire sequence in memory. This is crucial for processing large datasets that don't fit in memory.",
+    "key_terms": ["lazy", "yield", "memory-efficient", "large datasets"]
+  },
+  {
+    "id": "C07", "type": "conceptual",
+    "query": "How does hash collision resolution work in Python dictionaries?",
+    "expected_answer": "Python dictionaries use hash tables with open addressing for collision resolution. When two keys hash to the same index, Python probes for the next available slot using a perturbation scheme.",
+    "key_terms": ["hash", "collision", "open addressing", "probing"]
+  },
+  {
+    "id": "C08", "type": "conceptual",
+    "query": "Why is recursion limited in Python and what happens when the limit is exceeded?",
+    "expected_answer": "Python has a default recursion limit (usually 1000) to prevent stack overflow. When exceeded, Python raises a RecursionError. Each recursive call adds a frame to the call stack.",
+    "key_terms": ["recursion limit", "stack overflow", "RecursionError", "call stack"]
+  },
+  {
+    "id": "C09", "type": "conceptual",
+    "query": "How do closures work in Python?",
+    "expected_answer": "Closures are inner functions that capture and remember variables from their enclosing scope even after the outer function has finished executing. They are related to late binding behavior.",
+    "key_terms": ["closures", "enclosing scope", "capture", "late binding"]
+  },
+  {
+    "id": "C10", "type": "conceptual",
+    "query": "Why is the difference between mutable and immutable types important?",
+    "expected_answer": "The distinction matters because mutable objects can be changed in-place (causing side effects through shared references), while immutable objects create new objects on modification. This affects function arguments, dictionary keys, and thread safety.",
+    "key_terms": ["mutable", "immutable", "side effects", "shared references"]
+  },
+  {
+    "id": "C11", "type": "conceptual",
+    "query": "How does Python's execution model work internally?",
+    "expected_answer": "Python source code is first compiled to bytecode (.pyc files), then executed by the Python Virtual Machine (PVM). The PVM interprets bytecode instructions one at a time.",
+    "key_terms": ["bytecode", "PVM", "compiled", "interpreted"]
+  },
+  {
+    "id": "C12", "type": "conceptual",
+    "query": "Why do decorators use the @syntax and how do they modify functions?",
+    "expected_answer": "The @decorator syntax is syntactic sugar for wrapping a function. Writing @decorator before def func() is equivalent to func = decorator(func). Decorators can add behavior before/after the wrapped function without changing its code.",
+    "key_terms": ["@", "wrapper", "syntactic sugar"]
+  },
+  {
+    "id": "C13", "type": "conceptual",
+    "query": "How does exception handling prevent program crashes?",
+    "expected_answer": "Exception handling uses try-except blocks to catch runtime errors. When an exception occurs in the try block, execution jumps to the matching except block instead of terminating. The finally block runs regardless of whether an exception occurred.",
+    "key_terms": ["try", "except", "finally", "catch"]
+  },
+  {
+    "id": "C14", "type": "conceptual",
+    "query": "Why is multiprocessing preferred over threading for CPU-bound tasks in Python?",
+    "expected_answer": "Because the GIL prevents true thread parallelism in CPython, multiprocessing creates separate processes with their own GIL, enabling true CPU parallelism for compute-intensive tasks.",
+    "key_terms": ["GIL", "multiprocessing", "CPU-bound", "parallelism"]
+  },
+  {
+    "id": "C15", "type": "conceptual",
+    "query": "How does Python's scope resolution mechanism work?",
+    "expected_answer": "Python resolves variable names using the LEGB rule: it first checks the Local scope, then Enclosing function scopes, then Global scope, and finally Built-in scope.",
+    "key_terms": ["LEGB", "Local", "Enclosing", "Global", "Built-in"]
+  },
+  {
+    "id": "C16", "type": "conceptual",
+    "query": "What is the role of functional programming in Python?",
+    "expected_answer": "Python supports functional programming through features like lambda functions, map/filter/reduce, closures, and higher-order functions. Functions are first-class objects that can be passed as arguments and returned from other functions.",
+    "key_terms": ["functional", "lambda", "first-class", "higher-order"]
+  },
+  {
+    "id": "C17", "type": "conceptual",
+    "query": "How does Python handle memory for immutable vs mutable objects differently?",
+    "expected_answer": "For immutable objects like small integers and strings, Python uses interning (caching) to reuse objects. For mutable objects, each creation produces a new object. Immutable objects can be shared safely across references.",
+    "key_terms": ["interning", "caching", "reuse", "shared"]
+  },
+  {
+    "id": "C18", "type": "conceptual",
+    "query": "Why is understanding iterators and generators important for efficient Python code?",
+    "expected_answer": "Iterators and generators enable lazy evaluation, processing one item at a time without loading entire sequences into memory. This is essential for handling large datasets, file processing, and stream-based computations efficiently.",
+    "key_terms": ["iterators", "generators", "lazy evaluation", "memory"]
+  },
+  {
+    "id": "C19", "type": "conceptual",
+    "query": "How does the Method Resolution Order affect multiple inheritance?",
+    "expected_answer": "MRO uses the C3 linearization algorithm to determine the order in which base classes are searched for methods. This prevents the diamond problem and ensures each class appears only once in the resolution order.",
+    "key_terms": ["MRO", "C3 linearization", "diamond problem", "multiple inheritance"]
+  },
+  {
+    "id": "C20", "type": "conceptual",
+    "query": "What are the common GATE-level pitfalls in Python programming?",
+    "expected_answer": "Common GATE-level pitfalls include confusing mutable default arguments, shallow vs deep copy behavior, variable scoping issues with closures, integer caching behavior, and string immutability implications.",
+    "key_terms": ["GATE", "pitfalls", "mutable default", "scoping"]
+  },
+  {
+    "id": "M01", "type": "multi-hop",
+    "query": "If Python uses reference counting for memory management and strings are immutable, how does this affect string concatenation performance?",
+    "expected_answer": "Since strings are immutable, each concatenation creates a new string object. With reference counting, the old string's reference count drops and may be garbage collected. Repeated concatenation in a loop is O(n^2) because each step creates a new copy.",
+    "key_terms": ["immutable", "reference counting", "concatenation", "O(n^2)"]
+  },
+  {
+    "id": "M02", "type": "multi-hop",
+    "query": "How do the GIL and Python's memory model interact when using multithreading with mutable shared data?",
+    "expected_answer": "The GIL ensures only one thread executes Python bytecode at a time, providing some protection. However, mutable shared data can still have race conditions because the GIL may release between bytecode instructions. Using locks or multiprocessing is recommended.",
+    "key_terms": ["GIL", "mutable", "race conditions", "locks", "multiprocessing"]
+  },
+  {
+    "id": "M03", "type": "multi-hop",
+    "query": "How do closures and the LEGB rule interact when a nested function modifies an enclosing variable?",
+    "expected_answer": "Closures capture variables from the enclosing scope (E in LEGB). To modify an enclosing variable, you must use the 'nonlocal' keyword, otherwise Python treats the assignment as creating a new local variable (L in LEGB).",
+    "key_terms": ["closures", "LEGB", "nonlocal", "enclosing"]
+  },
+  {
+    "id": "M04", "type": "multi-hop",
+    "query": "Why does using a mutable default argument in a function definition combined with Python's variable binding cause unexpected behavior?",
+    "expected_answer": "Default arguments are evaluated once at function definition time, not at each call. A mutable default (like a list) is shared across all calls. Combined with Python's reference-based binding, modifications persist between calls.",
+    "key_terms": ["mutable default", "evaluated once", "shared", "persist"]
+  },
+  {
+    "id": "M05", "type": "multi-hop",
+    "query": "How does the combination of hash tables in dictionaries and immutability requirements for keys relate to Python's type system?",
+    "expected_answer": "Dictionary keys must be hashable, which requires immutability. This is why lists (mutable) cannot be dictionary keys but tuples (immutable) can. The hash value must remain constant for correct O(1) lookup in the hash table.",
+    "key_terms": ["hashable", "immutable", "keys", "O(1)", "hash table"]
+  },
+  {
+    "id": "M06", "type": "multi-hop",
+    "query": "How do decorators interact with closures and Python's first-class function model?",
+    "expected_answer": "Decorators are higher-order functions that take a function as input and return a new function. The wrapper function inside a decorator is a closure that captures the original function from the enclosing scope. This works because functions are first-class objects in Python.",
+    "key_terms": ["decorators", "closures", "first-class", "higher-order", "wrapper"]
+  },
+  {
+    "id": "M07", "type": "multi-hop",
+    "query": "How does Python's garbage collector handle circular references that reference counting alone cannot detect?",
+    "expected_answer": "Reference counting fails for circular references (A references B, B references A). Python's garbage collector uses a generational approach to detect and collect cyclic garbage by traversing object graphs periodically.",
+    "key_terms": ["circular references", "garbage collector", "generational", "cyclic"]
+  },
+  {
+    "id": "M08", "type": "multi-hop",
+    "query": "How does the execution model affect the behavior of generators when combined with exception handling?",
+    "expected_answer": "Generators pause execution at yield and resume later. If an exception occurs in the generator body, it propagates to the caller. The generator's try-finally block will execute when the generator is garbage collected or explicitly closed.",
+    "key_terms": ["generators", "yield", "exception", "pause", "resume"]
+  },
+  {
+    "id": "M09", "type": "multi-hop",
+    "query": "How does the MRO algorithm resolve method conflicts in diamond inheritance with Python's OOP model?",
+    "expected_answer": "Python uses C3 linearization to resolve diamond inheritance. The algorithm ensures that child classes come before parents, and the order respects the inheritance graph. Each class appears only once in the MRO, preventing duplicate method calls.",
+    "key_terms": ["C3 linearization", "diamond", "MRO", "linearization"]
+  },
+  {
+    "id": "M10", "type": "multi-hop",
+    "query": "Why does shallow copying a list of lists create problems with mutability, and how does deep copy solve this?",
+    "expected_answer": "Shallow copy creates a new outer list but inner lists remain references to the original objects. Modifying an inner list in the copy affects the original. Deep copy recursively copies all nested objects, creating fully independent copies.",
+    "key_terms": ["shallow copy", "deep copy", "nested", "references", "independent"]
+  },
+  {
+    "id": "A01", "type": "adversarial",
+    "query": "What is the capital of France?",
+    "expected_answer": "NOT_IN_DOCUMENT",
+    "key_terms": []
+  },
+  {
+    "id": "A02", "type": "adversarial",
+    "query": "How does React handle state management?",
+    "expected_answer": "NOT_IN_DOCUMENT",
+    "key_terms": []
+  },
+  {
+    "id": "A03", "type": "adversarial",
+    "query": "What is the current price of Bitcoin?",
+    "expected_answer": "NOT_IN_DOCUMENT",
+    "key_terms": []
+  },
+  {
+    "id": "A04", "type": "adversarial",
+    "query": "Explain quantum computing error correction.",
+    "expected_answer": "NOT_IN_DOCUMENT",
+    "key_terms": []
+  },
+  {
+    "id": "A05", "type": "adversarial",
+    "query": "What SQL query finds the top 5 customers by revenue?",
+    "expected_answer": "NOT_IN_DOCUMENT",
+    "key_terms": []
+  },
+  {
+    "id": "A06", "type": "adversarial",
+    "query": "How do you configure Kubernetes pod autoscaling?",
+    "expected_answer": "NOT_IN_DOCUMENT",
+    "key_terms": []
+  },
+  {
+    "id": "A07", "type": "adversarial",
+    "query": "What are the symptoms of Type 2 diabetes?",
+    "expected_answer": "NOT_IN_DOCUMENT",
+    "key_terms": []
+  },
+  {
+    "id": "A08", "type": "adversarial",
+    "query": "Explain the theory of general relativity.",
+    "expected_answer": "NOT_IN_DOCUMENT",
+    "key_terms": []
+  },
+  {
+    "id": "A09", "type": "adversarial",
+    "query": "How do you train a GPT model from scratch?",
+    "expected_answer": "NOT_IN_DOCUMENT",
+    "key_terms": []
+  },
+  {
+    "id": "A10", "type": "adversarial",
+    "query": "What is the recipe for chocolate cake?",
+    "expected_answer": "NOT_IN_DOCUMENT",
+    "key_terms": []
+  }
+]

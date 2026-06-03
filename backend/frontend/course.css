@@ -1,0 +1,174 @@
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --primary: #2563eb;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.course-shell { display: grid; grid-template-columns: 320px 1fr; height: 100vh; }
+.course-sidebar {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 16px;
+  overflow: auto;
+}
+.course-brand { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+.course-title { font-size: 18px; margin: 8px 0 14px; }
+.course-tree { display: flex; flex-direction: column; gap: 4px; }
+
+.tree-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.tree-row:hover { background: #eff6ff; }
+.tree-row.selected { background: #dbeafe; border-color: #bfdbfe; }
+.tree-toggle { width: 16px; color: var(--muted); text-align: center; }
+.tree-indent-1 { padding-left: 10px; }
+.tree-indent-2 { padding-left: 24px; }
+.tree-indent-3 { padding-left: 38px; }
+
+.course-main { padding: 24px 28px; overflow: auto; }
+.course-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.course-top h2 { margin: 0; font-size: 22px; }
+.course-actions { display: flex; gap: 8px; }
+
+.course-content, .ai-output {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  line-height: 1.7;
+}
+.course-content {
+  max-width: 900px;
+}
+.course-content p,
+.ai-output p {
+  margin: 0 0 12px;
+}
+.course-content ul,
+.course-content ol,
+.ai-output ul,
+.ai-output ol {
+  margin: 6px 0 14px 20px;
+  padding-left: 14px;
+}
+.course-content li,
+.ai-output li {
+  margin-bottom: 6px;
+}
+.course-content h1,
+.course-content h2,
+.course-content h3,
+.ai-output h1,
+.ai-output h2,
+.ai-output h3 {
+  line-height: 1.35;
+  margin: 14px 0 10px;
+}
+.course-content pre,
+.ai-output pre {
+  margin: 10px 0 14px;
+  padding: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  border-radius: 8px;
+  overflow: auto;
+}
+.course-content code,
+.ai-output code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+}
+.sr-chunk-text p:last-child,
+.sr-chunk-text ul:last-child,
+.sr-chunk-text ol:last-child {
+  margin-bottom: 0;
+}
+.ai-output { margin-top: 12px; }
+
+.btn {
+  border: 1px solid var(--border);
+  background: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.btn-primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+.btn-small { padding: 6px 10px; font-size: 12px; }
+
+.mentor-fab {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  border: none;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
+  cursor: pointer;
+}
+
+.mentor-panel {
+  position: fixed;
+  right: 18px;
+  bottom: 78px;
+  width: 340px;
+  height: 420px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(2, 6, 23, 0.2);
+}
+.mentor-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.mentor-msgs { flex: 1; overflow: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+.mentor-msg { padding: 8px 10px; border-radius: 8px; font-size: 13px; line-height: 1.45; }
+.mentor-msg.user { background: #dbeafe; align-self: flex-end; }
+.mentor-msg.ai { background: #f1f5f9; align-self: flex-start; }
+.mentor-input-row { display: flex; gap: 8px; padding: 10px; border-top: 1px solid var(--border); }
+.mentor-input-row input {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+@media (max-width: 900px) {
+  .course-shell { grid-template-columns: 1fr; }
+  .course-sidebar { height: 40vh; border-right: none; border-bottom: 1px solid var(--border); }
+  .mentor-panel { width: calc(100vw - 20px); right: 10px; }
+}

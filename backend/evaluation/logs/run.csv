@@ -1,0 +1,61 @@
+id,query,type,semantic_similarity,key_term_coverage,latency_total_ms,top_vector_score,correctly_refused
+F01,What type of programming language is Python?,factual,0.8487,1.0,103.1,0.7922,False
+F02,What are mutable objects in Python?,factual,0.8114,1.0,102.6,0.7191,False
+F03,What are immutable types in Python?,factual,0.7702,0.833,169.8,0.6704,False
+F04,What is the time complexity of dictionary lookup in Python?,factual,0.782,1.0,92.7,0.6303,False
+F05,What is the LEGB rule in Python?,factual,0.5892,0.8,90.4,0.5687,False
+F06,What is recursion in Python?,factual,0.4686,0.667,90.0,0.7358,False
+F07,What does MRO stand for in Python?,factual,0.2035,0.0,111.0,0.6078,False
+F08,What are the four core OOP concepts in Python?,factual,0.2929,0.25,128.3,0.5964,False
+F09,What is the Global Interpreter Lock in Python?,factual,0.8662,0.5,274.0,0.7745,False
+F10,What is a list comprehension in Python?,factual,0.5634,0.667,110.2,0.5962,False
+F11,What is a generator in Python?,factual,0.1582,0.333,90.3,0.6651,False
+F12,What is exception handling in Python?,factual,0.7171,0.667,87.0,0.756,False
+F13,What is a decorator in Python?,factual,0.3432,0.25,122.2,0.7554,False
+F14,What is a lambda function in Python?,factual,0.653,0.333,124.2,0.6316,False
+F15,What are metaclasses in Python?,factual,0.4972,0.5,82.6,0.5076,False
+F16,What is the difference between shallow copy and deep copy?,factual,0.7038,0.5,93.9,0.7298,False
+F17,What is the difference between threading and multiprocessing in Python?,factual,0.6748,1.0,94.3,0.6751,False
+F18,What happens when you append to a list that is referenced by two variables?,factual,0.4971,0.25,110.1,0.7066,False
+F19,What data structure are Python sets based on?,factual,0.4848,0.5,105.4,0.5193,False
+F20,What is file handling in Python?,factual,0.6374,0.75,115.4,0.559,False
+C01,Why is Python called an interpreted language?,conceptual,0.6462,0.667,126.6,0.6908,False
+C02,Why are strings immutable in Python?,conceptual,0.3225,0.25,110.1,0.5023,False
+C03,How does Python's memory management work?,conceptual,0.7467,0.75,93.1,0.8022,False
+C04,Why does the GIL exist and what problem does it cause?,conceptual,0.6927,0.25,110.3,0.3207,False
+C05,How does variable binding work in Python's memory model?,conceptual,0.5689,0.25,87.4,0.7934,False
+C06,Why should you use generators instead of lists for large datasets?,conceptual,0.7564,0.5,92.1,0.8568,False
+C07,How does hash collision resolution work in Python dictionaries?,conceptual,0.5743,0.5,101.7,0.7073,False
+C08,Why is recursion limited in Python and what happens when the limit is exceeded?,conceptual,0.7579,0.25,107.1,0.7326,False
+C09,How do closures work in Python?,conceptual,0.6306,0.75,118.0,0.7303,False
+C10,Why is the difference between mutable and immutable types important?,conceptual,0.368,0.5,116.3,0.5511,False
+C11,How does Python's execution model work internally?,conceptual,0.8291,0.5,106.8,0.6999,False
+C12,Why do decorators use the @syntax and how do they modify functions?,conceptual,0.7088,0.333,103.9,0.6118,False
+C13,How does exception handling prevent program crashes?,conceptual,0.5906,0.75,88.2,0.634,False
+C14,Why is multiprocessing preferred over threading for CPU-bound tasks in Python?,conceptual,0.6594,1.0,105.0,0.724,False
+C15,How does Python's scope resolution mechanism work?,conceptual,0.7073,0.0,99.9,0.6301,False
+C16,What is the role of functional programming in Python?,conceptual,0.6527,0.25,105.6,0.6043,False
+C17,How does Python handle memory for immutable vs mutable objects differently?,conceptual,0.5757,0.0,98.7,0.632,False
+C18,Why is understanding iterators and generators important for efficient Python code?,conceptual,0.6061,0.75,100.8,0.5704,False
+C19,How does the Method Resolution Order affect multiple inheritance?,conceptual,0.7921,0.5,99.9,0.6275,False
+C20,What are the common GATE-level pitfalls in Python programming?,conceptual,0.7933,0.75,86.6,0.544,False
+M01,"If Python uses reference counting for memory management and strings are immutable, how does this affect string concatenation performance?",multi-hop,0.3859,0.25,108.3,0.5633,False
+M02,How do the GIL and Python's memory model interact when using multithreading with mutable shared data?,multi-hop,0.7111,0.2,117.7,0.6206,False
+M03,How do closures and the LEGB rule interact when a nested function modifies an enclosing variable?,multi-hop,0.5444,0.75,124.6,0.6894,False
+M04,Why does using a mutable default argument in a function definition combined with Python's variable binding cause unexpected behavior?,multi-hop,0.4008,0.25,96.1,0.6391,False
+M05,How does the combination of hash tables in dictionaries and immutability requirements for keys relate to Python's type system?,multi-hop,0.5998,0.8,117.6,0.7236,False
+M06,How do decorators interact with closures and Python's first-class function model?,multi-hop,0.7074,0.4,100.5,0.7947,False
+M07,How does Python's garbage collector handle circular references that reference counting alone cannot detect?,multi-hop,0.7659,0.0,94.3,0.7557,False
+M08,How does the execution model affect the behavior of generators when combined with exception handling?,multi-hop,0.4899,0.6,110.0,0.4748,False
+M09,How does the MRO algorithm resolve method conflicts in diamond inheritance with Python's OOP model?,multi-hop,0.5963,0.75,86.6,0.5968,False
+M10,"Why does shallow copying a list of lists create problems with mutability, and how does deep copy solve this?",multi-hop,0.7001,0.4,92.5,0.6422,False
+A01,What is the capital of France?,adversarial,0.0,0.0,79.2,0.1349,True
+A02,How does React handle state management?,adversarial,0.0,0.0,86.0,0.3166,False
+A03,What is the current price of Bitcoin?,adversarial,0.0,0.0,99.2,0.1562,True
+A04,Explain quantum computing error correction.,adversarial,0.0,0.0,96.9,0.3174,False
+A05,What SQL query finds the top 5 customers by revenue?,adversarial,0.0,0.0,148.5,0.1336,True
+A06,How do you configure Kubernetes pod autoscaling?,adversarial,0.0,0.0,116.0,0.1118,True
+A07,What are the symptoms of Type 2 diabetes?,adversarial,0.0,0.0,125.7,0.1323,True
+A08,Explain the theory of general relativity.,adversarial,0.0,0.0,79.5,0.2305,True
+A09,How do you train a GPT model from scratch?,adversarial,0.0,0.0,92.3,0.2505,False
+A10,What is the recipe for chocolate cake?,adversarial,0.0,0.0,95.2,0.0758,True

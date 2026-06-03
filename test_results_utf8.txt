@@ -1,0 +1,91 @@
+﻿
+============================================================
+PHASE 0 ΓÇö HEALTH CHECK
+============================================================
+  [PASS] Health (865ms): {'status': 'ok', 'model_loaded': True, 'db_connected': True, 'faiss_ready': True, 'docs_in_memory': 1, 'bm25_indexes': 1, 'cached_generations': 1}
+
+============================================================
+PHASE 1 ΓÇö END-TO-END PIPELINE
+============================================================
+  Created test PDF
+  [PASS] Upload (444ms): doc_id=doc_a95db187b9c3
+  Waiting for processing...
+  [PASS] Processing (444ms): status=ready, chunks=?
+  [FAIL] Chunk Quality (454ms): status=405
+  [PASS] Search-factual (486ms): results=1, mode=hybrid
+  [PASS] Search-conceptual (464ms): results=1, mode=hybrid
+  [PASS] Search-comparison (459ms): results=1, mode=hybrid
+  [PASS] Search-table (447ms): results=1, mode=hybrid
+  [PASS] AI Response (482ms): answer_len=96, confidence={'level': 'high', 'score': 0.725, 'reason': 'retrieval=0.91, reranker=0.50, llm=0.60, cal=1.0 | sources=1', 'components': {'retrieval': 0.909, 'reranker': 0.5, 'llm': 0.6, 'top_retrieval_raw': 0.09091, 'num_chunks': 1, 'calibration_factor': 1.0}}, sources=0
+
+============================================================
+PHASE 2 ΓÇö BACKEND DEEP TESTING
+============================================================
+  [PASS] Evaluation Run (1510ms): baseline=1.0, hybrid=1.0, reranked=1.0
+  [PASS] Hybrid > Baseline: 1.0 >= 1.0
+  [PASS] Reranked >= Hybrid: 1.0 >= 1.0
+  [FAIL] Reranker Validation (444ms): status=422
+  [PASS] System Report (503ms): status=NEEDS_IMPROVEMENT
+  [FAIL]   Criterion: hybrid_gt_baseline: value=1.0000 > 1.0000
+  [PASS]   Criterion: reranked_gte_hybrid: value=1.0000 >= 1.0000
+  [PASS]   Criterion: high_conf_accuracy_gt_70: value=N/A
+  [FAIL]   Criterion: chunk_quality_gt_80: value=0.0%
+  [FAIL]   Criterion: stability_std_lt_005: value=NOT_TESTED
+
+============================================================
+PHASE 3 ΓÇö FULL FLOW
+============================================================
+  [PASS] Quiz Generation (502ms): questions=5
+  [PASS] Quiz Submit (536ms): score=0, xp={'xp': 100, 'level': 2, 'streak': 0, 'daily_xp': 100}
+  [PASS] Leaderboard (476ms): entries=2
+  [FAIL] Weakness Detection (518ms): status=404
+
+============================================================
+PHASE 4 ΓÇö SEARCH ENGINE MODES
+============================================================
+  [PASS] Search mode=keyword (472ms): actual_mode=keyword, results=0
+  [PASS] Search mode=hybrid (489ms): actual_mode=hybrid, results=1
+  [PASS] Search mode=ai (455ms): actual_mode=ai, results=1, has_answer=True
+  [PASS] Search mode=auto (464ms): actual_mode=keyword, results=0
+
+============================================================
+PHASE 5 ΓÇö REAL-LIFE USE CASES
+============================================================
+  [PASS] Unrelated Question (499ms): confidence={'level': 'medium', 'score': 0.497, 'reason': 'retrieval=0.45, reranker=0.50, llm=0.60, cal=1.0 | sources=1', 'components': {'retrieval': 0.455, 'reranker': 0.5, 'llm': 0.6, 'top_retrieval_raw': 0.04545, 'num_chunks': 1, 'calibration_factor': 1.0}}, fallback=YES, answer_preview=The information requested could not be reliably found in the uploaded document. 
+  [PASS] Summary Generation (427ms): content_len=633
+  [PASS] Flashcard Generation (517ms): cards=0
+  [PASS] Library Add (415ms): Added to ML
+  [PASS] Library Subjects (445ms): subjects={'subject': 'subjects', 'documents': []}
+
+============================================================
+PHASE 6 ΓÇö PERFORMANCE
+============================================================
+  [PASS] Retrieval Latency (471ms): 471ms (target: <2000ms)
+  [PASS] AI Response Latency (435ms): 435ms
+
+============================================================
+PHASE 7 ΓÇö STRESS TEST (5 concurrent queries)
+============================================================
+  [PASS] Concurrent: What is overfitting?... (828ms): status=200
+  [PASS] Concurrent: What is machine learning?... (892ms): status=200
+  [PASS] Concurrent: Define supervised learning... (890ms): status=200
+  [PASS] Concurrent: What is gradient descent?... (921ms): status=200
+  [PASS] Concurrent: Explain neural networks... (952ms): status=200
+  [PASS] Total concurrent time (958ms): 958ms for 5 queries
+
+============================================================
+FINAL REPORT
+============================================================
+  [OK] P0: 1/1 passed
+  [!!] P1: 7/8 passed
+  [!!] P2: 6/10 passed
+  [!!] P3: 3/4 passed
+  [OK] P4: 4/4 passed
+  [OK] P5: 5/5 passed
+  [OK] P6: 2/2 passed
+  [OK] P7: 6/6 passed
+
+  ========================================
+  TOTAL: 34/40 passed
+  [WARNING] 6 tests failed -- review required
+  ========================================

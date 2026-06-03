@@ -1,0 +1,245 @@
+{
+  "sample_pdfs": [
+    "doc_31bd0851e5f7.pdf",
+    "doc_434a492b6a4c.pdf"
+  ],
+  "users": [
+    {
+      "user_id": "user_b7d4b619ab",
+      "email": "intellirag_test_04c8c1f9ee@example.com",
+      "accepted": [
+        {
+          "doc_id": "doc_af31310da520",
+          "filename": "doc_31bd0851e5f7.pdf",
+          "status": "queued",
+          "processing_stage": "uploaded",
+          "duplicate": false
+        },
+        {
+          "doc_id": "doc_ef7dcc74ac17",
+          "filename": "doc_434a492b6a4c.pdf",
+          "status": "queued",
+          "processing_stage": "uploaded",
+          "duplicate": false
+        }
+      ],
+      "rejected": [],
+      "queue": {
+        "queued": 1,
+        "workers": 5,
+        "min_workers": 5,
+        "max_workers": 15
+      },
+      "doc_ids": [
+        "doc_af31310da520",
+        "doc_ef7dcc74ac17"
+      ]
+    },
+    {
+      "user_id": "user_ac76c132fb",
+      "email": "intellirag_test_183d4b711a@example.com",
+      "accepted": [
+        {
+          "doc_id": "doc_5d4bb97307d4",
+          "filename": "doc_31bd0851e5f7.pdf",
+          "status": "queued",
+          "processing_stage": "uploaded",
+          "duplicate": false
+        },
+        {
+          "doc_id": "doc_dc67b36f7f99",
+          "filename": "doc_434a492b6a4c.pdf",
+          "status": "queued",
+          "processing_stage": "uploaded",
+          "duplicate": false
+        }
+      ],
+      "rejected": [],
+      "queue": {
+        "queued": 1,
+        "workers": 5,
+        "min_workers": 5,
+        "max_workers": 15
+      },
+      "doc_ids": [
+        "doc_5d4bb97307d4",
+        "doc_dc67b36f7f99"
+      ]
+    },
+    {
+      "user_id": "user_1a60f85ade",
+      "email": "intellirag_test_f5ce3a793f@example.com",
+      "accepted": [
+        {
+          "doc_id": "doc_672c7a85faa7",
+          "filename": "doc_31bd0851e5f7.pdf",
+          "status": "queued",
+          "processing_stage": "uploaded",
+          "duplicate": false
+        },
+        {
+          "doc_id": "doc_eed04fe6300a",
+          "filename": "doc_434a492b6a4c.pdf",
+          "status": "queued",
+          "processing_stage": "uploaded",
+          "duplicate": false
+        }
+      ],
+      "rejected": [],
+      "queue": {
+        "queued": 1,
+        "workers": 5,
+        "min_workers": 5,
+        "max_workers": 15
+      },
+      "doc_ids": [
+        "doc_672c7a85faa7",
+        "doc_eed04fe6300a"
+      ]
+    },
+    {
+      "user_id": "user_7e447d5446",
+      "email": "intellirag_test_96bd4d2889@example.com",
+      "accepted": [
+        {
+          "doc_id": "doc_10ea95da113a",
+          "filename": "doc_31bd0851e5f7.pdf",
+          "status": "queued",
+          "processing_stage": "uploaded",
+          "duplicate": false
+        },
+        {
+          "doc_id": "doc_2ad637ca8541",
+          "filename": "doc_434a492b6a4c.pdf",
+          "status": "queued",
+          "processing_stage": "uploaded",
+          "duplicate": false
+        }
+      ],
+      "rejected": [],
+      "queue": {
+        "queued": 3,
+        "workers": 5,
+        "min_workers": 5,
+        "max_workers": 15
+      },
+      "doc_ids": [
+        "doc_10ea95da113a",
+        "doc_2ad637ca8541"
+      ]
+    }
+  ],
+  "partial_doc": null,
+  "partial_search": null,
+  "ready_search": null,
+  "final_states": [
+    {
+      "user_id": "user_b7d4b619ab",
+      "states": {
+        "doc_af31310da520": {
+          "doc_id": "doc_af31310da520",
+          "status": "processing",
+          "processing_stage": "parsed",
+          "progress": 20,
+          "error": null,
+          "retry_count": 0,
+          "last_error": null,
+          "queue_position": null,
+          "estimated_wait": null
+        },
+        "doc_ef7dcc74ac17": {
+          "doc_id": "doc_ef7dcc74ac17",
+          "status": "processing",
+          "processing_stage": "parsed",
+          "progress": 20,
+          "error": null,
+          "retry_count": 0,
+          "last_error": null,
+          "queue_position": null,
+          "estimated_wait": null
+        }
+      }
+    },
+    {
+      "user_id": "user_ac76c132fb",
+      "states": {
+        "doc_5d4bb97307d4": {
+          "doc_id": "doc_5d4bb97307d4",
+          "status": "failed",
+          "processing_stage": "parsed",
+          "progress": 0,
+          "error": "(sqlite3.IntegrityError) UNIQUE constraint failed: course_nodes.doc_id, course_nodes.node_id\n[SQL: INSERT INTO course_nodes (doc_id, node_id, parent_node_id, level, title, content, page, sort_order, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]\n[parameters: ('doc_5d4bb97307d4', 'subtopic_0001_example-details', 'topic_0020_example', 'subtopic', 'Example: Details', '``` class A: def show(self): print(\"Class A\") class B(A): pass ```', 1, 41, '2026-03-26 07:32:18.783126')]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)",
+          "retry_count": 1,
+          "last_error": "(sqlite3.IntegrityError) UNIQUE constraint failed: course_nodes.doc_id, course_nodes.node_id\n[SQL: INSERT INTO course_nodes (doc_id, node_id, parent_node_id, level, title, content, page, sort_order, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]\n[parameters: ('doc_5d4bb97307d4', 'subtopic_0001_example-details', 'topic_0020_example', 'subtopic', 'Example: Details', '``` class A: def show(self): print(\"Class A\") class B(A): pass ```', 1, 41, '2026-03-26 07:32:18.783126')]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)",
+          "queue_position": null,
+          "estimated_wait": null
+        },
+        "doc_dc67b36f7f99": {
+          "doc_id": "doc_dc67b36f7f99",
+          "status": "failed",
+          "processing_stage": "parsed",
+          "progress": 0,
+          "error": "(sqlite3.IntegrityError) UNIQUE constraint failed: course_nodes.doc_id, course_nodes.node_id\n[SQL: INSERT INTO course_nodes (doc_id, node_id, parent_node_id, level, title, content, page, sort_order, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]\n[parameters: ('doc_dc67b36f7f99', 'subtopic_0001_example-details', 'topic_0020_example', 'subtopic', 'Example: Details', '``` class A: def show(self): print(\"Class A\") class B(A): pass ```', 1, 41, '2026-03-26 07:32:33.380163')]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)",
+          "retry_count": 1,
+          "last_error": "(sqlite3.IntegrityError) UNIQUE constraint failed: course_nodes.doc_id, course_nodes.node_id\n[SQL: INSERT INTO course_nodes (doc_id, node_id, parent_node_id, level, title, content, page, sort_order, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]\n[parameters: ('doc_dc67b36f7f99', 'subtopic_0001_example-details', 'topic_0020_example', 'subtopic', 'Example: Details', '``` class A: def show(self): print(\"Class A\") class B(A): pass ```', 1, 41, '2026-03-26 07:32:33.380163')]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)",
+          "queue_position": null,
+          "estimated_wait": null
+        }
+      }
+    },
+    {
+      "user_id": "user_1a60f85ade",
+      "states": {
+        "doc_672c7a85faa7": {
+          "doc_id": "doc_672c7a85faa7",
+          "status": "failed",
+          "processing_stage": "parsed",
+          "progress": 0,
+          "error": "(sqlite3.IntegrityError) UNIQUE constraint failed: course_nodes.doc_id, course_nodes.node_id\n[SQL: INSERT INTO course_nodes (doc_id, node_id, parent_node_id, level, title, content, page, sort_order, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]\n[parameters: ('doc_672c7a85faa7', 'subtopic_0001_example-details', 'topic_0020_example', 'subtopic', 'Example: Details', '``` class A: def show(self): print(\"Class A\") class B(A): pass ```', 1, 41, '2026-03-26 07:32:33.096115')]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)",
+          "retry_count": 1,
+          "last_error": "(sqlite3.IntegrityError) UNIQUE constraint failed: course_nodes.doc_id, course_nodes.node_id\n[SQL: INSERT INTO course_nodes (doc_id, node_id, parent_node_id, level, title, content, page, sort_order, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]\n[parameters: ('doc_672c7a85faa7', 'subtopic_0001_example-details', 'topic_0020_example', 'subtopic', 'Example: Details', '``` class A: def show(self): print(\"Class A\") class B(A): pass ```', 1, 41, '2026-03-26 07:32:33.096115')]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)",
+          "queue_position": null,
+          "estimated_wait": null
+        },
+        "doc_eed04fe6300a": {
+          "doc_id": "doc_eed04fe6300a",
+          "status": "processing",
+          "processing_stage": "uploaded",
+          "progress": 20,
+          "error": null,
+          "retry_count": 0,
+          "last_error": null,
+          "queue_position": null,
+          "estimated_wait": null
+        }
+      }
+    },
+    {
+      "user_id": "user_7e447d5446",
+      "states": {
+        "doc_10ea95da113a": {
+          "doc_id": "doc_10ea95da113a",
+          "status": "failed",
+          "processing_stage": "parsed",
+          "progress": 0,
+          "error": "(sqlite3.IntegrityError) UNIQUE constraint failed: course_nodes.doc_id, course_nodes.node_id\n[SQL: INSERT INTO course_nodes (doc_id, node_id, parent_node_id, level, title, content, page, sort_order, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]\n[parameters: ('doc_10ea95da113a', 'subtopic_0001_example-details', 'topic_0020_example', 'subtopic', 'Example: Details', '``` class A: def show(self): print(\"Class A\") class B(A): pass ```', 1, 41, '2026-03-26 07:33:12.439848')]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)",
+          "retry_count": 1,
+          "last_error": "(sqlite3.IntegrityError) UNIQUE constraint failed: course_nodes.doc_id, course_nodes.node_id\n[SQL: INSERT INTO course_nodes (doc_id, node_id, parent_node_id, level, title, content, page, sort_order, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]\n[parameters: ('doc_10ea95da113a', 'subtopic_0001_example-details', 'topic_0020_example', 'subtopic', 'Example: Details', '``` class A: def show(self): print(\"Class A\") class B(A): pass ```', 1, 41, '2026-03-26 07:33:12.439848')]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)",
+          "queue_position": null,
+          "estimated_wait": null
+        },
+        "doc_2ad637ca8541": {
+          "doc_id": "doc_2ad637ca8541",
+          "status": "failed",
+          "processing_stage": "parsed",
+          "progress": 0,
+          "error": "(sqlite3.IntegrityError) UNIQUE constraint failed: course_nodes.doc_id, course_nodes.node_id\n[SQL: INSERT INTO course_nodes (doc_id, node_id, parent_node_id, level, title, content, page, sort_order, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]\n[parameters: ('doc_2ad637ca8541', 'subtopic_0001_example-details', 'topic_0020_example', 'subtopic', 'Example: Details', '``` class A: def show(self): print(\"Class A\") class B(A): pass ```', 1, 41, '2026-03-26 07:33:26.095899')]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)",
+          "retry_count": 1,
+          "last_error": "(sqlite3.IntegrityError) UNIQUE constraint failed: course_nodes.doc_id, course_nodes.node_id\n[SQL: INSERT INTO course_nodes (doc_id, node_id, parent_node_id, level, title, content, page, sort_order, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]\n[parameters: ('doc_2ad637ca8541', 'subtopic_0001_example-details', 'topic_0020_example', 'subtopic', 'Example: Details', '``` class A: def show(self): print(\"Class A\") class B(A): pass ```', 1, 41, '2026-03-26 07:33:26.095899')]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)",
+          "queue_position": null,
+          "estimated_wait": null
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "timestamp": "20260427_222222",
+  "datasets": [
+    {
+      "dataset": "Python Textbook",
+      "doc_id": "doc_11c024ccf162",
+      "queries": 60,
+      "systems": {
+        "bm25": {
+          "recall3": 0.5667,
+          "recall5": 0.655,
+          "mrr": 0.8,
+          "avg_sim": 0.5701,
+          "avg_cov": 0.4857,
+          "hallucination_pct": 8.0,
+          "avg_lat": 0.2,
+          "p50_lat": 0.0,
+          "p95_lat": 1.5
+        },
+        "vector": {
+          "recall3": 0.5933,
+          "recall5": 0.7,
+          "mrr": 0.7807,
+          "avg_sim": 0.6423,
+          "avg_cov": 0.4973,
+          "hallucination_pct": 2.0,
+          "avg_lat": 0.1,
+          "p50_lat": 0.0,
+          "p95_lat": 1.0
+        },
+        "hybrid": {
+          "recall3": 0.5983,
+          "recall5": 0.72,
+          "mrr": 0.793,
+          "avg_sim": 0.5992,
+          "avg_cov": 0.504,
+          "hallucination_pct": 2.0,
+          "avg_lat": 66.4,
+          "p50_lat": 64.0,
+          "p95_lat": 85.2
+        }
+      },
+      "trust": {
+        "high": {
+          "count": 47,
+          "correct": 45,
+          "accuracy": 95.7
+        },
+        "medium": {
+          "count": 10,
+          "correct": 7,
+          "accuracy": 70.0
+        },
+        "low": {
+          "count": 3,
+          "correct": 3,
+          "accuracy": 100.0
+        }
+      },
+      "per_type": {
+        "factual": {
+          "count": 20,
+          "avg_sim": 0.5838,
+          "avg_cov": 0.5942,
+          "correct_pct": 95.0
+        },
+        "conceptual": {
+          "count": 20,
+          "avg_sim": 0.6268,
+          "avg_cov": 0.4458,
+          "correct_pct": 95.0
+        },
+        "multi-hop": {
+          "count": 10,
+          "avg_sim": 0.575,
+          "avg_cov": 0.44,
+          "correct_pct": 100.0
+        }
+      },
+      "adversarial": {
+        "total": 10,
+        "correct": 7
+      },
+      "answer_accuracy": 82.0
+    },
+    {
+      "dataset": "AI/ML Notes",
+      "doc_id": "doc_cdda7fe45c88",
+      "queries": 20,
+      "systems": {
+        "bm25": {
+          "recall3": 0.0,
+          "recall5": 0.0,
+          "mrr": 0.0,
+          "avg_sim": 0,
+          "avg_cov": 0,
+          "hallucination_pct": 0,
+          "avg_lat": 0.0,
+          "p50_lat": 0.0,
+          "p95_lat": 0.0
+        },
+        "vector": {
+          "recall3": 0.8333,
+          "recall5": 0.8889,
+          "mrr": 0.8796,
+          "avg_sim": 0.6924,
+          "avg_cov": 0.4472,
+          "hallucination_pct": 0.0,
+          "avg_lat": 0.1,
+          "p50_lat": 0.0,
+          "p95_lat": 1.0
+        },
+        "hybrid": {
+          "recall3": 0.8333,
+          "recall5": 0.8889,
+          "mrr": 0.8889,
+          "avg_sim": 0.6924,
+          "avg_cov": 0.4472,
+          "hallucination_pct": 0.0,
+          "avg_lat": 65.5,
+          "p50_lat": 63.8,
+          "p95_lat": 103.0
+        }
+      },
+      "trust": {
+        "high": {
+          "count": 17,
+          "correct": 16,
+          "accuracy": 94.1
+        },
+        "medium": {
+          "count": 2,
+          "correct": 2,
+          "accuracy": 100.0
+        },
+        "low": {
+          "count": 1,
+          "correct": 1,
+          "accuracy": 100.0
+        }
+      },
+      "per_type": {
+        "factual": {
+          "count": 10,
+          "avg_sim": 0.7707,
+          "avg_cov": 0.6,
+          "correct_pct": 100.0
+        },
+        "conceptual": {
+          "count": 5,
+          "avg_sim": 0.5676,
+          "avg_cov": 0.05,
+          "correct_pct": 80.0
+        },
+        "multi-hop": {
+          "count": 3,
+          "avg_sim": 0.6398,
+          "avg_cov": 0.6,
+          "correct_pct": 100.0
+        }
+      },
+      "adversarial": {
+        "total": 2,
+        "correct": 2
+      },
+      "answer_accuracy": 83.3
+    }
+  ],
+  "cross_dataset": {
+    "hybrid_avg_sim": 0.6458,
+    "hybrid_avg_lat": 66.0
+  }
+}
