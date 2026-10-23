@@ -39,8 +39,6 @@ def upsert_doc_hierarchy(doc_id: str, normalized: dict, subject: str = "General 
         db = SessionLocal()
         try:
             db.query(CourseNode).filter(CourseNode.doc_id == doc_id).delete()
-            # Commit early so other connections don't race on rows
-            # during concurrent upserts.
             db.commit()
             order = 0
             subject_title = (subject or "General Studies").strip() or "General Studies"
@@ -62,7 +60,7 @@ def upsert_doc_hierarchy(doc_id: str, normalized: dict, subject: str = "General 
             unit_i = topic_i = sub_i = 0
 
             for sec in sections:
-                lvl = (sec.get("level") or "h3").lower()
+                lvl = (sec.get("level") or "h2").lower()
                 title = (sec.get("heading") or "Untitled").strip()
                 content = (sec.get("content") or "").strip()
                 page = int(sec.get("page") or 1)
@@ -72,76 +70,77 @@ def upsert_doc_hierarchy(doc_id: str, normalized: dict, subject: str = "General 
                     current_unit_id = _mk_node_id("unit", unit_i, title)
                     current_topic_id = None
                     db.add(CourseNode(
-                        doc_id=doc_id, node_id=current_unit_id, parent_node_id=subject_id,
-                        level="unit", title=title, content=None, page=page, sort_order=order
+                        doc_id=doc_id,
+                        node_id=current_unit_id,
+                        parent_node_id=subject_id,
+                        level="unit",
+                        title=title,
+                        content=content or None,
+                        page=page,
+                        sort_order=order,
                     ))
                     order += 1
-                    if content:
-                        topic_i += 1
-                        current_topic_id = _mk_node_id("topic", topic_i, f"{title} Overview")
-                        db.add(CourseNode(
-                            doc_id=doc_id, node_id=current_topic_id, parent_node_id=current_unit_id,
-                            level="topic", title=f"{title} Overview", content=None, page=page, sort_order=order
-                        ))
-                        order += 1
-                        sub_i += 1
-                        sub_id = _mk_node_id("subtopic", sub_i, f"{title} Details")
-                        db.add(CourseNode(
-                            doc_id=doc_id, node_id=sub_id, parent_node_id=current_topic_id,
-                            level="subtopic", title=f"{title} Details", content=content, page=page, sort_order=order
-                        ))
-                        order += 1
                     continue
 
                 if lvl == "h2":
                     if not current_unit_id:
                         unit_i += 1
-                        current_unit_id = _mk_node_id("unit", unit_i, "General Unit")
+                        current_unit_id = _mk_node_id("unit", unit_i, "Course Content")
                         db.add(CourseNode(
-                            doc_id=doc_id, node_id=current_unit_id, parent_node_id=subject_id,
-                            level="unit", title="General Unit", content=None, page=page, sort_order=order
+                            doc_id=doc_id,
+                            node_id=current_unit_id,
+                            parent_node_id=subject_id,
+                            level="unit",
+                            title="Course Content",
+                            content=None,
+                            page=page,
+                            sort_order=order,
                         ))
                         order += 1
                     topic_i += 1
                     current_topic_id = _mk_node_id("topic", topic_i, title)
                     db.add(CourseNode(
-                        doc_id=doc_id, node_id=current_topic_id, parent_node_id=current_unit_id,
-                        level="topic", title=title, content=None, page=page, sort_order=order
+                        doc_id=doc_id,
+                        node_id=current_topic_id,
+                        parent_node_id=current_unit_id,
+                        level="topic",
+                        title=title,
+                        content=content or None,
+                        page=page,
+                        sort_order=order,
                     ))
                     order += 1
-                    if content:
-                        sub_i += 1
-                        sub_id = _mk_node_id("subtopic", sub_i, f"{title} Details")
-                        db.add(CourseNode(
-                            doc_id=doc_id, node_id=sub_id, parent_node_id=current_topic_id,
-                            level="subtopic", title=f"{title} Details", content=content, page=page, sort_order=order
-                        ))
-                        order += 1
                     continue
 
-                # h3+ -> subtopic with content
+                # h3+ -> subtopic
                 if not current_unit_id:
                     unit_i += 1
-                    current_unit_id = _mk_node_id("unit", unit_i, "General Unit")
+                    current_unit_id = _mk_node_id("unit", unit_i, "Course Content")
                     db.add(CourseNode(
-                        doc_id=doc_id, node_id=current_unit_id, parent_node_id=subject_id,
-                        level="unit", title="General Unit", content=None, page=page, sort_order=order
+                        doc_id=doc_id,
+                        node_id=current_unit_id,
+                        parent_node_id=subject_id,
+                        level="unit",
+                        title="Course Content",
+                        content=None,
+                        page=page,
+                        sort_order=order,
                     ))
                     order += 1
                 if not current_topic_id:
-                    topic_i += 1
-                    current_topic_id = _mk_node_id("topic", topic_i, "General Topic")
-                    db.add(CourseNode(
-                        doc_id=doc_id, node_id=current_topic_id, parent_node_id=current_unit_id,
-                        level="topic", title="General Topic", content=None, page=page, sort_order=order
-                    ))
-                    order += 1
+                    current_topic_id = current_unit_id
 
                 sub_i += 1
                 sub_id = _mk_node_id("subtopic", sub_i, title)
                 db.add(CourseNode(
-                    doc_id=doc_id, node_id=sub_id, parent_node_id=current_topic_id,
-                    level="subtopic", title=title, content=content, page=page, sort_order=order
+                    doc_id=doc_id,
+                    node_id=sub_id,
+                    parent_node_id=current_topic_id,
+                    level="subtopic",
+                    title=title,
+                    content=content or None,
+                    page=page,
+                    sort_order=order,
                 ))
                 order += 1
 

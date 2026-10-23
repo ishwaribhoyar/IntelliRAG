@@ -11,11 +11,11 @@
   <meta property="og:description" content="Production-grade RAG pipeline with hybrid search, quizzes, flashcards, and personalized learning." />
   <meta property="og:image" content="app-icon.svg" />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#2563eb" />
+  <meta name="theme-color" content="#4F46E5" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260328c" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=20260328f" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -204,10 +204,10 @@
     </div>
 
     <div class="llm-model-toggle" title="Model used for Ask AI, quizzes, flashcards, summary, and course AI">
-      <span class="llm-model-label">Sarvam</span>
+      <span class="llm-model-label">Gemini</span>
       <div class="llm-model-seg" role="group" aria-label="LLM size">
-        <button type="button" class="llm-model-btn" data-variant="30b" onclick="setLlmVariant('30b')">Fast ⚡</button>
-        <button type="button" class="llm-model-btn" data-variant="105b" onclick="setLlmVariant('105b')">Smart 🧠</button>
+        <button type="button" class="llm-model-btn" data-variant="30b" onclick="setLlmVariant('30b')">Flash-8B ⚡</button>
+        <button type="button" class="llm-model-btn" data-variant="105b" onclick="setLlmVariant('105b')">Flash 🧠</button>
       </div>
     </div>
 
@@ -530,6 +530,6 @@
   <iframe id="pdfFrame" class="pdf-frame"></iframe>
 </div>
 
-<script src="app.js?v=20260328d"></script>
+<script src="app.js?v=20260328e"></script>
 </body>
 </html>

@@ -41,14 +41,39 @@ async def handle_course_action(req: CourseActionRequest) -> dict:
     if action not in ("summarize", "explain"):
         raise HTTPException(400, "action must be 'summarize' or 'explain'")
 
-    node = get_node(req.doc_id, req.node_id)
-    if not node:
-        raise HTTPException(404, "Section not found")
+    node = get_node(req.doc_id, req.node_id) if req.node_id else None
+    node_heading = node.get("title", "Section") if node else "Course Section"
+    node_content = (node.get("content") or "").strip() if node else ""
 
-    node_heading = node.get("title", "Section")
-    node_content = (node.get("content") or "").strip()
     if not node_content:
-        raise HTTPException(400, "This section has no content to process")
+        from app.database import SessionLocal, CourseNode
+        db = SessionLocal()
+        try:
+            if req.node_id:
+                children = db.query(CourseNode).filter(
+                    CourseNode.doc_id == req.doc_id,
+                    CourseNode.parent_node_id == req.node_id
+                ).all()
+                child_texts = [c.content for c in children if c.content]
+                if child_texts:
+                    node_content = "\n\n".join(child_texts)
+
+            if not node_content:
+                all_nodes = db.query(CourseNode).filter(
+                    CourseNode.doc_id == req.doc_id,
+                    CourseNode.content.isnot(None)
+                ).limit(6).all()
+                node_content = "\n\n".join(c.content for c in all_nodes if c.content)
+        finally:
+            db.close()
+
+    if not node_content:
+        from app.retrieval.hybrid import retrieve_for_task
+        chunks = await retrieve_for_task(req.doc_id, node_heading or "Overview", task_type="ask")
+        node_content = "\n\n".join(c.get("text", "") for c in chunks[:4] if c.get("text"))
+
+    if not node_content:
+        node_content = f"Overview and core concepts of {node_heading}." 
 
     if action == "summarize":
         prompt = (

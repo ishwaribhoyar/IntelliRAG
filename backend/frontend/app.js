@@ -2174,7 +2174,7 @@ function _renderDocHierarchy(doc) {
     const p = n.parent_node_id || '__root__';
     (byParent[p] = byParent[p] || []).push(n);
   });
-  const roots = (byParent['__root__'] || []).filter(n => n.level === 'unit');
+  const roots = nodes.filter(n => n.level === 'unit');
 
   return `<div class="lib-doc-row" style="display:block">
     <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">

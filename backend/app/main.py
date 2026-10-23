@@ -12,6 +12,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse, Response
 from pathlib import Path
 
 from app.database import init_db
@@ -163,6 +164,16 @@ app.include_router(payments_router,     prefix="/api")
 # that was calling /api/* continues to work unchanged.
 # Once all callers are migrated to module routers, this line can be removed.
 app.include_router(legacy_router, prefix="/api")
+
+@app.get('/favicon.ico', include_in_schema=False)
+async def favicon():
+    fav = FRONTEND_DIR / 'favicon.ico'
+    if fav.exists():
+        return FileResponse(fav)
+    fav_svg = FRONTEND_DIR / 'favicon.svg'
+    if fav_svg.exists():
+        return FileResponse(fav_svg, media_type='image/svg+xml')
+    return Response(status_code=204)
 
 # Serve frontend static files
 if FRONTEND_DIR.exists():

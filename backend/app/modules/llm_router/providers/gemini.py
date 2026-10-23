@@ -35,26 +35,31 @@ class GeminiProvider(LLMProvider):
     ) -> dict[str, Any]:
         """Call Gemini REST API with caching and error handling."""
         api_key = os.getenv("GEMINI_API_KEY", "")
-        model = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
+        default_model = os.getenv("GEMINI_MODEL", "gemini-flash-lite-latest")
+        lite_model = os.getenv("GEMINI_MODEL_FLASH_LITE", "gemini-flash-lite-latest")
         
-        if llm_variant == "gemini-flash-lite":
-            model = os.getenv("GEMINI_MODEL_FLASH_LITE", "gemini-2.5-flash-lite")
-        elif llm_variant == "gemini-3.1-flash-lite":
-            model = os.getenv("GEMINI_MODEL_3_1_FLASH_LITE", "gemini-3.1-flash-lite")
+        variant = (llm_variant or "").strip().lower()
+        if variant in ("30b", "gemini-flash-lite", "flash-lite", "small", "fast", "lite", "8b"):
+            model = lite_model
+        elif variant in ("gemini-3.1-flash-lite",):
+            model = os.getenv("GEMINI_MODEL_3_1_FLASH_LITE", lite_model)
+        else:
+            model = default_model
 
-        api_url = os.getenv(
-            "GEMINI_API_URL",
-            f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
-        )
+        # Candidate models to try in order (failover for 503/429 spikes)
+        candidate_models = []
+        for m in ["gemini-flash-lite-latest", "gemini-3.5-flash-lite", model, lite_model, default_model]:
+            if m and m not in candidate_models:
+                candidate_models.append(m)
 
-        if not api_key or api_key == "dummy":
+        if not api_key or api_key == "dummy" or api_key.startswith("your_"):
             from app.rag.llm_client import _mock_llm_response
             mock_ans = _mock_llm_response(task_type, prompt, context)
             return {
                 "answer": mock_ans,
                 "source_chunks": [],
                 "cached": False,
-                "llm_model": "mock-gemini",
+                "llm_model": f"mock-{model}",
             }
 
         # Check cache first
@@ -75,17 +80,15 @@ class GeminiProvider(LLMProvider):
         from app.rag.llm_client import _max_tokens_for_task
         mtok = _max_tokens_for_task(task_type) if max_tokens is None else max_tokens
 
-        url_with_key = f"{api_url}?key={api_key}"
         headers = {"Content-Type": "application/json"}
+        user_content = context.strip() if context and context.strip() else (prompt.strip() if prompt else "Hello")
+        system_text = prompt.strip() if prompt and prompt.strip() else ""
 
-        payload = {
-            "systemInstruction": {
-                "parts": [{"text": prompt}]
-            },
+        payload: dict[str, Any] = {
             "contents": [
                 {
                     "role": "user",
-                    "parts": [{"text": context}]
+                    "parts": [{"text": user_content}]
                 }
             ],
             "generationConfig": {
@@ -93,37 +96,72 @@ class GeminiProvider(LLMProvider):
                 "maxOutputTokens": mtok,
             }
         }
-
-        try:
-            async with httpx.AsyncClient(timeout=60.0) as client:
-                response = await client.post(
-                    url_with_key,
-                    json=payload,
-                    headers=headers,
-                )
-                response.raise_for_status()
-                data = response.json()
-
-                # Extract generated text from Gemini structure
-                answer = data["candidates"][0]["content"]["parts"][0]["text"].strip()
-
-                result = {
-                    "answer": answer,
-                    "source_chunks": [],
-                    "cached": False,
-                    "llm_model": model,
-                }
-
-                if use_cache:
-                    llm_cache[key] = {"answer": answer, "source_chunks": [], "llm_model": model}
-
-                return result
-
-        except Exception as e:
-            logger.error(f"Gemini call failed: {e}")
-            return {
-                "answer": f"Gemini call failed: {e}",
-                "source_chunks": [],
-                "cached": False,
-                "llm_model": model,
+        if system_text and system_text != user_content:
+            payload["systemInstruction"] = {
+                "parts": [{"text": system_text}]
             }
+
+        last_err: Exception | None = None
+        for attempt_model in candidate_models:
+            api_url = f"https://generativelanguage.googleapis.com/v1beta/models/{attempt_model}:generateContent"
+            url_with_key = f"{api_url}?key={api_key}"
+            try:
+                async with httpx.AsyncClient(timeout=15.0) as client:
+                    response = await client.post(
+                        url_with_key,
+                        json=payload,
+                        headers=headers,
+                    )
+                    response.raise_for_status()
+                    data = response.json()
+
+                    # Extract generated text from Gemini structure
+                    candidates = data.get("candidates", [])
+                    if not candidates:
+                        answer = "No response generated by Gemini."
+                    else:
+                        parts = candidates[0].get("content", {}).get("parts", [])
+                        answer_parts = [p.get("text", "") for p in parts if "text" in p]
+                        answer = "\n".join(answer_parts).strip() if answer_parts else ""
+                        if not answer:
+                            finish_reason = candidates[0].get("finishReason", "UNKNOWN")
+                            answer = f"[Gemini completed with status: {finish_reason}]"
+
+                    result = {
+                        "answer": answer,
+                        "source_chunks": [],
+                        "cached": False,
+                        "llm_model": attempt_model,
+                    }
+
+                    if use_cache:
+                        llm_cache[key] = {"answer": answer, "source_chunks": [], "llm_model": attempt_model}
+
+                    return result
+
+            except httpx.HTTPStatusError as e:
+                last_err = e
+                err_body = e.response.text if hasattr(e, "response") else str(e)
+                status_code = e.response.status_code if hasattr(e, "response") else 0
+                logger.warning(
+                    f"Gemini {attempt_model} returned {status_code}: {err_body[:200]}. "
+                    f"{'Trying fallback model...' if attempt_model != candidate_models[-1] else 'No more fallbacks.'}"
+                )
+                if status_code in (429, 500, 503) and attempt_model != candidate_models[-1]:
+                    continue  # Try next candidate
+                break
+            except Exception as e:
+                last_err = e
+                logger.error(f"Gemini {attempt_model} failed with exception: {type(e).__name__}: {e}")
+                if attempt_model != candidate_models[-1]:
+                    continue
+                break
+
+        err_body = getattr(getattr(last_err, "response", None), "text", str(last_err))
+        status_code = getattr(getattr(last_err, "response", None), "status_code", "error")
+        return {
+            "answer": f"Gemini call failed ({status_code}): {err_body}",
+            "source_chunks": [],
+            "cached": False,
+            "llm_model": model,
+        }

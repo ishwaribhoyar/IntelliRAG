@@ -8,18 +8,8 @@ from sqlalchemy import (
 from sqlalchemy.orm import sessionmaker, declarative_base
 from app.config import DATABASE_URL
 
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
-SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
-Base = declarative_base()
+from app.shared.database.session import engine, SessionLocal, Base, get_db
 logger = logging.getLogger(__name__)
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 class User(Base):
@@ -171,23 +161,20 @@ class CourseNode(Base):
 
 
 def init_db():
-    """Create all tables."""
-    # SQLite is strict about `CREATE INDEX` and may throw if the index already exists.
-    # Since Render restarts/rehydrates the same DB file on some deploys, make startup idempotent.
+    """Create all tables and perform idempotent column migrations."""
     try:
         Base.metadata.create_all(bind=engine)
+        logger.info("Database schema initialized successfully.")
     except Exception as e:
         msg = str(e).lower()
-        if "already exists" in msg and "create index" in msg:
-            logger.warning("Ignoring SQLite index already-exists error during init_db: %s", e)
+        if "already exists" in msg and ("index" in msg or "table" in msg or "relation" in msg):
+            logger.warning("Ignoring already-exists error during init_db: %s", e)
         else:
             raise
 
-    # If create_all aborted mid-way, some tables (e.g. leaderboard) may be missing.
-    # Create any missing ORM tables without re-running conflicting index DDL on existing tables.
+    # If create_all aborted mid-way, ensure missing tables are created
     try:
         from sqlalchemy import inspect
-
         insp = inspect(engine)
         for table in Base.metadata.sorted_tables:
             if not insp.has_table(table.name):
@@ -196,38 +183,35 @@ def init_db():
     except Exception:
         logger.exception("Failed to create missing tables after init_db")
 
-    # Lightweight SQLite migration for new columns (no Alembic in this repo).
-    # Only adds columns if they don't exist yet.
+    # Lightweight database-agnostic migration for new columns
     try:
-        from sqlalchemy import text
-        with engine.begin() as conn:
-            # 1. Documents table migration
-            cols = conn.execute(text("PRAGMA table_info(documents)")).fetchall()
-            col_names = {c[1] for c in cols}  # second field is column name
+        from sqlalchemy import inspect, text
+        insp = inspect(engine)
 
-            if "retry_count" not in col_names:
-                conn.execute(text("ALTER TABLE documents ADD COLUMN retry_count INTEGER DEFAULT 0"))
-            if "last_error" not in col_names:
-                conn.execute(text("ALTER TABLE documents ADD COLUMN last_error TEXT"))
+        # 1. Documents table migration
+        if insp.has_table("documents"):
+            doc_cols = {c["name"] for c in insp.get_columns("documents")}
+            with engine.begin() as conn:
+                if "retry_count" not in doc_cols:
+                    conn.execute(text("ALTER TABLE documents ADD COLUMN retry_count INTEGER DEFAULT 0"))
+                if "last_error" not in doc_cols:
+                    conn.execute(text("ALTER TABLE documents ADD COLUMN last_error TEXT"))
 
-            # 2. Users table migration for tiered infrastructure
-            users_cols = conn.execute(text("PRAGMA table_info(users)")).fetchall()
-            users_col_names = {c[1] for c in users_cols}
-
-            if "tier" not in col_names:
-                # Note: col_names is for documents, check users_col_names!
-                if "tier" not in users_col_names:
-                    conn.execute(text("ALTER TABLE users ADD COLUMN tier VARCHAR DEFAULT 'free'"))
-                if "daily_rag_count" not in users_col_names:
+        # 2. Users table migration for tiered infrastructure
+        if insp.has_table("users"):
+            users_cols = {c["name"] for c in insp.get_columns("users")}
+            with engine.begin() as conn:
+                if "tier" not in users_cols:
+                    conn.execute(text("ALTER TABLE users ADD COLUMN tier VARCHAR(32) DEFAULT 'free'"))
+                if "daily_rag_count" not in users_cols:
                     conn.execute(text("ALTER TABLE users ADD COLUMN daily_rag_count INTEGER DEFAULT 0"))
-                if "daily_quiz_count" not in users_col_names:
+                if "daily_quiz_count" not in users_cols:
                     conn.execute(text("ALTER TABLE users ADD COLUMN daily_quiz_count INTEGER DEFAULT 0"))
-                if "daily_summary_count" not in users_col_names:
+                if "daily_summary_count" not in users_cols:
                     conn.execute(text("ALTER TABLE users ADD COLUMN daily_summary_count INTEGER DEFAULT 0"))
-                if "daily_flashcard_count" not in users_col_names:
+                if "daily_flashcard_count" not in users_cols:
                     conn.execute(text("ALTER TABLE users ADD COLUMN daily_flashcard_count INTEGER DEFAULT 0"))
-                if "last_request_reset" not in users_col_names:
-                    conn.execute(text("ALTER TABLE users ADD COLUMN last_request_reset VARCHAR"))
+                if "last_request_reset" not in users_cols:
+                    conn.execute(text("ALTER TABLE users ADD COLUMN last_request_reset VARCHAR(64)"))
     except Exception:
-        # Non-fatal: columns will be present in fresh DBs; otherwise, endpoints using them may fail.
-        logger.exception("DB migration for retry_count/last_error or users monetization columns failed")
+        logger.exception("DB migration for documents/users columns failed")

@@ -61,6 +61,16 @@ async def search(
         bm25_results = bm25_indexes[doc_id].search(effective_query, top_k=10)
 
         # Map to chunk data
+        if doc_id not in chunk_store:
+            from app.config import CHUNKS_DIR
+            import json
+            chunks_path = CHUNKS_DIR / f"{doc_id}.json"
+            if chunks_path.exists():
+                try:
+                    with open(chunks_path, "r", encoding="utf-8") as f:
+                        chunk_store[doc_id] = json.load(f)
+                except Exception as e:
+                    logger.error(f"Failed to read chunks for {doc_id}: {e}")
         chunks = chunk_store.get(doc_id, [])
         chunk_map = {c["chunk_id"]: c for c in chunks}
         results = []
@@ -134,9 +144,14 @@ async def search(
     # 6. LLM answer
     context = "\n\n".join(c["text"] for c in chunks)
     from app.generators.prompts import get_prompt
+    from app.modules.llm_router.router import llm_router
     prompt = get_prompt("ask")
-    result = await call_llm(
-        doc_id, "search_ai", prompt, f"{context}\n\nQuestion: {query}", llm_variant=llm_variant
+    result = await llm_router.generate(
+        doc_id=doc_id,
+        task_type="search_ai",
+        prompt=prompt,
+        context=f"{context}\n\nQuestion: {query}",
+        llm_variant=llm_variant,
     )
 
     sources = build_source_citations(chunks)

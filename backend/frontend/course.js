@@ -420,26 +420,69 @@ function updateTreeSelection() {
 }
 
 async function runAction(action) {
-  if (!COURSE.selectedNodeId) return;
+  const btn = action === "summarize" ? el("btnSummarize") : el("btnExplain");
+  const origText = btn ? btn.innerHTML : "";
+
+  if (!COURSE.selectedNodeId) {
+    const fallback = firstUsableNode() || (COURSE.structure[0] || null);
+    if (fallback) {
+      selectNode(fallback.id);
+    }
+  }
+
+  const activeId = COURSE.selectedNodeId;
+  const activeNode = findNode(activeId);
+  const title = activeNode ? (activeNode.heading || "Section") : (el("sectionTitle") ? el("sectionTitle").textContent : "Section");
+
   const output = el("aiOutput");
   output.style.display = "block";
-  output.innerHTML = "Generating...";
+  output.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  output.innerHTML = `
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 0;color:var(--primary);font-weight:500;">
+      <span class="spinner" style="display:inline-block;width:18px;height:18px;border:2px solid var(--primary);border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;"></span>
+      <span>Generating ${action === "summarize" ? "Summary" : "Explanation"} for &ldquo;${esc(title)}&rdquo;...</span>
+    </div>
+  `;
+
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = action === "summarize" ? "Summarizing..." : "Explaining...";
+  }
+
   try {
     const res = await fetch("/api/course/action", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         doc_id: DOC_ID,
-        node_id: COURSE.selectedNodeId,
+        node_id: activeId || "",
         action,
         llm_variant: getLlmVariantCourse(),
       }),
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.detail || "Action failed");
-    output.innerHTML = `<h3>${action === "summarize" ? "Summary" : "Detailed Explanation"}</h3>${renderMd(data.answer || "")}`;
+    output.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;border-bottom:1px solid var(--border);padding-bottom:8px;">
+        <h3 style="margin:0;color:var(--primary);font-size:18px;">${action === "summarize" ? "✨ Section Summary" : "💡 Detailed Explanation"} — ${esc(title)}</h3>
+        <button class="btn btn-small" onclick="el('aiOutput').style.display='none'" style="cursor:pointer;padding:4px 10px;font-size:12px;">✕ Close</button>
+      </div>
+      <div class="ai-output-body">${renderMd(data.answer || "")}</div>
+    `;
+    output.scrollIntoView({ behavior: "smooth", block: "nearest" });
   } catch (e) {
-    output.innerHTML = `<p style="color:#b91c1c">${esc(e.message)}</p>`;
+    output.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <strong style="color:#b91c1c">Action Failed</strong>
+        <button class="btn btn-small" onclick="el('aiOutput').style.display='none'" style="cursor:pointer;">✕ Close</button>
+      </div>
+      <p style="color:#b91c1c;margin:0">${esc(e.message)}</p>
+    `;
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = origText;
+    }
   }
 }
 

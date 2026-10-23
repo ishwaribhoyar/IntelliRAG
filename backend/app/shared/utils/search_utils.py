@@ -66,17 +66,10 @@ def expected_subtopic_title(section_title: str, by_title: dict[str, list[dict]])
     if not sec:
         return ""
 
-    details_raw = f"{sec} Details"
     sec_match = _match_title(sec)
-    details_match = _match_title(details_raw)
-
-    if details_match and not sec_match:
-        return details_match
     if sec_match:
         return sec_match
-    if details_match:
-        return details_match
-    return details_raw
+    return sec
 
 
 def pick_node_id(candidates: list[dict], page: int) -> str:

@@ -26,6 +26,9 @@ def check_and_update_rate_limit(user_id: str, limit_type: str) -> None:
     """Enforce daily limits for free tier users, resetting them on day boundaries."""
     if not user_id:
         return
+    import os
+    if os.getenv("APP_ENV", "development").lower() in ("development", "dev", "preview"):
+        return
 
     # Normalize limit type
     limit_type = limit_type.strip().lower()

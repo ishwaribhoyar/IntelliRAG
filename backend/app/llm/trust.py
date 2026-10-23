@@ -195,7 +195,7 @@ def build_source_citations(chunks: list[dict]) -> list[dict]:
 
 
 def should_fallback(confidence: dict) -> bool:
-    return confidence["score"] < 0.5
+    return confidence["score"] < 0.35
 
 
 FALLBACK_RESPONSE = (

@@ -12,34 +12,25 @@ build/
 # Virtual environments
 venv/
 env/
-.env
 .venv/
+backend/venv/
 
-# Environment variables
+# Environment variables & secrets
 .env
 *.env
+!.env.example
+!backend/.env.example
 
 # Database
 *.db
 *.sqlite3
 *.sqlite
 
-# Uploaded files
+# Uploaded files & storage
 backend/uploads/
-backend/data/faiss_indexes/
-backend/data/chunks/
-backend/data/bm25_indexes/
-
-# Project runtime storage (generated per user/document)
-backend/storage/uploads/
-backend/storage/chunks/
-backend/storage/faiss_index/
-backend/storage/course_structures/
-backend/storage/library/catalog.json
-backend/storage/usage/
-backend/storage/billing/
-backend/storage/provider_metrics/
-backend/storage/*.pdf
+backend/data/
+backend/storage/
+storage/
 
 # OS / temp
 **/.pytest_cache/

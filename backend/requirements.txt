@@ -6,6 +6,7 @@ pymupdf4llm==0.0.17
 sentence-transformers==2.7.0
 faiss-cpu==1.13.2
 sqlalchemy==2.0.23
+psycopg2-binary>=2.9.9
 python-dotenv==1.0.0
 httpx==0.25.2
 aiofiles==23.2.1

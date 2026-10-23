@@ -28,7 +28,7 @@ def get_model() -> SentenceTransformer:
         from sentence_transformers import SentenceTransformer as ST
 
         logger.info(f"Loading embedding model: {EMBEDDING_MODEL_NAME}")
-        _model = ST(EMBEDDING_MODEL_NAME)
+        _model = ST(EMBEDDING_MODEL_NAME, device="cpu")
         logger.info("Embedding model loaded successfully")
     return _model
 

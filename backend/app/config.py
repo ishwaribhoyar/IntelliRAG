@@ -21,8 +21,23 @@ EVAL_DIR = STORAGE_DIR / "evaluation"
 for d in [STORAGE_DIR, FAISS_INDEX_DIR, CHUNKS_DIR, UPLOAD_DIR, LIBRARY_DIR, EVAL_DIR]:
     d.mkdir(parents=True, exist_ok=True)
 
-# --- Database ---
-DATABASE_URL = f"sqlite:///{BASE_DIR / 'learning_engine.db'}"
+# --- Database (PostgreSQL / Render / Local) ---
+# Supports Render PostgreSQL (injected via DATABASE_URL) and cloud / local PostgreSQL.
+# Fallback to local SQLite if running locally without an explicit DATABASE_URL.
+_raw_db_url = os.getenv("DATABASE_URL", "").strip()
+
+# SQLAlchemy 1.4+ requires postgresql:// instead of postgres://
+if _raw_db_url.startswith("postgres://"):
+    _raw_db_url = _raw_db_url.replace("postgres://", "postgresql://", 1)
+
+if not _raw_db_url:
+    # If running on Render without DATABASE_URL, or local fallback
+    if os.getenv("RENDER"):
+        _raw_db_url = "postgresql://intellirag_user:postgres@localhost:5432/intellirag"
+    else:
+        _raw_db_url = f"sqlite:///{BASE_DIR / 'learning_engine.db'}"
+
+DATABASE_URL = _raw_db_url
 
 # --- Universal LLM Router ---
 # Set to: sarvam | openai | gemini | anthropic | groq | ollama | openrouter
@@ -89,7 +104,7 @@ EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 # --- RAG / Chunking ---
 MAX_CONTEXT_TOKENS = 1500
 FEATURE_TOKEN_BUDGETS = {
-    "ask": {"context": 800, "output": 150},
+    "ask": {"context": 1500, "output": 1024},
     "quiz": {"context": 2500, "output": 800},
     "flashcard": {"context": 1500, "output": 400},
     "summary": {"context": 2000, "output": 300},

@@ -1,6 +1,6 @@
 """Normalizer — converts all parser outputs into the standard JSON schema.
 Upgraded: heading level detection (h1/h2/h3), page number tracking,
-improved table extraction.
+improved table extraction, robust multi-pattern heading parsing.
 """
 import re
 import logging
@@ -61,42 +61,70 @@ def normalize_content(raw: dict, doc_id: str) -> dict:
 
 
 def _split_by_headings(text: str, pages_text: list[str] = None) -> list[dict]:
-    """Split markdown-style text by headings (# ## ###) with level + page tracking."""
+    """Split markdown or document text by headings (markdown #, bold titles, numbered chapters)."""
     if not text:
         return []
 
-    heading_pattern = re.compile(r"^(#{1,6})\s+(.+)$", re.MULTILINE)
-    matches = list(heading_pattern.finditer(text))
+    # 1. First attempt: standard Markdown headings (#, ##, ###)
+    md_heading_re = re.compile(r"^(#{1,6})\s+(.+)$", re.MULTILINE)
+    md_matches = list(md_heading_re.finditer(text))
+
+    matches = []
+    if md_matches:
+        for m in md_matches:
+            d = len(m.group(1))
+            lvl = "h1" if d == 1 else ("h2" if d == 2 else "h3")
+            title = m.group(2).strip()
+            matches.append((lvl, title, m.start(), m.end()))
+    else:
+        # 2. Second attempt: Bold headings from pymupdf4llm / structured text
+        # Patterns like: **1. Introduction to Python**, **3.1 Immutable Types**, **Chapter 1: ...**
+        bold_re = re.compile(r"^\*\*(.+?)\*\*\s*$", re.MULTILINE)
+        skip_words = {
+            "example", "output", "note", "syntax", "explanation", "solution",
+            "code", "tip", "warning", "important", "key concepts", "core concepts",
+            "definition", "preview", "details", "overview"
+        }
+        for m in bold_re.finditer(text):
+            raw_t = m.group(1).strip()
+            t_clean = raw_t.rstrip(':').strip()
+            if t_clean.lower() in skip_words:
+                continue
+            if len(t_clean) < 3 or len(t_clean) > 85:
+                continue
+            num_m = re.match(r"^(\d+(?:\.\d+)*)\.?\s*(.+)$", t_clean)
+            if num_m:
+                dots = num_m.group(1).count('.')
+                lvl = "h1" if dots == 0 else ("h2" if dots == 1 else "h3")
+                matches.append((lvl, t_clean, m.start(), m.end()))
+            elif t_clean.isupper() or t_clean.istitle() or re.match(r"^(?:Chapter|Unit|Module|Section|Lesson)\b", t_clean, re.I):
+                matches.append(("h2", t_clean, m.start(), m.end()))
+            elif len(t_clean.split()) <= 6 and not t_clean.endswith('.'):
+                matches.append(("h3", t_clean, m.start(), m.end()))
+
+        # 3. Third attempt: Numbered lines in plain text e.g. "1. Introduction" or "1.1 Overview"
+        if not matches:
+            plain_re = re.compile(r"^\s*(\d+(?:\.\d+)*)\.?\s+([A-Z][A-Za-z0-9\s,\(\)/_-]{2,60})\s*$", re.MULTILINE)
+            for m in plain_re.finditer(text):
+                t = m.group(0).strip()
+                dots = m.group(1).count('.')
+                lvl = "h1" if dots == 0 else ("h2" if dots == 1 else "h3")
+                matches.append((lvl, t, m.start(), m.end()))
 
     if not matches:
         return []
 
     sections = []
-    for i, match in enumerate(matches):
-        level_str = match.group(1)
-        heading = match.group(2).strip()
-        start = match.end()
-        end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
-        content = text[start:end].strip()
-
-        if not content:
-            continue
-
-        # Determine heading level
-        depth = len(level_str)
-        if depth == 1:
-            level = "h1"
-        elif depth == 2:
-            level = "h2"
-        else:
-            level = "h3"
+    for i, (lvl, heading, start, end_pos) in enumerate(matches):
+        next_start = matches[i + 1][2] if i + 1 < len(matches) else len(text)
+        content = text[end_pos:next_start].strip()
 
         # Estimate which page this section belongs to
         page = _estimate_page(content, pages_text) if pages_text else 1
 
         sections.append({
             "heading": heading,
-            "level": level,
+            "level": lvl,
             "content": content,
             "page": page,
         })

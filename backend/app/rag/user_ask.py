@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 
 NOT_FOUND = "Not found in your documents"
 NO_RELEVANT = "No relevant content found in your documents"
-ASK_CACHE_VERSION = "v2"
+ASK_CACHE_VERSION = "v3"
 MAX_FOLLOWUP_MEMORY = 500
 _last_query_by_user: dict[str, str] = {}
 
@@ -357,25 +357,8 @@ def post_filter(chunks: list[dict]) -> list[dict]:
 
 
 def should_call_llm(chunks: list[dict], query: str) -> bool:
-    """Skip LLM for very strong match + simple definition-style queries."""
-    if not chunks:
-        return True
-    if _query_type(query) == "explanation":
-        return True
-    q_raw = query.split("| keywords:")[0].strip().lower()
-    q_keys = _keywords(q_raw)
-    if _query_type(q_raw) == "definition" and len(q_keys) >= 2:
-        # For concept definitions, synthesize from multiple chunks instead of single extractive snippet.
-        return True
-    top = float(chunks[0].get("rrf_score", chunks[0].get("score", 0)) or 0)
-    if top < EXTRACTIVE_RRF:
-        return True
-    q = query.lower().strip()
-    simple = bool(
-        re.match(r"^(what is|what are|define|definition of|meaning of|who is)\b", q)
-        or (len(q.split()) <= 6 and len(q) < 80)
-    )
-    return not simple
+    """Always use LLM for synthesis when chunks are retrieved."""
+    return bool(chunks)
 
 
 def extractive_answer(chunks: list[dict], query: str) -> dict[str, Any]:
@@ -428,16 +411,28 @@ def _parse_llm_json(answer: str) -> dict[str, Any] | None:
     if not answer or not answer.strip():
         return None
     cleaned = answer.strip()
-    cleaned = re.sub(r"^```(?:json)?\s*", "", cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r"\s*```$", "", cleaned)
+    try:
+        direct = json.loads(cleaned)
+        if isinstance(direct, dict) and "answer" in direct:
+            return direct
+    except Exception:
+        pass
+    try:
+        first = cleaned.find("{")
+        last = cleaned.rfind("}")
+        if first != -1 and last != -1 and last > first:
+            candidate = json.loads(cleaned[first:last+1])
+            if isinstance(candidate, dict) and "answer" in candidate:
+                return candidate
+    except Exception:
+        pass
     try:
         decoder = json.JSONDecoder()
         i = cleaned.find("{")
-        if i < 0:
-            return None
-        obj, _ = decoder.raw_decode(cleaned[i:])
-        if isinstance(obj, dict) and "answer" in obj:
-            return obj
+        if i >= 0:
+            obj, _ = decoder.raw_decode(cleaned[i:])
+            if isinstance(obj, dict) and "answer" in obj:
+                return obj
     except Exception:
         pass
     return None
@@ -456,10 +451,17 @@ async def generate_answer_with_llm(
         context_parts.append(f"--- Chunk {i} {meta} ---\n{c.get('text','')}")
     context = "\n\n".join(context_parts)
     prompt = get_prompt("ask_user_library")
-    user_block = f"Context:\n{context}\n\nQuestion:\n{query}\n\nRespond with ONLY valid JSON as specified in the system prompt."
+    clean_q = query.split("| keywords:")[0].strip()
+    interrogatives = ("what", "how", "why", "when", "where", "who", "which", "explain", "describe", "can", "is", "are", "do", "does", "tell")
+    if clean_q and not any(clean_q.lower().startswith(w) for w in interrogatives) and len(clean_q.split()) <= 5:
+        llm_q = f"Explain and summarize the concept of: {clean_q}"
+    else:
+        llm_q = clean_q or query
+    user_block = f"Context:\n{context}\n\nQuestion:\n{llm_q}\n\nRespond with ONLY valid JSON as specified in the system prompt."
 
     doc_key = f"userlib:{user_id}"
     t0 = time.time()
+    out_tokens = max(int(FEATURE_TOKEN_BUDGETS.get("ask", {}).get("output", 1024)), 1024)
     result = await llm_router.generate(
         doc_id=doc_key,
         task_type="ask_user_library",
@@ -467,7 +469,7 @@ async def generate_answer_with_llm(
         context=user_block,
         llm_variant=llm_variant,
         temperature=0.2,
-        max_tokens=FEATURE_TOKEN_BUDGETS["ask"]["output"],
+        max_tokens=out_tokens,
     )
     llm_ms = (time.time() - t0) * 1000
     raw = (result.get("answer") or "").strip()
@@ -478,19 +480,21 @@ async def generate_answer_with_llm(
         if conf_s not in ("high", "medium", "low"):
             conf_s = "medium"
         src = parsed.get("sources") or []
-        if isinstance(src, list):
+        real_sources = _sources_payload(chunks[:3])
+        known_chunk_ids = {c.get("chunk_id"): c for c in chunks}
+        if isinstance(src, list) and src:
             norm_sources = []
             for s in src:
                 if isinstance(s, dict):
-                    norm_sources.append({
-                        "chunk_id": s.get("chunk_id", ""),
-                        "doc_id": s.get("doc_id", ""),
-                        "page": s.get("page", 1),
-                        "section": s.get("section", "") or "",
-                    })
-            sources_out = norm_sources or _sources_payload(chunks)
+                    cid = s.get("chunk_id", "")
+                    sec = s.get("section", "")
+                    if cid in known_chunk_ids:
+                        norm_sources.append(s)
+                    elif any(c.get("section") == sec for c in chunks if sec):
+                        norm_sources.append(s)
+            sources_out = norm_sources or real_sources
         else:
-            sources_out = _sources_payload(chunks)
+            sources_out = real_sources
         if NOT_FOUND.lower() in ans.lower() or "not found in your documents" in ans.lower():
             return {
                 "answer": NOT_FOUND,
