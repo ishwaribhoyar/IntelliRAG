@@ -21,19 +21,30 @@ EVAL_DIR = STORAGE_DIR / "evaluation"
 for d in [STORAGE_DIR, FAISS_INDEX_DIR, CHUNKS_DIR, UPLOAD_DIR, LIBRARY_DIR, EVAL_DIR]:
     d.mkdir(parents=True, exist_ok=True)
 
-# --- Database (PostgreSQL / Render / Local) ---
-# Supports Render PostgreSQL (injected via DATABASE_URL) and cloud / local PostgreSQL.
-# Fallback to local SQLite if running locally without an explicit DATABASE_URL.
-_raw_db_url = os.getenv("DATABASE_URL", "").strip()
+# --- Database (PostgreSQL / Railway / Render / Local) ---
+# Supports Railway / Render / Supabase / Neon / local PostgreSQL.
+# Injected via DATABASE_URL, or constructed from Railway PG* variables.
+_raw_db_url = os.getenv("DATABASE_URL", "").strip() or os.getenv("DATABASE_PUBLIC_URL", "").strip()
 
-# SQLAlchemy 1.4+ requires postgresql:// instead of postgres://
+# Railway auto-injected PG* variables fallback
+if not _raw_db_url and os.getenv("PGHOST"):
+    _user = os.getenv("PGUSER", "postgres")
+    _pw = os.getenv("PGPASSWORD", "")
+    _host = os.getenv("PGHOST", "localhost")
+    _port = os.getenv("PGPORT", "5432")
+    _db = os.getenv("PGDATABASE", "railway")
+    _auth = f"{_user}:{_pw}@" if _pw else f"{_user}@"
+    _raw_db_url = f"postgresql://{_auth}{_host}:{_port}/{_db}"
+
+# SQLAlchemy 1.4+ / 2.0+ requires postgresql:// instead of postgres://
 if _raw_db_url.startswith("postgres://"):
     _raw_db_url = _raw_db_url.replace("postgres://", "postgresql://", 1)
 
 if not _raw_db_url:
-    # If running on Render without DATABASE_URL, or local fallback
     if os.getenv("RENDER"):
         _raw_db_url = "postgresql://intellirag_user:postgres@localhost:5432/intellirag"
+    elif os.getenv("RAILWAY_ENVIRONMENT"):
+        _raw_db_url = "postgresql://postgres:postgres@localhost:5432/railway"
     else:
         _raw_db_url = f"sqlite:///{BASE_DIR / 'learning_engine.db'}"
 
