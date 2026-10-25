@@ -15,13 +15,14 @@ def _init_engine(url: str):
     if url.startswith("sqlite"):
         return create_engine(url, connect_args={"check_same_thread": False})
 
-    # Attempt PostgreSQL connection
+    # Attempt PostgreSQL connection with fast 4s timeout to avoid blocking server boot
     try:
         pg_engine = create_engine(
             url,
-            pool_size=10,
-            max_overflow=20,
+            pool_size=5,
+            max_overflow=10,
             pool_pre_ping=True,
+            connect_args={"connect_timeout": 4},
         )
         # Test connectivity
         with pg_engine.connect():
@@ -31,7 +32,7 @@ def _init_engine(url: str):
     except Exception as e:
         logger.warning(
             "[DB WARNING] Failed to connect to PostgreSQL (%s): %s. "
-            "Falling back to local SQLite for development.",
+            "Falling back to local SQLite for fast development and startup.",
             url.split("@")[-1] if "@" in url else url,
             e,
         )

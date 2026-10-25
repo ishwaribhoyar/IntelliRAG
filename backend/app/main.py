@@ -60,9 +60,17 @@ async def lifespan(app: FastAPI):
     init_db()
     logger.info("[OK] Database initialized")
 
-    # 2. Warm up embedding model in background
-    asyncio.create_task(asyncio.to_thread(warmup))
-    logger.info("[OK] Embedding warmup started in background")
+    # 2. Warm up embedding model in background (deferred by 6s to allow instant initial page paint)
+    async def _deferred_warmup():
+        await asyncio.sleep(6)
+        try:
+            await asyncio.to_thread(warmup)
+            logger.info("[OK] Embedding warmup completed")
+        except Exception as e:
+            logger.warning("Embedding warmup deferred: %s", e)
+
+    asyncio.create_task(_deferred_warmup())
+    logger.info("[OK] Embedding warmup scheduled in background")
 
     # 3. Load leaderboard cache from DB
     try:

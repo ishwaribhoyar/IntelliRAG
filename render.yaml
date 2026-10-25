@@ -34,6 +34,6 @@ services:
       - key: PIPELINE_MIN_WORKERS
         value: "1"
       - key: PIPELINE_DEFAULT_WORKERS
-        value: "3"
+        value: "1"
       - key: PIPELINE_MAX_WORKERS
-        value: "6"
+        value: "2"
