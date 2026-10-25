@@ -165,6 +165,12 @@ app.include_router(payments_router,     prefix="/api")
 # Once all callers are migrated to module routers, this line can be removed.
 app.include_router(legacy_router, prefix="/api")
 
+@app.get("/health", tags=["Health"], include_in_schema=False)
+@app.get("/healthz", tags=["Health"], include_in_schema=False)
+async def health_check():
+    return {"status": "ok", "service": "IntelliRAG", "version": "2.0.0"}
+
+
 @app.get('/favicon.ico', include_in_schema=False)
 async def favicon():
     fav = FRONTEND_DIR / 'favicon.ico'

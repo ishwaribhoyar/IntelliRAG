@@ -12,6 +12,7 @@ services:
     region: oregon
     plan: free
     rootDir: backend
+    healthCheckPath: /health
     # Run from either repo root or backend root defensively
     buildCommand: if [ -d backend ]; then cd backend; fi; python -V && pip install --upgrade pip && pip install -r requirements.txt
     startCommand: if [ -d backend ]; then cd backend; fi; python -m uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-10000}
