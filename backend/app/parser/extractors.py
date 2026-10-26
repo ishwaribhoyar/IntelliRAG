@@ -76,27 +76,31 @@ def _remove_headers_footers(pages_text: list[str]) -> list[str]:
 # ---------------------------------------------------------------------------
 
 def extract_with_pymupdf(file_path: str) -> dict:
-    """Fast extraction using PyMuPDF / pymupdf4llm with per-page text + cleaning."""
-    import pymupdf4llm
+    """Fast extraction using PyMuPDF with per-page text + cleaning and markdown generation."""
     import pymupdf
 
     doc = pymupdf.open(file_path)
     try:
         page_count = len(doc)
-
-        # Per-page raw text (for header/footer detection)
         pages_raw: list[str] = []
         for page in doc:
-            pages_raw.append(page.get_text("text"))
-
-        # Remove headers/footers
+            pages_raw.append(page.get_text("text") or "")
         pages_cleaned = _remove_headers_footers(pages_raw)
-
-        # Also get the markdown version for structure
-        md_text = pymupdf4llm.to_markdown(doc)
-        md_text = _clean_text(md_text)
     finally:
         doc.close()
+
+    # Generate markdown safely without mutating open doc handles
+    md_text = ""
+    try:
+        import pymupdf4llm
+        md_text = pymupdf4llm.to_markdown(file_path)
+        md_text = _clean_text(md_text)
+    except Exception as e:
+        logger.warning(f"pymupdf4llm conversion skipped: {e}. Using raw text structure.")
+        md_text = "\n\n".join(pages_cleaned)
+
+    if not md_text.strip():
+        md_text = "\n\n".join(pages_cleaned)
 
     return {
         "type": "markdown",
@@ -121,8 +125,8 @@ def extract_with_docling(file_path: str) -> dict:
             "pages_text": [text],
         }
     except Exception as e:
-        logger.warning(f"Docling failed, falling back to PyMuPDF: {e}")
-        return extract_with_pymupdf(file_path)
+        logger.warning(f"Docling extraction unavailable: {e}")
+        raise
 
 
 def extract_with_ocr(file_path: str) -> dict:
@@ -133,7 +137,7 @@ def extract_with_ocr(file_path: str) -> dict:
     try:
         pages_text: list[str] = []
         for page in doc:
-            text = page.get_text("text")
+            text = page.get_text("text") or ""
             if not text.strip():
                 try:
                     tp = page.get_textpage_ocr(language="eng", full=True)
@@ -190,12 +194,13 @@ def extract_excel(file_path: str) -> dict:
 
 
 def extract_document(file_path: str, parser_type: str) -> dict:
-    """Main extraction dispatcher with fallback chain."""
+    """Main extraction dispatcher with resilient fallback chain."""
     ext = Path(file_path).suffix.lower()
 
     if ext == ".xlsx":
         return extract_excel(file_path)
 
+    # Primary extractor attempt
     try:
         if parser_type == "ocr":
             return extract_with_ocr(file_path)
@@ -204,18 +209,13 @@ def extract_document(file_path: str, parser_type: str) -> dict:
         else:
             return extract_with_pymupdf(file_path)
     except Exception as e:
-        logger.error(f"Primary extraction ({parser_type}) failed: {e}")
-        # Fallback chain
-        if parser_type == "pymupdf":
-            logger.info("Falling back to Docling...")
-            try:
-                return extract_with_docling(file_path)
-            except Exception as e2:
-                logger.error(f"Docling fallback also failed: {e2}")
-                raise
-        elif parser_type == "docling":
-            logger.info("Falling back to PyMuPDF...")
-            return extract_with_pymupdf(file_path)
-        else:
-            raise
-"""Upgraded extractors with text cleaning and page tracking."""
+        logger.warning(f"Primary extractor ({parser_type}) encountered issue: {e}. Engaging fallback...")
+
+    # Fallback 1: PyMuPDF standard extraction
+    try:
+        return extract_with_pymupdf(file_path)
+    except Exception as e2:
+        logger.warning(f"PyMuPDF fallback failed: {e2}. Engaging OCR fallback...")
+
+    # Fallback 2: OCR extraction
+    return extract_with_ocr(file_path)
